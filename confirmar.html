@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Confirmar pedido | Fabry Orihuela</title>
+  <style>
+    :root{ --bg:#0b0b0f; --card:#14141c; --txt:#f3f3f5; --muted:#a7a7b3; --red:#e11d2e; }
+    body{ margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial; background:var(--bg); color:var(--txt); }
+    .wrap{ padding:18px 16px 28px; }
+    .card{ background:var(--card); border:1px solid #232334; border-radius:16px; padding:16px; }
+    h1{ margin:0 0 10px; font-size:22px; }
+    .muted{ color:var(--muted); }
+    input{ width:100%; margin-top:10px; padding:12px; border-radius:12px; border:1px solid #2a2a35; background:#0f0f16; color:var(--txt); }
+    .btn{ width:100%; margin-top:12px; padding:14px; border-radius:12px; border:0; background:var(--red); color:white; font-weight:800; font-size:16px; }
+    a{ color:inherit; text-decoration:none; }
+    .back{ display:inline-block; margin-top:12px; color:var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>✅ Confirmar pedido</h1>
+    <div class="card">
+      <div id="song" style="font-weight:800; font-size:18px;"></div>
+      <div id="artist" class="muted" style="margin-top:6px;"></div>
+
+      <label class="muted" style="display:block; margin-top:14px;">Tu nombre (opcional)</label>
+      <input id="nombre" placeholder="Ej: Ana" />
+
+      <button class="btn" id="enviar">Enviar pedido</button>
+      <a class="back" href="canciones.html">← Volver al repertorio</a>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const cancion = params.get("cancion") || "";
+    const artista = params.get("artista") || "";
+    document.getElementById("song").textContent = "🎶 " + cancion;
+    document.getElementById("artist").textContent = artista ? "Artista: " + artista : "";
+
+    // ✅ WhatsApp de Fabry
+    const FABRY_WA = "14845442917"; // sin +, sin espacios
+
+    document.getElementById("enviar").addEventListener("click", () => {
+      const nombre = document.getElementById("nombre").value.trim();
+      const msg =
+        `🎶 Pedido de canción\n` +
+        `Canción: ${cancion}${artista ? " — " + artista : ""}\n` +
+        (nombre ? `Nombre: ${nombre}\n` : "") +
+        `Hora: ${new Date().toLocaleTimeString()}`;
+
+      // 1) abre WhatsApp para enviarte el pedido
+      const wa = `https://wa.me/${FABRY_WA}?text=${encodeURIComponent(msg)}`;
+      window.open(wa, "_blank");
+
+      // 2) luego manda a propina sugerida
+      setTimeout(() => {
+        window.location.href = "propina.html";
+      }, 400);
+    });
+  </script>
+</body>
+</html>
