@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pedir Canción | Fabry Orihuela</title>
+  <style>
+    body {
+      background: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    h1 { color: #e60000; }
+    input, button {
+      width: 100%;
+      max-width: 400px;
+      padding: 15px;
+      margin: 10px auto;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+    }
+    button {
+      background: #e60000;
+      color: #fff;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎶 Pedir Canción</h1>
+  <p>Elige tu canción y envía el pedido</p>
+
+  <input type="text" id="nombre" placeholder="Tu nombre (opcional)" />
+  <input type="text" id="cancion" placeholder="Canción que quieres pedir" />
+
+  <button onclick="enviarPedido()">Enviar pedido</button>
+
+  <script>
+    function enviarPedido() {
+      const nombre = document.getElementById("nombre").value;
+      const cancion = document.getElementById("cancion").value;
+
+      if (!cancion) {
+        alert("Por favor escribe una canción");
+        return;
+      }
+
+      const mensaje = `🎶 Pedido de canción%0A🎤 Nombre: ${nombre || "Anónimo"}%0A🎵 Canción: ${cancion}`;
+      const whatsapp = `https://wa.me/14845442917?text=${mensaje}`;
+
+      window.open(whatsapp, "_blank");
+    }
+  </script>
+
+</body>
+</html>
