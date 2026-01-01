@@ -1,60 +1,319 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pedir Canción | Fabry Orihuela</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pedir canción – Fabry Orihuela</title>
   <style>
-    body {
-      background: #000;
-      color: #fff;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 40px 20px;
-    }
-    h1 { color: #e60000; }
-    input, button {
-      width: 100%;
-      max-width: 400px;
-      padding: 15px;
-      margin: 10px auto;
-      font-size: 16px;
-      border-radius: 8px;
-      border: none;
-    }
-    button {
-      background: #e60000;
-      color: #fff;
-      cursor: pointer;
-    }
+    :root{--bg:#0b0b0f;--card:#12121a;--text:#f3f3f6;--muted:#b7b7c2;--accent:#e10600;--border:rgba(255,255,255,.08);}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);}
+    header{padding:18px 16px 10px;position:sticky;top:0;background:linear-gradient(180deg,var(--bg) 0%, rgba(11,11,15,.90) 75%, rgba(11,11,15,0) 100%);backdrop-filter:blur(6px);}
+    h1{margin:0 0 10px;font-size:20px;letter-spacing:.3px;color:var(--accent);}
+    .row{display:flex;gap:10px;flex-wrap:wrap;}
+    .btn{display:inline-block;text-decoration:none;color:var(--text);background:var(--card);border:1px solid var(--border);padding:10px 12px;border-radius:12px;font-weight:700}
+    .btn.accent{background:var(--accent);border-color:rgba(0,0,0,.15);}
+    .search{width:100%;box-sizing:border-box;margin-top:12px;padding:12px;border-radius:12px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:16px;outline:none;}
+    main{padding:10px 16px 26px;}
+    .meta{color:var(--muted);font-size:13px;margin-top:8px;}
+    .item{margin-top:12px;padding:12px;border-radius:14px;background:var(--card);border:1px solid var(--border);display:flex;justify-content:space-between;gap:12px;align-items:center;}
+    .song{font-weight:800;}
+    .artist{color:var(--muted);font-size:13px;margin-top:4px;}
+    .pick{background:var(--accent);border:0;color:#fff;padding:10px 12px;border-radius:12px;font-weight:900;}
+    .modalBack{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;align-items:flex-end;}
+    .modal{width:100%;background:var(--card);border-top:1px solid var(--border);border-radius:18px 18px 0 0;padding:16px;}
+    .modal h2{margin:0 0 6px;font-size:16px;}
+    .modal .small{color:var(--muted);font-size:13px;margin:0 0 12px;}
+    .input{width:100%;box-sizing:border-box;padding:12px;border-radius:12px;border:1px solid var(--border);background:#0f0f16;color:var(--text);font-size:16px;outline:none;}
+    .actions{display:flex;gap:10px;margin-top:12px;}
+    .actions button{flex:1;}
   </style>
 </head>
 <body>
 
-  <h1>🎶 Pedir Canción</h1>
-  <p>Elige tu canción y envía el pedido</p>
+<header>
+  <h1>Pedir canción</h1>
+  <div class="row">
+    <a class="btn" href="index.html">⬅️ Home</a>
+    <a class="btn" href="propina.html">💵 Propina</a>
+  </div>
 
-  <input type="text" id="nombre" placeholder="Tu nombre (opcional)" />
-  <input type="text" id="cancion" placeholder="Canción que quieres pedir" />
+  <input id="q" class="search" placeholder="Buscar por artista o canción…" autocomplete="off" />
+  <div id="count" class="meta">Cargando repertorio…</div>
+</header>
 
-  <button onclick="enviarPedido()">Enviar pedido</button>
+<main id="list"></main>
 
-  <script>
-    function enviarPedido() {
-      const nombre = document.getElementById("nombre").value;
-      const cancion = document.getElementById("cancion").value;
+<!-- Modal -->
+<div id="back" class="modalBack">
+  <div class="modal">
+    <h2 id="pickedTitle">Canción:</h2>
+    <p class="small" id="pickedArtist"></p>
 
-      if (!cancion) {
-        alert("Por favor escribe una canción");
-        return;
-      }
+    <label class="small">Tu nombre (opcional)</label>
+    <input id="name" class="input" placeholder="Ej: Ana" />
 
-      const mensaje = `🎶 Pedido de canción%0A🎤 Nombre: ${nombre || "Anónimo"}%0A🎵 Canción: ${cancion}`;
-      const whatsapp = `https://wa.me/14845442917?text=${mensaje}`;
+    <div class="actions">
+      <button class="btn" id="cancel">Cancelar</button>
+      <button class="btn accent" id="send">Enviar por WhatsApp</button>
+    </div>
+    <p class="small" style="margin-top:10px;">Después de enviar te aparecerá la opción de propina 🤗</p>
+  </div>
+</div>
 
-      window.open(whatsapp, "_blank");
-    }
-  </script>
+<script>
+  // ✅ Lista final (sin repetidas) y ordenada por artista + canción
+  const SONGS = [
+    {"artist":"Alejandro Sanz","title":"Amiga mía"},
+    {"artist":"Alejandro Sanz","title":"Corazón partío"},
+    {"artist":"Alex Ubago","title":"Sin miedo a nada"},
+    {"artist":"Ana Belén","title":"Simplemente amigos"},
+    {"artist":"Andrés Calamaro","title":"Flaca"},
+    {"artist":"Andrés Calamaro","title":"Sin documentos"},
+    {"artist":"Andrés Cepeda","title":"Día tras día"},
+    {"artist":"Andrés Cepeda","title":"Te voy a amar"},
+    {"artist":"Aterciopelados","title":"Bolero falaz"},
+    {"artist":"Bacilos","title":"Caraluna"},
+    {"artist":"Bacilos","title":"Pasos de gigante"},
+    {"artist":"Bacilos","title":"Tabaco y Chanel"},
+    {"artist":"Carlos Baute","title":"Colgando en tus manos"},
+    {"artist":"Carlos Rivera","title":"Te pedí"},
+    {"artist":"Carlos Vives","title":"Déjame robarte un beso"},
+    {"artist":"Carlos Vives","title":"La gota fría"},
+    {"artist":"Carlos Vives","title":"La tierra del olvido"},
+    {"artist":"Carlos Vives","title":"Un poquito"},
+    {"artist":"Camila","title":"Aléjate de mí"},
+    {"artist":"Camila","title":"Mientes"},
+    {"artist":"Camila","title":"Todo cambió"},
+    {"artist":"Camilo","title":"Tutu"},
+    {"artist":"Selena","title":"Como la flor"},
+    {"artist":"Chayanne","title":"Bailando bachata"},
+    {"artist":"Chayanne","title":"Lo dejaría todo"},
+    {"artist":"Chayanne","title":"Y tú te vas"},
+    {"artist":"Compay Segundo","title":"Lágrimas negras"},
+    {"artist":"Cristian Castro","title":"Amor"},
+    {"artist":"Cristian Castro","title":"Lloran las rosas"},
+    {"artist":"Cristian Castro","title":"Nunca voy a olvidarte"},
+    {"artist":"Diego Torres","title":"Color esperanza"},
+    {"artist":"Diego Torres","title":"Sueños"},
+    {"artist":"Donato & Estéfano","title":"Estoy enamorado"},
+    {"artist":"Dúo Dinámico","title":"Resistiré"},
+    {"artist":"Elefante","title":"Así es la vida"},
+    {"artist":"Elefante","title":"Contigo"},
+    {"artist":"Elefante","title":"Ángel"},
+    {"artist":"Enanitos Verdes","title":"Amores lejanos"},
+    {"artist":"Enanitos Verdes","title":"Lamento boliviano"},
+    {"artist":"Enanitos Verdes","title":"Luz de día"},
+    {"artist":"Enanitos Verdes","title":"Mariposas"},
+    {"artist":"Enanitos Verdes","title":"Yo te vi en un tren"},
+    {"artist":"Enrique Iglesias","title":"Bailando"},
+    {"artist":"Fonseca","title":"Arroyito"},
+    {"artist":"Fonseca","title":"Qué suerte"},
+    {"artist":"Fonseca","title":"Simples corazones"},
+    {"artist":"Fonseca","title":"Solo contigo"},
+    {"artist":"Fonseca","title":"Tú eres mi sueño"},
+    {"artist":"Franco De Vita","title":"Si tú no estás"},
+    {"artist":"Franco De Vita","title":"Te amo"},
+    {"artist":"Franco De Vita","title":"Te veo venir soledad"},
+    {"artist":"Franco De Vita","title":"Tú de qué vas"},
+    {"artist":"Galy Galiano","title":"La cita"},
+    {"artist":"Gian Marco","title":"Fotografía"},
+    {"artist":"Gian Marco","title":"Hoy"},
+    {"artist":"Gian Marco","title":"Lejos de ti"},
+    {"artist":"Gianluca Grignani","title":"Mi historia entre tus dedos"},
+    {"artist":"Gilberto Santa Rosa","title":"Conciencia"},
+    {"artist":"Gilberto Santa Rosa","title":"Mentira"},
+    {"artist":"Gilberto Santa Rosa","title":"Que alguien me diga"},
+    {"artist":"Grupo Frontera","title":"No se va"},
+    {"artist":"Jarabe de Palo","title":"Agua"},
+    {"artist":"Jarabe de Palo","title":"Depende"},
+    {"artist":"Jarabe de Palo","title":"Grita"},
+    {"artist":"Jarabe de Palo","title":"La flaca"},
+    {"artist":"Jaime Roos","title":"Amándote"},
+    {"artist":"Jaime Roos","title":"Colombina"},
+    {"artist":"Jesse & Joy","title":"¡Corre!"},
+    {"artist":"Joaquín Sabina","title":"19 días y 500 noches"},
+    {"artist":"Joaquín Sabina","title":"Amor se llama el juego"},
+    {"artist":"Joaquín Sabina","title":"Peces de ciudad"},
+    {"artist":"Joaquín Sabina","title":"Por el bulevar de los sueños rotos"},
+    {"artist":"Joaquín Sabina","title":"Princesa"},
+    {"artist":"Joaquín Sabina","title":"Quién me ha robado el mes de abril"},
+    {"artist":"Joaquín Sabina","title":"Y sin embargo"},
+    {"artist":"Jorge Drexler","title":"Horas"},
+    {"artist":"Juan Gabriel","title":"Así fue"},
+    {"artist":"Juan Gabriel","title":"Hasta que te conocí"},
+    {"artist":"Juan Luis Guerra","title":"Bachata rosa"},
+    {"artist":"Juan Luis Guerra","title":"Burbujas de amor"},
+    {"artist":"Juan Luis Guerra","title":"Cuando me enamoro"},
+    {"artist":"Juan Luis Guerra","title":"Estrellitas y duendes"},
+    {"artist":"Juan Luis Guerra","title":"Frío frío"},
+    {"artist":"Juan Luis Guerra","title":"Hormiguitas"},
+    {"artist":"Juan Luis Guerra","title":"Ojalá que llueva café"},
+    {"artist":"Juanes","title":"A Dios le pido"},
+    {"artist":"Juanes","title":"Es por ti"},
+    {"artist":"Juanes","title":"Fotografía"},
+    {"artist":"Juanes","title":"La camisa negra"},
+    {"artist":"Juanes","title":"Mala gente"},
+    {"artist":"Juanes","title":"Me enamora"},
+    {"artist":"Juanes","title":"Para tu amor"},
+    {"artist":"Juanes","title":"Volverte a ver"},
+    {"artist":"Julio Iglesias","title":"Derroche"},
+    {"artist":"Karin León","title":"La primera cita"},
+    {"artist":"La Vela Puerca","title":"Para no verme más"},
+    {"artist":"La Vela Puerca","title":"Zafar"},
+    {"artist":"Los Fabulosos Cadillacs","title":"Matador"},
+    {"artist":"Los Fabulosos Cadillacs","title":"Vasos vacíos"},
+    {"artist":"Los Pericos","title":"Pupilas lejanas"},
+    {"artist":"Los Prisioneros","title":"Tren al sur"},
+    {"artist":"Lucas Sugo","title":"5 minutos"},
+    {"artist":"Lucas Sugo","title":"Hechicera"},
+    {"artist":"Luis Enrique","title":"Yo no sé mañana"},
+    {"artist":"Luis Miguel","title":"Historia de un amor"},
+    {"artist":"Maluma","title":"Felices los 4"},
+    {"artist":"Maluma","title":"Sobrio"},
+    {"artist":"Maná","title":"Bendita tu luz"},
+    {"artist":"Maná","title":"Cachito"},
+    {"artist":"Maná","title":"En el muelle de San Blas"},
+    {"artist":"Maná","title":"Eres mi religión"},
+    {"artist":"Maná","title":"Hundido en un rincón"},
+    {"artist":"Maná","title":"Labios compartidos"},
+    {"artist":"Maná","title":"Manda una señal"},
+    {"artist":"Maná","title":"Mariposa traicionera"},
+    {"artist":"Maná","title":"No ha parado de llover"},
+    {"artist":"Maná","title":"Ojalá pudiera borrarte"},
+    {"artist":"Maná","title":"Oye mi amor"},
+    {"artist":"Maná","title":"Se me olvidó otra vez"},
+    {"artist":"Maná","title":"Te lloré todo un río"},
+    {"artist":"Maná","title":"Vivir sin aire"},
+    {"artist":"Manuel García","title":"Pájaros de barro"},
+    {"artist":"Marco Antonio Solís","title":"Dónde estará mi primavera"},
+    {"artist":"Marco Antonio Solís","title":"Más que tu amigo"},
+    {"artist":"Marco Antonio Solís","title":"Si no te hubieras ido"},
+    {"artist":"Marco Antonio Solís","title":"Tu cárcel"},
+    {"artist":"Marc Anthony","title":"Contra la corriente"},
+    {"artist":"Marc Anthony","title":"Flor pálida"},
+    {"artist":"Marc Anthony","title":"Hasta ayer"},
+    {"artist":"Marc Anthony","title":"Te conozco bien"},
+    {"artist":"Marc Anthony","title":"Tu amor me hace bien"},
+    {"artist":"Marc Anthony","title":"Yo que te conozco bien"},
+    {"artist":"Melendi","title":"Un violinista en tu tejado"},
+    {"artist":"Miguel Mateos","title":"Tira para arriba"},
+    {"artist":"No Te Va Gustar","title":"A las 9"},
+    {"artist":"No Te Va Gustar","title":"Chau"},
+    {"artist":"No Te Va Gustar","title":"Clara"},
+    {"artist":"No Te Va Gustar","title":"No necesito nada"},
+    {"artist":"No Te Va Gustar","title":"Verte reír"},
+    {"artist":"Omar Alfanno","title":"Amores como el nuestro"},
+    {"artist":"Pablo Alborán","title":"Perdóname"},
+    {"artist":"Pablo Alborán","title":"Por fin"},
+    {"artist":"Pablo Alborán","title":"Quién"},
+    {"artist":"Pablo Alborán","title":"Saturno"},
+    {"artist":"Pablo Alborán","title":"Solamente tú"},
+    {"artist":"Pablo Alborán","title":"Te he echado de menos"},
+    {"artist":"Pedro Capó","title":"Calma"},
+    {"artist":"Pedro Capó","title":"La fiesta"},
+    {"artist":"Pedro Capó","title":"Vivo"},
+    {"artist":"Pedro Fernández","title":"Mi forma de sentir"},
+    {"artist":"Polo Montañez","title":"Flor pálida"},
+    {"artist":"Polo Montañez","title":"Un montón de estrellas"},
+    {"artist":"Reik","title":"Creo en ti"},
+    {"artist":"Reik","title":"Ya me enteré"},
+    {"artist":"Ricardo Arjona","title":"Asignatura pendiente"},
+    {"artist":"Ricardo Arjona","title":"El taxista"},
+    {"artist":"Ricardo Arjona","title":"Lo poco que tengo"},
+    {"artist":"Ricardo Arjona","title":"Pingüinos en la cama"},
+    {"artist":"Ricardo Arjona","title":"Quiero"},
+    {"artist":"Ricardo Arjona","title":"Se nos muere el amor"},
+    {"artist":"Ricardo Montaner","title":"Será"},
+    {"artist":"Santiago Cruz","title":"Baja la guardia"},
+    {"artist":"Santiago Cruz","title":"Desde lejos"},
+    {"artist":"Santiago Cruz","title":"No te necesito"},
+    {"artist":"Santiago Cruz","title":"Y si te quedas qué"},
+    {"artist":"Shakira","title":"Moscas en la casa"},
+    {"artist":"Silvestre Dangond","title":"Cásate conmigo"},
+    {"artist":"Silvio Rodríguez","title":"Ojalá"},
+    {"artist":"Silvio Rodríguez","title":"Quién fuera"},
+    {"artist":"Son By Four","title":"A puro dolor"},
+    {"artist":"Vicente García","title":"Dulcito coco"},
+    {"artist":"Vicente García","title":"Espuma y arrecife"},
+    {"artist":"Vilma Palma e Vampiros","title":"Bye Bye"},
+    {"artist":"Vilma Palma e Vampiros","title":"Mojada"}
+  ];
 
+  const WHATSAPP_NUMBER = "14845442917"; // tu número
+
+  const listEl = document.getElementById('list');
+  const countEl = document.getElementById('count');
+  const qEl = document.getElementById('q');
+
+  const back = document.getElementById('back');
+  const pickedTitle = document.getElementById('pickedTitle');
+  const pickedArtist = document.getElementById('pickedArtist');
+  const nameEl = document.getElementById('name');
+  const cancelBtn = document.getElementById('cancel');
+  const sendBtn = document.getElementById('send');
+
+  let selected = null;
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+
+  function render(filter=""){
+    const f = filter.trim().toLowerCase();
+    const rows = SONGS.filter(s => (s.title + " " + s.artist).toLowerCase().includes(f));
+
+    listEl.innerHTML = "";
+    countEl.textContent = `Mostrando ${rows.length} canciones`;
+
+    rows.forEach(s => {
+      const div = document.createElement("div");
+      div.className = "item";
+      div.innerHTML = `
+        <div>
+          <div class="song">${escapeHtml(s.title)}</div>
+          <div class="artist">${escapeHtml(s.artist)}</div>
+        </div>
+        <button class="pick">Pedir</button>
+      `;
+      div.querySelector(".pick").addEventListener("click", () => openModal(s));
+      listEl.appendChild(div);
+    });
+  }
+
+  function openModal(song){
+    selected = song;
+    pickedTitle.textContent = "Canción: " + song.title;
+    pickedArtist.textContent = "Artista: " + song.artist;
+    nameEl.value = "";
+    back.style.display = "flex";
+    setTimeout(()=>nameEl.focus(), 50);
+  }
+
+  function closeModal(){
+    back.style.display = "none";
+    selected = null;
+  }
+
+  cancelBtn.addEventListener("click", closeModal);
+  back.addEventListener("click", (e)=>{ if(e.target === back) closeModal(); });
+
+  sendBtn.addEventListener("click", () => {
+    if(!selected) return;
+
+    const nombre = nameEl.value.trim();
+    const lineaNombre = nombre ? `Nombre: ${nombre}\n` : "";
+    const msg = `🎶 Pedido de canción\n${lineaNombre}Canción: ${selected.title}\nArtista: ${selected.artist}\n\nGracias!`;
+
+    // 1) Abre WhatsApp con mensaje listo
+    const wa = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+    window.location.href = wa;
+
+    // 2) Luego manda a propina (cuando vuelva al navegador)
+    setTimeout(() => { window.location.href = "propina.html"; }, 1200);
+  });
+
+  qEl.addEventListener("input", () => render(qEl.value));
+  render();
+</script>
 </body>
 </html>
