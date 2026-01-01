@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Propina | Fabry Orihuela</title>
+  <style>
+    :root{ --bg:#0b0b0f; --card:#14141c; --txt:#f3f3f5; --muted:#a7a7b3; --red:#e11d2e; }
+    body{ margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial; background:var(--bg); color:var(--txt); }
+    .wrap{ padding:18px 16px 28px; }
+    .card{ background:var(--card); border:1px solid #232334; border-radius:16px; padding:16px; }
+    h1{ margin:0 0 8px; font-size:22px; }
+    p{ margin:0 0 14px; color:var(--muted); }
+    .row{ display:flex; gap:10px; margin:10px 0; }
+    .btn{ flex:1; padding:14px; border-radius:12px; border:1px solid #2a2a35; background:#0f0f16; color:var(--txt); font-weight:800; text-align:center; text-decoration:none; }
+    .primary{ background:var(--red); border:0; color:white; }
+    .skip{ display:block; margin-top:12px; text-align:center; color:var(--muted); text-decoration:none; }
+    small{ color:var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>💵 Muchas gracias por tu aporte 🤗</h1>
+    <p>Propina sugerida (opcional). Elige tu método:</p>
+
+    <div class="card">
+      <div class="row">
+        <a class="btn primary" href="#" onclick="alert('Zelle: 484-544-2917'); return false;">Zelle</a>
+        <a class="btn" href="https://cash.app/$Fabrymusic" target="_blank" rel="noopener">Cash App</a>
+      </div>
+      <div class="row">
+        <a class="btn" href="https://venmo.com/@Fabryorihuela-Music" target="_blank" rel="noopener">Venmo</a>
+        <a class="btn" href="index.html">Inicio</a>
+      </div>
+
+      <small>🔎 Zelle no abre link directo en todos los teléfonos, por eso mostramos el número.</small>
+    </div>
+
+    <a class="skip" href="index.html">Omitir / Skip</a>
+  </div>
+</body>
+</html>
