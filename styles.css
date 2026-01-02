@@ -55,14 +55,20 @@ body::before{
 }
 
 .logo{
-  width: 200px;   /* ⬅️ tamaño del logo */
+  width: 200px;
   height: auto;
   display: block;
   margin: 10px auto 16px;
 
   filter: invert(1) brightness(2);
   opacity: 0.95;
+
+  /* animaciones */
+  animation:
+    logoEnter 1.2s ease-out forwards,
+    logoPulse 4s ease-in-out infinite;
 }
+
 
 h1{
   margin: 6px 0 6px;
