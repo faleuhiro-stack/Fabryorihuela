@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking | Fabry Orihuela</title>
+
+  <link rel="stylesheet" href="styles.css?v=12000">
+</head>
+
+<body>
+  <div class="container">
+    <div class="card">
+
+      <img src="img/logo.png" alt="Fabry Orihuela" class="logo">
+
+      <h1>📅 Booking</h1>
+      <p class="tagline">Completa el formulario y te respondo por WhatsApp</p>
+
+      <form id="bookingForm" class="booking-form">
+        <label class="field">
+          <span>Nombre / Empresa</span>
+          <input type="text" id="nombre" placeholder="Ej: Juan Pérez / Bar XYZ" required>
+        </label>
+
+        <label class="field">
+          <span>Teléfono (opcional)</span>
+          <input type="tel" id="telefono" placeholder="Ej: +1 555 123 4567">
+        </label>
+
+        <label class="field">
+          <span>Fecha del evento</span>
+          <input type="date" id="fecha" required>
+        </label>
+
+        <label class="field">
+          <span>Lugar / Ciudad</span>
+          <input type="text" id="lugar" placeholder="Ej: Philadelphia, PA" required>
+        </label>
+
+        <label class="field">
+          <span>Tipo de evento</span>
+          <select id="tipo" required>
+            <option value="" selected disabled>Selecciona…</option>
+            <option>Bar / Restaurante</option>
+            <option>Boda</option>
+            <option>Evento privado</option>
+            <option>Festival</option>
+            <option>Corporativo</option>
+            <option>Otro</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Horario (opcional)</span>
+          <input type="text" id="horario" placeholder="Ej: 8pm - 11pm">
+        </label>
+
+        <label class="field">
+          <span>Duración (opcional)</span>
+          <input type="text" id="duracion" placeholder="Ej: 2 horas">
+        </label>
+
+        <label class="field">
+          <span>Presupuesto (opcional)</span>
+          <input type="text" id="presupuesto" placeholder="Ej: $500 - $800">
+        </label>
+
+        <label class="field">
+          <span>Detalles adicionales</span>
+          <textarea id="detalles" rows="4" placeholder="Ej: sonido disponible, número de personas, repertorio, etc."></textarea>
+        </label>
+
+        <button type="submit" class="button" style="justify-content:center;">
+          ✅ Enviar por WhatsApp
+        </button>
+      </form>
+
+      <a href="index.html" class="button">⬅️ Volver</a>
+
+      <p class="footer-note">
+        Respondo lo antes posible. Gracias 🙌
+      </p>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const PHONE = "14845442917"; // WhatsApp de Fabry
+
+      function enc(v){ return encodeURIComponent(v || ""); }
+
+      document.getElementById("bookingForm").addEventListener("submit", function(e){
+        e.preventDefault();
+
+        const nombre = document.getElementById("nombre").value.trim();
+        const telefono = document.getElementById("telefono").value.trim();
+        const fecha = document.getElementById("fecha").value;
+        const lugar = document.getElementById("lugar").value.trim();
+        const tipo = document.getElementById("tipo").value;
+        const horario = document.getElementById("horario").value.trim();
+        const duracion = document.getElementById("duracion").value.trim();
+        const presupuesto = document.getElementById("presupuesto").value.trim();
+        const detalles = document.getElementById("detalles").value.trim();
+
+        const msg =
+`📅 *BOOKING - Fabry Orihuela*
+👤 Nombre/Empresa: ${nombre}
+📞 Teléfono: ${telefono || "No especificado"}
+📆 Fecha: ${fecha}
+📍 Lugar/Ciudad: ${lugar}
+🎉 Tipo de evento: ${tipo}
+⏰ Horario: ${horario || "No especificado"}
+⏳ Duración: ${duracion || "No especificado"}
+💵 Presupuesto: ${presupuesto || "No especificado"}
+📝 Detalles: ${detalles || "No especificado"}
+
+✅ Quiero cotizar / reservar.`;
+
+        const url = `https://wa.me/${PHONE}?text=${enc(msg)}`;
+        window.open(url, "_blank");
+      });
+    })();
+  </script>
+
+</body>
+</html>
