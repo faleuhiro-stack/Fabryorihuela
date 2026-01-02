@@ -84,22 +84,34 @@ h1{
 
 /* botones elegantes y consistentes */
 .button{
-  display:flex;
-  align-items:center;
-  justify-content:flex-start;
-  gap:10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 
   width: 100%;
-  margin: 12px 0;
+  margin: 14px 0;
   padding: 16px 16px;
 
-  text-decoration:none;
-  color:#fff;
+  text-decoration: none;
+  color: #fff;
   font-weight: 800;
+  letter-spacing: .3px;
 
   border-radius: 14px;
-  background: linear-gradient(180deg, var(--red1), var(--red2));
-  box-shadow: 0 10px 25px rgba(0,0,0,.45);
+
+  /* Fondo rojo */
+  background: linear-gradient(180deg, #ff1a1a, #b00000);
+
+  /* BORDE METÁLICO */
+  border: 2px solid transparent;
+  background-clip: padding-box;
+
+  position: relative;
+
+  box-shadow:
+    0 10px 25px rgba(0,0,0,.45),
+    inset 0 1px 0 rgba(255,255,255,.25);
 }
 
 .button:hover{ opacity:.97; transform: translateY(-1px); }
