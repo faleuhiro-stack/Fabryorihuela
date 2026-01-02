@@ -55,14 +55,13 @@ body::before{
 }
 
 .logo{
-  width: 140px;
+  width: 200px;   /* ⬅️ tamaño del logo */
   height: auto;
-  display:block;
-  margin: 6px auto 10px;
+  display: block;
+  margin: 10px auto 16px;
 
-  /* tu logo negro -> blanco */
   filter: invert(1) brightness(2);
-  opacity: .95;
+  opacity: 0.95;
 }
 
 h1{
