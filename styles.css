@@ -178,3 +178,41 @@ h1{
   opacity: .85;
   font-size: 14px;
 }
+.booking-form{
+  text-align: left;
+  margin-top: 10px;
+}
+
+.field{
+  display: grid;
+  gap: 6px;
+  margin: 12px 0;
+}
+
+.field span{
+  font-size: 13px;
+  opacity: .85;
+}
+
+.field input,
+.field select,
+.field textarea{
+  width: 100%;
+  padding: 12px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.30);
+  color: #fff;
+  outline: none;
+}
+
+.field input::placeholder,
+.field textarea::placeholder{
+  color: rgba(255,255,255,.55);
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+  border-color: rgba(255,255,255,.28);
+}
