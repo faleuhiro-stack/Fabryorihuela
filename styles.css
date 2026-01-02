@@ -160,3 +160,21 @@ h1{
 
   z-index: -1;
 }
+.merch-item{
+  margin: 18px 0;
+  padding: 14px 12px;
+  border-radius: 14px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+}
+
+.merch-item h3{
+  margin: 0 0 6px;
+  font-size: 18px;
+}
+
+.merch-item p{
+  margin: 0 0 10px;
+  opacity: .85;
+  font-size: 14px;
+}
