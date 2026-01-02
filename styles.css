@@ -1,0 +1,120 @@
+:root{
+  --red: #e10600;
+  --text: #f7f7f7;
+  --muted: rgba(255,255,255,.75);
+  --card: rgba(10,10,10,.55);
+  --border: rgba(255,255,255,.12);
+}
+
+*{ box-sizing: border-box; }
+html,body{ height:100%; }
+
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, "Poppins", Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--text);
+}
+
+.hero{
+  min-height: 100vh;
+  display:grid;
+  place-items:center;
+  padding: 28px 16px;
+
+  background-image: url("img/fondo.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  /* Ajustado para tu foto */
+  background-position: 45% 20%;
+
+  position: relative;
+}
+
+.overlay{
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(70% 55% at 50% 18%, rgba(0,0,0,.10), rgba(0,0,0,.78)),
+    linear-gradient(to bottom, rgba(0,0,0,.25), rgba(0,0,0,.88)),
+    radial-gradient(40% 30% at 70% 35%, rgba(225,6,0,.18), rgba(225,6,0,0));
+}
+
+.card{
+  position: relative;
+  width: min(460px, 92vw);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 22px 18px 18px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 18px 60px rgba(0,0,0,.55);
+  text-align: center;
+}
+
+.logo{
+  width: 140px;
+  height: auto;
+  display:block;
+  margin: 6px auto 14px;
+
+  /* tu logo negro -> blanco */
+  filter: invert(1) brightness(2);
+  opacity: 0.95;
+}
+
+h1{
+  margin: 6px 0 6px;
+  font-size: 34px;
+  letter-spacing: .2px;
+}
+
+.tagline{
+  margin: 0 0 18px;
+  color: var(--muted);
+}
+
+.buttons{
+  display:grid;
+  gap: 12px;
+  margin: 10px 0 14px;
+}
+
+.btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  text-decoration:none;
+  color: white;
+  padding: 15px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.15);
+  background: rgba(255,255,255,.08);
+  box-shadow: 0 10px 24px rgba(0,0,0,.28);
+  font-weight: 700;
+  transition: transform .12s ease, background .12s ease, border-color .12s ease;
+}
+
+.btn:hover{
+  transform: translateY(-1px);
+  background: rgba(255,255,255,.10);
+  border-color: rgba(255,255,255,.22);
+}
+
+.btn:active{
+  transform: translateY(0px) scale(.99);
+}
+
+.btn-primary{
+  background: linear-gradient(180deg, #ff1a1a, #b00000);
+  border-color: rgba(255,255,255,.20);
+  box-shadow: 0 12px 30px rgba(225,0,0,.35);
+}
+
+.footer-note{
+  margin: 10px 0 0;
+  color: rgba(255,255,255,.75);
+  font-size: 13px;
+}
