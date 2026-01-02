@@ -110,3 +110,24 @@ h1{
   color: rgba(255,255,255,.78);
   font-size: 13px;
 }
+/* Animación de entrada */
+@keyframes logoEnter {
+  0%{
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  100%{
+    opacity: 0.95;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Animación suave continua (respiración) */
+@keyframes logoPulse {
+  0%, 100%{
+    transform: scale(1);
+  }
+  50%{
+    transform: scale(1.03);
+  }
+}
