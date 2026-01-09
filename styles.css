@@ -10,16 +10,17 @@
 *{ box-sizing:border-box; }
 html,body{ height:100%; margin:0; }
 
-body{
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  color: var(--text);
-
-  /* fondo con tu foto */
-  background-image: url("/img/fondo-optimizado.jpg
-);
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background:
+    linear-gradient(
+      rgba(0,0,0,0.65),
+      rgba(0,0,0,0.65)
+    ),
+    url("img/fondo-optimizado.jpg") no-repeat center center fixed;
   background-size: cover;
-  background-position: 45% 20%;
-  background-repeat: no-repeat;
+  color: #fff;
 }
 
 /* overlay elegante para lectura */
