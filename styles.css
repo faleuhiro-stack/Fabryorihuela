@@ -15,7 +15,7 @@ body{
   color: var(--text);
 
   /* fondo con tu foto */
-  background-image: url("img/fondo.jpg");
+  background-image: url("img/Fondo.jpg");
   background-size: cover;
   background-position: 45% 20%;
   background-repeat: no-repeat;
