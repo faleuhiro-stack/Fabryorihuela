@@ -559,3 +559,48 @@ body{
     grid-template-columns: 1fr 1fr;
   }
 }
+
+/* ===== BOTONES PREMIUM CENTRADOS ===== */
+.btn-pro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  width: min(420px, 100%);
+  margin: 14px auto;
+
+  padding: 16px 18px;
+  border-radius: 14px;
+
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: .3px;
+
+  text-decoration: none !important; /* quita subrayado */
+  color: #fff !important;
+
+  background: linear-gradient(180deg, #ff1a1a, #b00000);
+  border: 1px solid rgba(255,255,255,.25);
+
+  box-shadow:
+    0 12px 28px rgba(0,0,0,.45),
+    inset 0 1px 0 rgba(255,255,255,.25);
+
+  transition: transform .15s ease, filter .15s ease;
+}
+
+.btn-pro:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+}
+
+.btn-pro:active {
+  transform: scale(.98);
+}
+
+/* ===== TEXTO CENTRADO REAL EN TODAS LAS PANTALLAS ===== */
+.section,
+.section * {
+  text-align: center;
+}
