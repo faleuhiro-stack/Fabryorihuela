@@ -638,3 +638,81 @@ body{
   );
   opacity:.65;
 }
+
+/* ===== BOTÓN PROPINA ILUMINADO ===== */
+.btn-tip{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+
+  width: 100%;
+  max-width: 520px;
+  margin: 22px auto;
+
+  padding: 18px 20px;
+  border-radius: 20px;
+
+  font-weight: 900;
+  font-size: 18px;
+  letter-spacing: .5px;
+
+  text-decoration: none !important;
+  color: #fff !important;
+
+  background: linear-gradient(
+    180deg,
+    #ff2a2a,
+    #b00000
+  );
+
+  border: 1px solid rgba(255,255,255,.30);
+
+  /* 🔥 ILUMINACIÓN */
+  box-shadow:
+    0 0 25px rgba(255,40,40,.55),
+    0 0 50px rgba(255,0,0,.35),
+    0 18px 36px rgba(0,0,0,.55);
+
+  position: relative;
+  overflow: hidden;
+
+  animation: tipGlow 2.8s ease-in-out infinite;
+}
+
+/* brillo metálico que se mueve */
+.btn-tip::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,.45),
+    rgba(255,255,255,0),
+    rgba(255,255,255,.35)
+  );
+  opacity:.45;
+  pointer-events:none;
+}
+
+/* hover */
+.btn-tip:hover{
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+/* animación de iluminación */
+@keyframes tipGlow{
+  0%,100%{
+    box-shadow:
+      0 0 22px rgba(255,40,40,.45),
+      0 0 44px rgba(255,0,0,.30),
+      0 18px 36px rgba(0,0,0,.55);
+  }
+  50%{
+    box-shadow:
+      0 0 34px rgba(255,60,60,.75),
+      0 0 70px rgba(255,0,0,.55),
+      0 22px 44px rgba(0,0,0,.65);
+  }
+}
