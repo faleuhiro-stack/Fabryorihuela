@@ -1,157 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fabry Orihuela | Home</title>
+  <meta charset="UTF-8">
+  <title>Fabry Orihuela | Live Music</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+  <!-- FUENTES -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
 
-  <!-- SOLO UNA HOJA DE ESTILOS -->
+  <!-- CSS -->
   <link rel="stylesheet" href="styles.css?v=90001">
 </head>
 
-<body>
-  <div class="wrap">
+<body class="page-center">
 
-    <!-- TOPBAR -->
-    <div class="topbar">
-      <div class="lang-switch" aria-label="Language switch">
-        <button id="btnEN" class="active" type="button">🇺🇸 EN</button>
-        <button id="btnES" type="button">🇪🇸 ES</button>
-      </div>
+<div class="wrap">
 
-      <div class="top-actions">
-        <a class="btn-metal btn-booking" href="booking.html">
-          <span>✉️</span><span data-i18n="bookingTop">Booking</span>
-        </a>
-
-        <a class="btn-metal" href="redes.html">
-          <span>📱</span><span data-i18n="socialTop">Social Media</span>
-        </a>
-      </div>
+  <!-- ===== TOP BAR ===== -->
+  <div class="topbar">
+    <div class="lang-switch">
+      <button id="btnES">🇪🇸 ES</button>
+      <button id="btnEN" class="active">🇺🇸 EN</button>
     </div>
 
-    <!-- CARD -->
-    <div class="card">
-      <div class="brand">
-        <img class="logo" src="img/logo.png" alt="Fabry Orihuela Logo" />
-
-        <h1 class="name">Fabry Orihuela</h1>
-        <p class="tagline" data-i18n="tagline">Latin Music · Pop · Rock · Ballads</p>
-        <p class="subtag" data-i18n="subtag">Solo, Trio or Band Performance</p>
-      </div>
-
-      <!-- VIDEO REEL 9:16 CENTRADO -->
-      <div class="reel-center">
-        <div class="reel-container">
-          <iframe
-            src="https://www.youtube.com/embed/c9RRfrlxovU?rel=0&modestbranding=1&playsinline=1"
-            title="Fabry Orihuela - Video"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen>
-          </iframe>
-        </div>
-      </div>
-
-      <!-- MENU DEBAJO DEL VIDEO -->
-      <div class="menu">
-        <a class="tile" href="merch.html">
-          <div class="tile-left">
-            <div class="badge">🛍️</div>
-            <div class="tile-text">
-              <div class="tile-title" data-i18n="merchTitle">Merch</div>
-              <div class="tile-sub" data-i18n="merchSub">Shirts, flash drives</div>
-            </div>
-          </div>
-          <div class="chev">›</div>
-        </a>
-
-        <a class="tile" href="musica.html">
-          <div class="tile-left">
-            <div class="badge">🎧</div>
-            <div class="tile-text">
-              <div class="tile-title" data-i18n="musicTitle">Listen to my music</div>
-              <div class="tile-sub" data-i18n="musicSub">Spotify • Apple Music</div>
-            </div>
-          </div>
-          <div class="chev">›</div>
-        </a>
-
-        <a class="tile" href="canciones.html">
-          <div class="tile-left">
-            <div class="badge">🎶</div>
-            <div class="tile-text">
-              <div class="tile-title" data-i18n="songTitle">Request a live song</div>
-              <div class="tile-sub" data-i18n="songSub">Live request</div>
-            </div>
-          </div>
-          <div class="chev">›</div>
-        </a>
-      </div>
-
-      <div class="foot" data-i18n="footer">
-        Available for: Bars • Private Events • Weddings <br>
-        Based in PA • Travel available • Response time: 24–48h
-      </div>
+    <div class="top-actions">
+      <a href="booking.html" class="btn-metal btn-booking">✉️ Booking</a>
+      <a href="redes.html" class="btn-metal">📱 Social Media</a>
     </div>
   </div>
 
-  <script>
-    const t = {
-      en: {
-        bookingTop: "Booking",
-        socialTop: "Social Media",
-        tagline: "Latin Music · Pop · Rock · Ballads",
-        subtag: "Solo, Trio or Band Performance",
-        merchTitle: "Merch",
-        merchSub: "Shirts, flash drives",
-        musicTitle: "Listen to my music",
-        musicSub: "Spotify • Apple Music",
-        songTitle: "Request a live song",
-        songSub: "Live request",
-        footer: "Available for: Bars • Private Events • Weddings<br>Based in PA • Travel available • Response time: 24–48h"
-      },
-      es: {
-        bookingTop: "Booking",
-        socialTop: "Redes",
-        tagline: "Latin Music · Pop · Rock · Ballads",
-        subtag: "Solo, Trío o Banda",
-        merchTitle: "Merch",
-        merchSub: "Camisetas, flash drives",
-        musicTitle: "Escucha mi música",
-        musicSub: "Spotify • Apple Music",
-        songTitle: "Pedir canción en vivo",
-        songSub: "Solicitud en vivo",
-        footer: "Disponible para: Bares • Eventos privados • Bodas<br>Base en PA • Viajo • Respuesta: 24–48h"
-      }
-    };
+  <!-- ===== CARD ===== -->
+  <div class="card">
 
-    let lang = "en";
-    const btnEN = document.getElementById("btnEN");
-    const btnES = document.getElementById("btnES");
+    <!-- BRAND -->
+    <div class="brand">
+      <img src="img/logo.png" class="logo" alt="Fabry Orihuela Logo">
 
-    function applyLang(newLang){
-      lang = newLang;
-      document.documentElement.lang = (lang === "es") ? "es" : "en";
-      document.title = (lang === "es") ? "Fabry Orihuela | Inicio" : "Fabry Orihuela | Home";
+      <h1 class="name">Fabry Orihuela</h1>
+      <p class="tagline" id="tagline">Latin Music · Pop · Rock · Ballads</p>
+      <p class="subtag" id="subtag">Solo, Trio or Band Performance</p>
+    </div>
 
-      document.querySelectorAll("[data-i18n]").forEach(el => {
-        const key = el.getAttribute("data-i18n");
-        if(t[lang][key]) el.innerHTML = t[lang][key];
-      });
+    <!-- ===== VIDEO REEL ===== -->
+    <div class="reel-center">
+      <div class="reel-container">
+        <iframe
+          src="https://www.youtube.com/embed/c9RRfrlxovU?rel=0&playsinline=1&modestbranding=1"
+          title="Fabry Orihuela – Live Music"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
 
-      btnEN.classList.toggle("active", lang === "en");
-      btnES.classList.toggle("active", lang === "es");
-    }
+    <!-- ===== MENU ===== -->
+    <div class="menu">
 
-    btnEN.addEventListener("click", () => applyLang("en"));
-    btnES.addEventListener("click", () => applyLang("es"));
+      <a href="merch.html" class="tile">
+        <div class="tile-left">
+          <div class="badge">🛍️</div>
+          <div>
+            <div class="tile-title" id="merchTitle">Merch</div>
+            <div class="tile-sub" id="merchSub">Shirts & flash drives</div>
+          </div>
+        </div>
+        <div class="chev">›</div>
+      </a>
 
-    applyLang("en");
-  </script>
+      <a href="musica.html" class="tile">
+        <div class="tile-left">
+          <div class="badge">🎧</div>
+          <div>
+            <div class="tile-title" id="musicTitle">Listen to my music</div>
+            <div class="tile-sub">Spotify · Apple Music</div>
+          </div>
+        </div>
+        <div class="chev">›</div>
+      </a>
+
+      <a href="canciones.html" class="tile">
+        <div class="tile-left">
+          <div class="badge">🎶</div>
+          <div>
+            <div class="tile-title" id="songTitle">Request a live song</div>
+            <div class="tile-sub">Live shows only</div>
+          </div>
+        </div>
+        <div class="chev">›</div>
+      </a>
+
+    </div>
+
+    <!-- FOOT -->
+    <div class="foot" id="footer">
+      Available for: Bars · Private Events · Weddings <br>
+      Based in PA · Travel available · Response time 24–48h
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== IDIOMAS ===== -->
+<script>
+const t = {
+  en:{
+    tagline:"Latin Music · Pop · Rock · Ballads",
+    subtag:"Solo, Trio or Band Performance",
+    merchTitle:"Merch",
+    merchSub:"Shirts & flash drives",
+    musicTitle:"Listen to my music",
+    songTitle:"Request a live song",
+    footer:"Available for: Bars · Private Events · Weddings <br> Based in PA · Travel available · Response time 24–48h"
+  },
+  es:{
+    tagline:"Música Latina · Pop · Rock · Baladas",
+    subtag:"Solista, Trío o Banda",
+    merchTitle:"Merchandising",
+    merchSub:"Camisetas y flash drives",
+    musicTitle:"Escucha mi música",
+    songTitle:"Pedir canción en vivo",
+    footer:"Disponible para: Bares · Eventos privados · Bodas <br> Base en PA · Viajo · Respuesta 24–48h"
+  }
+};
+
+const btnES=document.getElementById("btnES");
+const btnEN=document.getElementById("btnEN");
+
+function setLang(lang){
+  document.getElementById("tagline").textContent=t[lang].tagline;
+  document.getElementById("subtag").textContent=t[lang].subtag;
+  document.getElementById("merchTitle").textContent=t[lang].merchTitle;
+  document.getElementById("merchSub").textContent=t[lang].merchSub;
+  document.getElementById("musicTitle").textContent=t[lang].musicTitle;
+  document.getElementById("songTitle").textContent=t[lang].songTitle;
+  document.getElementById("footer").innerHTML=t[lang].footer;
+
+  btnES.classList.toggle("active",lang==="es");
+  btnEN.classList.toggle("active",lang==="en");
+}
+
+btnES.onclick=()=>setLang("es");
+btnEN.onclick=()=>setLang("en");
+</script>
+
 </body>
 </html>
