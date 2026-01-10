@@ -1905,3 +1905,57 @@ a { text-decoration: none; }
   .btn-tip{ animation:none; }
   .btn-tip::after{ animation:none; }
 }
+/* ===== FIX DEFINITIVO BOTON PROPINA ===== */
+/* Quita subrayado morado/azul en cualquier link dentro del header */
+.header a,
+.row a{
+  text-decoration: none !important;
+  color: inherit;
+}
+
+/* Asegura que el boton Propina tenga forma de botón sí o sí */
+.row .btn-tip{
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+
+  padding: 12px 16px !important;
+  border-radius: 14px !important;
+
+  color: #fff !important;
+  background: linear-gradient(180deg, #ff1a1a, #b00000) !important;
+
+  border: 1px solid rgba(255,255,255,.18) !important;
+  box-shadow: 0 10px 22px rgba(0,0,0,.40) !important;
+}
+
+/* Glow + animación para que llame la atención */
+.row .btn-tip{
+  animation: tipPulse 1.6s ease-in-out infinite;
+  box-shadow:
+    0 10px 22px rgba(0,0,0,.40),
+    0 0 18px rgba(255,26,26,.45),
+    0 0 34px rgba(255,26,26,.22) !important;
+}
+
+/* Sin subrayado aunque el navegador lo fuerce */
+.row .btn-tip:link,
+.row .btn-tip:visited,
+.row .btn-tip:hover,
+.row .btn-tip:active{
+  text-decoration: none !important;
+  color: #fff !important;
+}
+
+/* Animación suave (respira) */
+@keyframes tipPulse{
+  0%, 100%{
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50%{
+    transform: scale(1.03);
+    filter: brightness(1.12);
+  }
+}
