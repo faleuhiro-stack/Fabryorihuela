@@ -604,3 +604,37 @@ body{
 .section * {
   text-align: center;
 }
+
+/* ===== TÍTULO REPERTORIO (ELEGANTE) ===== */
+.title-repertorio{
+  margin: 26px 0 14px;
+  text-align: center;
+
+  font-family: "Playfair Display", serif;
+  font-size: clamp(26px, 4vw, 34px);
+  font-weight: 600;
+  letter-spacing: 1.2px;
+
+  color: rgba(255,255,255,.95);
+
+  text-shadow:
+    0 10px 30px rgba(0,0,0,.65);
+
+  position: relative;
+}
+
+.title-repertorio::after{
+  content:"";
+  display:block;
+  width: 46px;
+  height: 2px;
+  margin: 10px auto 0;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.55),
+    transparent
+  );
+  opacity:.65;
+}
