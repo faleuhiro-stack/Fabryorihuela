@@ -2163,3 +2163,8 @@ a.btn.btn-tip:active{
       0 0 60px rgba(255,0,0,.60);
   }
 }
+/* FORZAR ocultar el título grande si existe */
+.brand .name,
+.brand h1{
+  display: none !important;
+}
