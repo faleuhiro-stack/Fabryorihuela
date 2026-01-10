@@ -336,3 +336,37 @@ body{
   color: rgba(255,255,255,.95) !important;
   text-decoration: none !important;
 }
+
+/* ===== FIX CENTRADO PÁGINA MÚSICA ===== */
+
+/* centra todo el contenido dentro de la card */
+.card{
+  text-align: center;
+}
+
+/* centra títulos y textos */
+.card h1,
+.card .tagline,
+.card .subtag{
+  text-align: center;
+}
+
+/* centra las secciones */
+.section{
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* centra icono + texto en mobile */
+@media (max-width: 760px){
+  .section-head{
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+  }
+
+  .section-icon{
+    margin-bottom: 6px;
+  }
+}
