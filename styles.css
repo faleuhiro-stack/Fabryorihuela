@@ -370,3 +370,41 @@ body{
     margin-bottom: 6px;
   }
 }
+
+/* ===== FIX TEXTO CENTRADO (MÚSICA / MERCH / REDES) ===== */
+
+/* fuerza centrado real del texto */
+.card h1,
+.card h2,
+.card h3,
+.card p,
+.card .tagline{
+  text-align: center !important;
+}
+
+/* centra bloques internos */
+.card > *{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* merch / música / secciones */
+.merch-item,
+.section,
+.booking-form{
+  text-align: center !important;
+}
+
+/* corrige textos pequeños */
+.merch-item p,
+.section p{
+  text-align: center !important;
+}
+
+/* FIX MOBILE */
+@media (max-width: 760px){
+  .merch-item,
+  .section{
+    align-items: center;
+  }
+}
