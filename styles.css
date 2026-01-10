@@ -1220,3 +1220,24 @@ a.btn-booking:active,
 
   transform: scale(.96);
 }
+/* =============================== */
+/* DISABLE PRESS ANIMATIONS (ALL BUTTONS) */
+/* =============================== */
+
+a:active,
+button:active,
+.btn:active,
+.button:active,
+.btn-metal:active,
+.btn-booking:active,
+#bookingTop:active{
+  transform: none !important;
+  animation: none !important;
+  transition: none !important;
+}
+
+/* También evita animaciones al focus (mobile) */
+a:focus,
+button:focus{
+  outline: none !important;
+}
