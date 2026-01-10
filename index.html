@@ -18,26 +18,19 @@
 
   <!-- ===== TOP BAR ===== -->
 <div class="topbar">
-
-  <!-- LANGUAGE -->
-  <div class="lang-switch">
-    <button id="btnES">🇪🇸 ES</button>
-    <button id="btnEN" class="active">🇺🇸 EN</button>
+  <div class="lang-switch" aria-label="Language switch">
+    <button id="btnES" type="button">🇪🇸 ES</button>
+    <button id="btnEN" class="active" type="button">🇺🇸 EN</button>
   </div>
 
-  <!-- ACTIONS -->
   <div class="top-actions">
-
-    <!-- BOOKING -->
-    <a href="booking.html" class="btn-metal btn-booking" id="bookingTop">
-  ✉️ Booking
-</a>
-
-    <!-- SOCIAL -->
-    <a href="redes.html" class="btn-metal btn-social">
-      📱 Social Media
+    <a class="btn-metal btn-booking" id="bookingTop" href="booking.html">
+      <span>✉️ <span id="txtBookingTop">Booking</span></span>
     </a>
 
+    <a class="btn-metal" id="socialTop" href="redes.html">
+      <span>📱 <span id="txtSocialTop">Social Media</span></span>
+    </a>
   </div>
 </div>
 
