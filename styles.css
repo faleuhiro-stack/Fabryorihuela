@@ -731,3 +731,40 @@ body{
     transform: scale(1) translateY(0);
   }
 }
+/* ===== BOOKING CTA ANIMADO ===== */
+.btn-booking{
+  position: relative;
+  animation: bookingIdle 3.5s ease-in-out infinite;
+}
+
+/* Pulso suave continuo */
+@keyframes bookingIdle{
+  0%, 100%{
+    transform: scale(1);
+    box-shadow:
+      0 18px 36px rgba(0,0,0,.40),
+      0 0 22px rgba(255,40,40,.25);
+  }
+  50%{
+    transform: scale(1.045);
+    box-shadow:
+      0 22px 44px rgba(0,0,0,.45),
+      0 0 36px rgba(255,40,40,.55);
+  }
+}
+
+/* Halo rojo elegante */
+.btn-booking::after{
+  content:"";
+  position:absolute;
+  inset:-6px;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle,
+      rgba(255,40,40,.55),
+      rgba(255,40,40,.15),
+      transparent 70%);
+  opacity:.65;
+  filter: blur(10px);
+  pointer-events:none;
+}
