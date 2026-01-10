@@ -1720,3 +1720,60 @@ button:focus{
   font-size: 22px;
   opacity: 0.5;
 }
+/* ===== TOPBAR RESPONSIVE (Móvil: idioma arriba / PC: idioma izquierda + botones centrados) ===== */
+
+.topbar{
+  width: 100%;
+  margin: 0 auto 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Caja de acciones: centra los botones */
+.top-actions{
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* ---------- PC / Escritorio ---------- */
+@media (min-width: 761px){
+  .topbar{
+    position: relative;
+    justify-content: center;   /* centra el bloque de botones */
+  }
+
+  .lang-switch{
+    position: absolute;
+    left: 0;                  /* idioma a la izquierda */
+    top: 0;
+  }
+
+  .top-actions{
+    justify-content: center;  /* booking + social centrados */
+  }
+}
+
+/* ---------- Móvil ---------- */
+@media (max-width: 760px){
+  .topbar{
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .lang-switch{
+    order: 1;
+    width: fit-content;
+    margin: 0 auto;
+  }
+
+  .top-actions{
+    order: 2;
+    width: 100%;
+    justify-content: center;  /* botones centrados */
+    flex-wrap: wrap;
+  }
+}
