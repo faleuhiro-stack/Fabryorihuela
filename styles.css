@@ -477,3 +477,25 @@ body{
 .tile-sub{ font-size:12px; opacity:.75; }
 .chev{ font-size:20px; opacity:.7; }
 .foot{ margin-top:18px; font-size:13px; opacity:.8; }
+
+/* ===== FIX DEFINITIVO BOTONES ROJOS (MUSICA / MERCH / REDES) ===== */
+.button,
+.card .button,
+.merch-item .button{
+  background: linear-gradient(180deg, #ff1a1a, #b00000) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255,255,255,.22) !important;
+
+  box-shadow:
+    0 10px 22px rgba(0,0,0,.45),
+    inset 0 1px 0 rgba(255,255,255,.25) !important;
+}
+
+.button:hover{
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+}
+
+.button:active{
+  transform: scale(.99);
+}
