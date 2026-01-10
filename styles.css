@@ -1959,3 +1959,44 @@ a { text-decoration: none; }
     filter: brightness(1.12);
   }
 }
+/* ===== BOTON PROPINA DESTACADO ===== */
+.btn-tip{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  padding: 12px 18px;
+  border-radius: 14px;
+
+  background: linear-gradient(180deg, #ff1a1a, #b00000);
+  color: #fff !important;
+
+  border: none;
+  text-decoration: none !important;
+
+  box-shadow:
+    0 10px 22px rgba(0,0,0,.45),
+    0 0 18px rgba(255,26,26,.55),
+    0 0 34px rgba(255,26,26,.25);
+
+  animation: propinaPulse 1.6s ease-in-out infinite;
+}
+
+/* Sin efecto raro al tocar */
+.btn-tip:active{
+  transform: none;
+  filter: none;
+}
+
+/* Animación suave */
+@keyframes propinaPulse{
+  0%,100%{
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50%{
+    transform: scale(1.05);
+    filter: brightness(1.15);
+  }
+}
