@@ -2,412 +2,362 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Fabry Orihuela | Live Music</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fabry Orihuela</title>
 
-  <!-- Fuentes bohemias/elegantes -->
+  <!-- Tipografía elegante (bohemia suave) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --red:#ff1e2d;                 /* rojo intenso */
-      --redGlow: rgba(255,30,45,.45);
-      --amberGlow: rgba(255,140,60,.35);
-      --glass: rgba(10,10,14,.55);
-      --stroke: rgba(255,255,255,.18);
-      --textSoft: rgba(255,255,255,.82);
+      --bg: #07070b;
+      --glass: rgba(12,12,16,.55);
+      --stroke: rgba(255,255,255,.16);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.72);
+      --silver1: rgba(255,255,255,.92);
+      --silver2: rgba(255,255,255,.35);
+      --shadow: 0 18px 45px rgba(0,0,0,.55);
+      --radius: 24px;
     }
 
-    *{box-sizing:border-box;}
+    *{ box-sizing:border-box; }
     body{
       margin:0;
-      color:#fff;
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
       min-height:100vh;
 
-      /* Fondo estilo cinematic (embers) + tu foto */
+      /* Fondo: puedes cambiar la imagen aquí */
       background:
-        radial-gradient(circle at 20% 10%, rgba(255,80,40,.22), transparent 55%),
-        radial-gradient(circle at 80% 25%, rgba(255,30,45,.18), transparent 55%),
-        radial-gradient(circle at 60% 80%, rgba(255,160,60,.12), transparent 65%),
-        linear-gradient(rgba(0,0,0,.72), rgba(0,0,0,.88)),
+        radial-gradient(circle at 25% 10%, rgba(255,255,255,.12), transparent 55%),
+        linear-gradient(rgba(0,0,0,.72), rgba(0,0,0,.82)),
         url("img/fondo-optimizado.jpg") center/cover no-repeat fixed;
     }
 
-    /* Si tu fondo se llama distinto, cambia la línea anterior a:
-       url("img/fondo.jpg") */
-
     .wrap{
-      width:min(980px, 94vw);
-      margin: 18px auto 28px;
+      width: min(980px, 92vw);
+      margin: 0 auto;
+      padding: 28px 0 44px;
     }
 
-    /* Barra superior */
     .topbar{
       display:flex;
       align-items:center;
-      justify-content:space-between;
+      justify-content:flex-end;
       gap:10px;
-      padding:10px 12px;
-      border:1px solid var(--stroke);
-      border-radius:16px;
-      background: rgba(0,0,0,.35);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 22px 55px rgba(0,0,0,.55);
+      margin-bottom:14px;
     }
 
-    .top-left, .top-right{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      flex-wrap:wrap;
-    }
-
-    .pill{
+    .lang-btn{
       display:inline-flex;
       align-items:center;
-      gap:8px;
-      padding:10px 12px;
-      border-radius:14px;
-      text-decoration:none;
-      color:#fff;
-      border:1px solid rgba(255,255,255,.20);
-      background: rgba(10,10,14,.55);
-      box-shadow: 0 12px 26px rgba(0,0,0,.40);
-      font-weight:600;
+      gap:10px;
+      padding:10px 14px;
+      border-radius: 14px;
+      border:1px solid var(--stroke);
+      background: rgba(10,10,14,.45);
+      color: var(--text);
+      font-weight: 700;
       cursor:pointer;
+      box-shadow: 0 10px 22px rgba(0,0,0,.35);
+      transition: transform .15s ease, filter .15s ease;
       user-select:none;
     }
+    .lang-btn:hover{ transform: translateY(-1px); filter: brightness(1.05); }
 
-    .pill:hover{ transform: translateY(-1px); }
-    .pill:active{ transform: translateY(0px); }
-
-    .pill-booking{
-      background: linear-gradient(180deg, rgba(255,30,45,.60), rgba(10,10,14,.55));
-      box-shadow:
-        0 16px 40px rgba(0,0,0,.45),
-        0 0 26px var(--redGlow);
-    }
-
-    .pill-lang{
-      background: linear-gradient(180deg, rgba(255,255,255,.20), rgba(10,10,14,.55));
-    }
-
-    .badge{
-      width:10px;height:10px;border-radius:50%;
-      background: var(--red);
-      box-shadow: 0 0 18px var(--redGlow);
-    }
-
-    /* Card principal */
     .card{
-      margin-top:14px;
-      padding:22px 18px;
-      border-radius:22px;
-      border:1px solid var(--stroke);
       background: var(--glass);
+      border: 1px solid var(--stroke);
+      box-shadow: var(--shadow);
       backdrop-filter: blur(10px);
-      box-shadow: 0 30px 80px rgba(0,0,0,.65);
-      position:relative;
+      border-radius: var(--radius);
+      padding: 22px 18px 22px;
       overflow:hidden;
     }
 
-    .card::before{
-      content:"";
-      position:absolute;
-      inset:-2px;
-      background: linear-gradient(90deg,
-        rgba(255,120,40,.55),
-        rgba(255,255,255,.12),
-        rgba(255,30,45,.35)
-      );
-      filter: blur(14px);
-      opacity:.55;
-      pointer-events:none;
-    }
-
-    .hero{
-      position:relative;
+    /* Header */
+    .brand{
       display:flex;
+      flex-direction:column;
       align-items:center;
-      justify-content:center;
       text-align:center;
-      padding: 12px 8px 6px;
+      gap:10px;
+      padding-top:6px;
     }
 
     .logo{
-      width: min(360px, 78vw);
+      width: 190px;
+      max-width: 70%;
       height:auto;
-      margin: 6px auto 10px;
-      /* look "pro": sombra + brillo */
-      filter:
-        drop-shadow(0 18px 30px rgba(0,0,0,.75))
-        drop-shadow(0 0 18px rgba(255,255,255,.10))
-        drop-shadow(0 0 24px rgba(255,140,60,.16));
-      animation: logoFloat 4.8s ease-in-out infinite;
+      filter: drop-shadow(0 14px 26px rgba(0,0,0,.55));
+      animation: floatIn .8s ease both;
     }
 
-    @keyframes logoFloat{
-      0%,100%{ transform: translateY(0px); }
-      50%{ transform: translateY(-6px); }
-    }
-
-    .desc{
-      position:relative;
-      color: rgba(255,255,255,.90);
+    h1{
+      margin:0;
       font-family: "Playfair Display", serif;
-      font-size: clamp(16px, 2.2vw, 22px);
-      letter-spacing:.3px;
-      margin: 6px 0 2px;
-      text-shadow: 0 16px 36px rgba(0,0,0,.65);
+      font-weight: 600;
+      letter-spacing: .5px;
+      font-size: clamp(30px, 4vw, 46px);
+      text-shadow: 0 12px 30px rgba(0,0,0,.55);
     }
 
-    .subdesc{
-      position:relative;
-      color: var(--textSoft);
-      font-size: 14px;
-      margin: 6px 0 14px;
+    .subtitle{
+      margin: 2px 0 0;
+      font-size: 13.5px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--silver1);
+      opacity:.9;
     }
 
-    /* Video */
-    .video-wrap{
-      position:relative;
-      margin: 12px auto 14px;
-      width: min(860px, 100%);
-      border-radius: 22px;
-      border:1px solid rgba(255,255,255,.18);
+    /* Video hero */
+    .video-block{
+      margin: 18px auto 16px;
+      width: min(720px, 100%);
+      border-radius: 20px;
       overflow:hidden;
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: 0 18px 45px rgba(0,0,0,.55);
       background: rgba(0,0,0,.35);
-      box-shadow:
-        0 30px 80px rgba(0,0,0,.70),
-        0 0 40px rgba(255,90,30,.22);
-      transform: translateY(16px);
+      transform: translateY(10px);
       opacity: 0;
-      animation: videoIn .9s ease-out .2s forwards;
+      animation: riseIn .9s ease .15s forwards;
     }
-
-    @keyframes videoIn{
-      to{ transform: translateY(0px); opacity: 1; }
-    }
-
-    .video-inner{
-      aspect-ratio: 16/9;
+    .video-block iframe{
       width:100%;
+      aspect-ratio: 9/16;
+      border:0;
       display:block;
+      background:#000;
     }
 
-    /* Botones debajo del video */
-    .grid3{
-      position:relative;
+    /* Menu 3 opciones */
+    .menu{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin: 14px auto 10px;
-      width: min(860px, 100%);
+      gap: 12px;
+      margin-top: 14px;
     }
 
     @media (max-width: 720px){
-      .grid3{ grid-template-columns: 1fr; }
+      .menu{ grid-template-columns: 1fr; }
+      .logo{ width: 170px; }
     }
 
-    .tile{
+    .btn{
+      position: relative;
       display:flex;
       align-items:center;
       justify-content:center;
       gap:10px;
-      padding: 14px 14px;
-      border-radius: 16px;
       text-decoration:none;
-      color:#fff;
-      font-weight:700;
-      border:1px solid rgba(255,255,255,.20);
-      background: rgba(10,10,14,.58);
-      box-shadow: 0 18px 40px rgba(0,0,0,.45);
-      position:relative;
+      padding: 16px 16px;
+      border-radius: 18px;
+      font-weight: 900;
+      letter-spacing: .2px;
+      color: #0b0b10;
+      background: linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.55));
+      border: 1px solid rgba(255,255,255,.25);
+      box-shadow: 0 10px 22px rgba(0,0,0,.45);
+      transition: transform .15s ease, filter .15s ease;
       overflow:hidden;
+      text-align:center;
+      min-height: 58px;
     }
 
-    .tile::after{
+    /* Borde metálico extra */
+    .btn::before{
       content:"";
       position:absolute;
-      inset:-40%;
-      background: radial-gradient(circle, rgba(255,30,45,.22), transparent 60%);
+      inset:0;
+      border-radius:18px;
+      padding:1px;
+      background: linear-gradient(135deg,
+        rgba(255,255,255,.95),
+        rgba(255,255,255,.12),
+        rgba(255,255,255,.75)
+      );
+      -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity:.9;
+      pointer-events:none;
+    }
+
+    /* Brillo sutil */
+    .btn::after{
+      content:"";
+      position:absolute;
+      left:-30%;
+      top:-70%;
+      width:160%;
+      height:160%;
+      background: radial-gradient(circle, rgba(255,255,255,.35), transparent 55%);
       transform: rotate(12deg);
       opacity:.55;
       pointer-events:none;
     }
 
-    .tile:hover{
-      transform: translateY(-2px);
-      box-shadow:
-        0 22px 50px rgba(0,0,0,.52),
-        0 0 22px rgba(255,30,45,.18);
-    }
-    .tile:active{ transform: translateY(0px); }
-
-    /* CTA WhatsApp */
-    .cta{
-      position:relative;
-      margin: 14px auto 6px;
-      width: min(860px, 100%);
-      display:flex;
-      justify-content:center;
+    .btn:hover{
+      transform: translateY(-1px);
+      filter: brightness(1.03);
     }
 
-    .cta a{
-      width:100%;
-      text-align:center;
-      padding: 16px 18px;
-      border-radius: 18px;
-      text-decoration:none;
-      color:#fff;
-      font-weight:800;
-      background: linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.60));
-      border: 1px solid rgba(255,255,255,.20);
-      box-shadow:
-        0 22px 55px rgba(0,0,0,.55),
-        0 0 26px var(--amberGlow);
-    }
-
-    .cta a span{
-      display:inline-block;
-      padding: 8px 14px;
-      border-radius: 14px;
-      background: linear-gradient(180deg, rgba(255,30,45,.55), rgba(10,10,14,.55));
-      border: 1px solid rgba(255,255,255,.20);
-      box-shadow: 0 0 24px var(--redGlow);
-    }
-
-    .footer{
-      text-align:center;
-      margin-top: 12px;
-      color: rgba(255,255,255,.70);
+    .btn small{
+      display:block;
+      font-weight: 700;
+      opacity:.85;
       font-size: 12.5px;
+      margin-top: 2px;
+      color: rgba(10,10,14,.85);
+      letter-spacing: .2px;
     }
-    .footer strong{ color:#fff; }
 
+    .foot{
+      margin-top: 16px;
+      text-align:center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @keyframes riseIn{
+      to{ transform: translateY(0); opacity:1; }
+    }
+    @keyframes floatIn{
+      from{ transform: translateY(10px); opacity:0; }
+      to{ transform: translateY(0); opacity:1; }
+    }
   </style>
 </head>
 
 <body>
   <div class="wrap">
-    <!-- TOPBAR -->
-    <div class="topbar">
-      <div class="top-left">
-        <button class="pill pill-lang" id="langBtn" type="button">🇺🇸 English</button>
-      </div>
 
-      <div class="top-right">
-        <a class="pill" id="socialBtn" href="redes.html">📲 <span data-i18n="social">Social Media</span></a>
-        <a class="pill pill-booking" id="bookingBtn" href="booking.html">✉️ <span data-i18n="booking">Booking</span></a>
-      </div>
+    <div class="topbar">
+      <button class="lang-btn" id="langToggle" type="button">
+        🌐 <span id="langLabel">ES</span>
+      </button>
     </div>
 
-    <!-- MAIN CARD -->
     <div class="card">
-      <div class="hero">
-        <!-- TU LOGO ORIGINAL (con texto abajo) -->
+      <div class="brand">
+        <!-- Tu logo completo (con letras) -->
         <img class="logo" src="img/logo.png" alt="Fabry Orihuela Logo">
+
+        <h1>Fabry Orihuela</h1>
+
+        <!-- Subtítulo en plata -->
+        <p class="subtitle" id="subtitleText">Latin Music · Pop · Rock · Ballads</p>
       </div>
 
-      <div style="position:relative; text-align:center;">
-        <div class="desc" data-i18n="headline">Latin Music · Pop · Rock · Ballads</div>
-        <div class="subdesc" data-i18n="subheadline">Solo, Trio or Band Performance · Based in PA · Travel available</div>
-      </div>
-
-      <!-- VIDEO (YouTube Shorts embed) -->
-      <div class="video-wrap">
+      <!-- VIDEO de bienvenida (YouTube Shorts embed) -->
+      <div class="video-block" aria-label="Video de bienvenida">
         <iframe
-          class="video-inner"
-          src="https://www.youtube.com/embed/jSR1ZkBSNHw?rel=0&modestbranding=1"
-          title="Fabry Orihuela - Welcome"
-          frameborder="0"
+          id="welcomeVideo"
+          src="https://www.youtube.com/embed/jSR1ZkBSNHw?rel=0&modestbranding=1&playsinline=1"
+          title="Fabry Orihuela - Bienvenida"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowfullscreen>
         </iframe>
       </div>
 
-      <!-- BOTONES DEBAJO DEL VIDEO -->
-      <div class="grid3">
-        <a class="tile" href="merch.html">🛍️ <span data-i18n="merch">Merch</span></a>
+      <!-- MENÚ 3 OPCIONES -->
+      <div class="menu">
+        <!-- Request a Song -->
+        <a class="btn" href="canciones.html" id="btnSong">
+          🎶 <span>
+            <span id="songTitle">Pedir canción</span>
+            <small id="songSub">Request a Song</small>
+          </span>
+        </a>
 
-        <a class="tile" href="musica.html">🎧 <span data-i18n="listen">Listen to my music</span></a>
+        <!-- Merch -->
+        <a class="btn" href="merch.html" id="btnMerch">
+          🛍️ <span>
+            <span id="merchTitle">Merchandising</span>
+            <small id="merchSub">Merch</small>
+          </span>
+        </a>
 
-        <a class="tile"
-           href="https://wa.me/14845442917?text=Hola%20Fabry%2C%20quiero%20pedir%20una%20canci%C3%B3n%20en%20vivo.%20%F0%9F%8E%B6%0A1)%20Canci%C3%B3n%3A%20__%0A2)%20Tu%20nombre%20(opcional)%3A%20__"
-           target="_blank" rel="noopener">
-          🎵 <span data-i18n="request">Request a song (live)</span>
+        <!-- Follow me -->
+        <a class="btn" href="redes.html" id="btnFollow">
+          📱 <span>
+            <span id="followTitle">Sígueme</span>
+            <small id="followSub">Follow me</small>
+          </span>
         </a>
       </div>
 
-      <!-- CTA WHATSAPP -->
-      <div class="cta">
-        <a href="https://wa.me/14845442917?text=Hola%20Fabry%2C%20quiero%20hacer%20una%20consulta%20para%20booking.%20%F0%9F%93%85%0AFecha%3A%20__%0ALugar%3A%20__%0ATipo%20de%20evento%3A%20__"
-           target="_blank" rel="noopener">
-          <span data-i18n="cta">Book now via WhatsApp</span>
-        </a>
-      </div>
-
-      <div class="footer">
-        <span data-i18n="footer1">Response time:</span> <strong>24–48h</strong> ·
-        <span data-i18n="footer2">Payments:</span>
-        <strong>Cash App $fabrymusic · Venmo @fabryorihuela-music · Zelle +1 484 544 2917</strong>
+      <div class="foot" id="footText">
+        Muchas gracias por tu apoyo 🙏
       </div>
     </div>
   </div>
 
   <script>
-    // ====== i18n simple (ES / EN) ======
-    const dict = {
+    // ====== 2 Idiomas (ES/EN) ======
+    const i18n = {
       es: {
-        booking: "Booking",
-        social: "Redes sociales",
-        headline: "Latin Music · Pop · Rock · Ballads",
-        subheadline: "Solo, Trío o Banda · Basado en PA · Disponible para viajar",
-        merch: "Merch",
-        listen: "Escucha mi música",
-        request: "Pedir canción (en vivo)",
-        cta: "Reservar por WhatsApp",
-        footer1: "Tiempo de respuesta:",
-        footer2: "Pagos:"
+        langLabel: "ES",
+        subtitle: "Latin Music · Pop · Rock · Ballads",
+        songTitle: "Pedir canción",
+        songSub: "Request a Song",
+        merchTitle: "Merchandising",
+        merchSub: "Merch",
+        followTitle: "Sígueme",
+        followSub: "Follow me",
+        foot: "Muchas gracias por tu apoyo 🙏"
       },
       en: {
-        booking: "Booking",
-        social: "Social Media",
-        headline: "Latin Music · Pop · Rock · Ballads",
-        subheadline: "Solo, Trio or Band · Based in PA · Travel available",
-        merch: "Merch",
-        listen: "Listen to my music",
-        request: "Request a song (live)",
-        cta: "Book now via WhatsApp",
-        footer1: "Response time:",
-        footer2: "Payments:"
+        langLabel: "EN",
+        subtitle: "Latin Music · Pop · Rock · Ballads",
+        songTitle: "Request a Song",
+        songSub: "Pedir canción",
+        merchTitle: "Merch",
+        merchSub: "Merchandising",
+        followTitle: "Follow me",
+        followSub: "Sígueme",
+        foot: "Thank you so much for your support 🙏"
       }
     };
 
-    let lang = "es";
-    const langBtn = document.getElementById("langBtn");
+    // Estado inicial
+    let current = "es";
 
-    function applyLang(){
-      document.querySelectorAll("[data-i18n]").forEach(el=>{
-        const key = el.getAttribute("data-i18n");
-        if(dict[lang] && dict[lang][key]) el.textContent = dict[lang][key];
-      });
+    // Si el navegador está en inglés, inicia en EN (opcional)
+    const navLang = (navigator.language || "").toLowerCase();
+    if(navLang.startsWith("en")) current = "en";
 
-      // Botón muestra el idioma al que cambiarás
-      langBtn.textContent = (lang === "es") ? "🇺🇸 English" : "🇪🇸 Español";
+    function applyLang(lang){
+      const t = i18n[lang];
       document.documentElement.lang = lang;
+      document.getElementById("langLabel").textContent = t.langLabel;
+      document.getElementById("subtitleText").textContent = t.subtitle;
+
+      document.getElementById("songTitle").textContent = t.songTitle;
+      document.getElementById("songSub").textContent = t.songSub;
+
+      document.getElementById("merchTitle").textContent = t.merchTitle;
+      document.getElementById("merchSub").textContent = t.merchSub;
+
+      document.getElementById("followTitle").textContent = t.followTitle;
+      document.getElementById("followSub").textContent = t.followSub;
+
+      document.getElementById("footText").textContent = t.foot;
     }
 
-    langBtn.addEventListener("click", ()=>{
-      lang = (lang === "es") ? "en" : "es";
-      applyLang();
-    });
+    applyLang(current);
 
-    applyLang();
+    document.getElementById("langToggle").addEventListener("click", () => {
+      current = (current === "es") ? "en" : "es";
+      applyLang(current);
+    });
   </script>
 </body>
 </html>
-
