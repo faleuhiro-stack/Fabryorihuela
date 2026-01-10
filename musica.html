@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=90002">
+  <link rel="stylesheet" href="styles.css?v=90003">
 </head>
 
 <body>
@@ -43,51 +43,34 @@
       </div>
 
       <!-- SPOTIFY -->
-      <div class="section">
-        <div class="section-head">
-          <div class="section-icon">🟢</div>
-          <div>
-            <div class="section-title">Spotify</div>
-            <div class="section-sub" data-i18n="spotifySub">Listen to all my songs and releases</div>
-          </div>
-        </div>
+      <div class="merch-item">
+        <h3>🟢 Spotify</h3>
+        <p data-i18n="spotifySub">Listen to all my songs and releases</p>
 
-        <a class="btn-metal btn-red" href="https://open.spotify.com/intl-es/artist/3gwUw97MMCSVKbFocMIz0a" target="_blank" rel="noopener">
+        <a class="button"
+           href="https://open.spotify.com/intl-es/artist/3gwUw97MMCSVKbFocMIz0a"
+           target="_blank" rel="noopener">
           ▶️ <span data-i18n="spotifyBtn">Open Spotify</span>
         </a>
       </div>
 
       <!-- APPLE MUSIC -->
-      <div class="section">
-        <div class="section-head">
-          <div class="section-icon">🍎</div>
-          <div>
-            <div class="section-title">Apple Music</div>
-            <div class="section-sub" data-i18n="appleSub">Available on Apple Music</div>
-          </div>
-        </div>
+      <div class="merch-item">
+        <h3>🍎 Apple Music</h3>
+        <p data-i18n="appleSub">Available on Apple Music</p>
 
-        <a class="btn-metal btn-red" href="https://music.apple.com/us/artist/fabricio-orihuela/1015171212" target="_blank" rel="noopener">
+        <a class="button"
+           href="https://music.apple.com/us/artist/fabricio-orihuela/1015171212"
+           target="_blank" rel="noopener">
           ▶️ <span data-i18n="appleBtn">Open Apple Music</span>
         </a>
       </div>
 
       <!-- VOLVER -->
-      <div class="menu" style="margin-top:14px;">
-        <a class="tile" href="index.html">
-          <div class="tile-left">
-            <div class="badge">⬅️</div>
-            <div class="tile-text">
-              <div class="tile-title" data-i18n="backTitle">Back</div>
-              <div class="tile-sub" data-i18n="backSub">Return to Home</div>
-            </div>
-          </div>
-          <div class="chev">›</div>
-        </a>
-      </div>
+      <a href="index.html" class="button" data-i18n="backBtn">⬅️ Back</a>
 
-      <div class="foot" data-i18n="footer">
-        Streaming links are official. <br>
+      <div class="foot" data-i18n="footer" style="margin-top:14px;">
+        Streaming links are official.<br>
         If you want a specific song, request it live.
       </div>
     </div>
@@ -105,8 +88,7 @@
         spotifyBtn: "Open Spotify",
         appleSub: "Available on Apple Music",
         appleBtn: "Open Apple Music",
-        backTitle: "Back",
-        backSub: "Return to Home",
+        backBtn: "⬅️ Back",
         footer: "Streaming links are official.<br>If you want a specific song, request it live."
       },
       es: {
@@ -119,8 +101,7 @@
         spotifyBtn: "Abrir Spotify",
         appleSub: "Disponible también en Apple Music",
         appleBtn: "Abrir Apple Music",
-        backTitle: "Volver",
-        backSub: "Regresar al Home",
+        backBtn: "⬅️ Volver",
         footer: "Links oficiales de streaming.<br>Si quieres una canción específica, pídela en vivo."
       }
     };
@@ -147,5 +128,5 @@
     btnES.addEventListener("click", () => applyLang("es"));
     applyLang("en");
   </script>
-</body> <body class="page-center">
+</body>
 </html>
