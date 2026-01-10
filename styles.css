@@ -840,3 +840,161 @@ body{
   color: #fff !important;
   text-decoration: none !important;
 }
+/* ======================================================
+   BOTONES ROJOS: feedback al click + borde metálico base
+   ====================================================== */
+
+/* Base para TODOS los botones rojos */
+.button,
+.btn,
+.btn-red,
+.btn-pro{
+  position: relative;
+  overflow: hidden; /* para ripple */
+  -webkit-tap-highlight-color: transparent;
+
+  background: linear-gradient(180deg, #ff2a2a, #b80000) !important;
+  color: #fff !important;
+  text-decoration: none !important;
+
+  border: 1px solid rgba(255,255,255,.22) !important;
+  box-shadow:
+    0 12px 28px rgba(0,0,0,.45),
+    inset 0 1px 0 rgba(255,255,255,.25) !important;
+
+  transition:
+    transform .12s ease,
+    filter .12s ease,
+    box-shadow .12s ease;
+}
+
+/* Borde metálico base (silver/chrome) */
+.button::before,
+.btn::before,
+.btn-red::before,
+.btn-pro::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius: inherit;
+  z-index:-1;
+
+  background: linear-gradient(
+    135deg,
+    #f6f6f6,
+    #d7d7d7,
+    #8b8b8b,
+    #f0f0f0
+  );
+  opacity:.78;
+}
+
+/* Click feedback (cuando pinchas) */
+.button:active,
+.btn:active,
+.btn-red:active,
+.btn-pro:active{
+  transform: translateY(1px) scale(0.985);
+  filter: brightness(0.98);
+  box-shadow:
+    0 10px 18px rgba(0,0,0,.42),
+    inset 0 1px 0 rgba(255,255,255,.20) !important;
+}
+
+/* Ripple suave */
+.button::after,
+.btn::after,
+.btn-red::after,
+.btn-pro::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:10px;
+  height:10px;
+  border-radius:999px;
+  transform: translate(-50%,-50%) scale(0);
+  background: radial-gradient(circle, rgba(255,255,255,.55), rgba(255,255,255,0) 60%);
+  opacity:0;
+  pointer-events:none;
+}
+
+/* Activar ripple al click */
+.button:active::after,
+.btn:active::after,
+.btn-red:active::after,
+.btn-pro:active::after{
+  opacity:1;
+  transform: translate(-50%,-50%) scale(18);
+  transition: transform .35s ease, opacity .35s ease;
+}
+
+/* Quitar subrayado siempre */
+a.button, a.btn, a.btn-red, a.btn-pro{
+  text-decoration:none !important;
+}
+a.button:visited, a.btn:visited, a.btn-red:visited, a.btn-pro:visited{
+  color:#fff !important;
+}
+
+/* ======================================================
+   BOOKING CTA: borde metálico distinto + glow más fuerte
+   ====================================================== */
+
+/* Tu botón booking ya usa .btn-booking (y suele ser .btn-metal también) */
+.btn-booking{
+  position: relative;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+
+  /* glow extra */
+  box-shadow:
+    0 18px 42px rgba(0,0,0,.48),
+    0 0 34px rgba(255,40,40,.45),
+    inset 0 1px 0 rgba(255,255,255,.25) !important;
+
+  transition:
+    transform .12s ease,
+    filter .12s ease,
+    box-shadow .12s ease;
+}
+
+/* Borde metálico “premium” para booking (más contrastado) */
+.btn-booking::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius: inherit;
+  z-index:-1;
+
+  background: linear-gradient(
+    135deg,
+    #ffffff,
+    #e7e7e7,
+    #9a9a9a,
+    #ffffff
+  );
+  opacity:.92;
+}
+
+/* Halo rojo alrededor del booking */
+.btn-booking::after{
+  content:"";
+  position:absolute;
+  inset:-10px;
+  border-radius: inherit;
+  background: radial-gradient(circle, rgba(255,40,40,.55), rgba(255,40,40,0) 65%);
+  filter: blur(10px);
+  opacity:.75;
+  pointer-events:none;
+}
+
+/* Click feedback Booking: un poco más “premium” */
+.btn-booking:active{
+  transform: translateY(1px) scale(0.982);
+  filter: brightness(1.02);
+  box-shadow:
+    0 16px 34px rgba(0,0,0,.52),
+    0 0 46px rgba(255,40,40,.60),
+    inset 0 1px 0 rgba(255,255,255,.22) !important;
+}
