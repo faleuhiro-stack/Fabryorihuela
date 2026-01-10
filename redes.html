@@ -1,79 +1,96 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sígueme en mis redes | Fabry Orihuela</title>
+  <title>Social Media | Fabry Orihuela</title>
 
-  <link rel="stylesheet" href="styles.css?v=11000">
+  <link rel="stylesheet" href="styles.css?v=92001">
 </head>
 
 <body>
   <div class="container">
     <div class="card">
 
-      <!-- LOGO -->
       <img src="img/logo.png" alt="Fabry Orihuela" class="logo">
 
-      <h1>📱 Sígueme en mis redes</h1>
-      <p class="tagline">Conecta conmigo y apoya mi música</p>
+      <h1 id="title">📱 Social Media</h1>
+      <p class="tagline" id="tagline">Connect with me and support my music</p>
 
-      <!-- YOUTUBE -->
-      <a class="button"
-         href="https://www.youtube.com/@Fabricioorihuela"
-         target="_blank" rel="noopener">
+      <a class="button" href="https://www.youtube.com/@Fabricioorihuela" target="_blank" rel="noopener">
         ▶️ YouTube
       </a>
 
-      <a class="btn social instagram"
-   href="https://www.instagram.com/fabryorihuelaoficial"
-   target="_blank" rel="noopener">
-  📸 Instagram
-</a>
+      <a class="button" href="https://www.instagram.com/fabryorihuelaoficial" target="_blank" rel="noopener">
+        📸 Instagram
+      </a>
 
-      <!-- TIKTOK -->
-      <a class="button"
-         href="https://www.tiktok.com/@fabry.orihuela"
-         target="_blank" rel="noopener">
+      <a class="button" href="https://www.tiktok.com/@fabry.orihuela" target="_blank" rel="noopener">
         🎵 TikTok
       </a>
 
-      <!-- FACEBOOK -->
-      <a class="button"
-         href="https://www.facebook.com/fabryorihuelaoficial/"
-         target="_blank" rel="noopener">
+      <a class="button" href="https://www.facebook.com/fabryorihuelaoficial/" target="_blank" rel="noopener">
         👍 Facebook
       </a>
 
-      <!-- SPOTIFY -->
-      <a class="button"
-         href="https://open.spotify.com/artist/3gwUw97MMCSVKbFocMIz0a"
-         target="_blank" rel="noopener">
+      <a class="button" href="https://open.spotify.com/artist/3gwUw97MMCSVKbFocMIz0a" target="_blank" rel="noopener">
         🟢 Spotify
       </a>
 
-      <!-- APPLE MUSIC -->
-      <a class="button"
-         href="https://music.apple.com/us/artist/fabricio-orihuela/1015171212"
-         target="_blank" rel="noopener">
+      <a class="button" href="https://music.apple.com/us/artist/fabricio-orihuela/1015171212" target="_blank" rel="noopener">
         🍎 Apple Music
       </a>
 
-      <!-- WHATSAPP -->
-      <a class="button"
-         href="https://wa.me/14845442917"
-         target="_blank" rel="noopener">
+      <a class="button" href="https://wa.me/14845442917" target="_blank" rel="noopener">
         💬 WhatsApp
       </a>
 
-      <!-- VOLVER -->
-      <a href="index.html" class="button">⬅️ Volver</a>
+      <!-- Idioma -->
+      <div style="display:flex; gap:10px; justify-content:center; margin-top:14px;">
+        <button class="button" id="btnEN" type="button" style="max-width:220px;">🇺🇸 English</button>
+        <button class="button" id="btnES" type="button" style="max-width:220px;">🇪🇸 Español</button>
+      </div>
 
-      <p class="footer-note">
-        Gracias por seguir y apoyar la música independiente 🤘
+      <a href="index.html" class="button" id="backBtn">⬅️ Back</a>
+
+      <p class="footer-note" id="footer">
+        Thanks for following and supporting independent music 🤘
       </p>
 
     </div>
   </div>
+
+  <script>
+    const t = {
+      en: {
+        pageTitle: "Social Media | Fabry Orihuela",
+        title: "📱 Social Media",
+        tagline: "Connect with me and support my music",
+        back: "⬅️ Back",
+        footer: "Thanks for following and supporting independent music 🤘"
+      },
+      es: {
+        pageTitle: "Sígueme en mis redes | Fabry Orihuela",
+        title: "📱 Sígueme en mis redes",
+        tagline: "Conecta conmigo y apoya mi música",
+        back: "⬅️ Volver",
+        footer: "Gracias por seguir y apoyar la música independiente 🤘"
+      }
+    };
+
+    function setLang(lang){
+      document.title = t[lang].pageTitle;
+      document.documentElement.lang = (lang === "es") ? "es" : "en";
+      document.getElementById("title").textContent = t[lang].title;
+      document.getElementById("tagline").textContent = t[lang].tagline;
+      document.getElementById("backBtn").textContent = t[lang].back;
+      document.getElementById("footer").textContent = t[lang].footer;
+    }
+
+    document.getElementById("btnEN").addEventListener("click", () => setLang("en"));
+    document.getElementById("btnES").addEventListener("click", () => setLang("es"));
+
+    setLang("en");
+  </script>
 </body>
 </html>
