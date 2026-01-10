@@ -1852,3 +1852,56 @@ a { text-decoration: none; }
 @media (max-width: 760px){
   .menu-tiles{ width: min(520px, 92vw); }
 }
+/* ===== BOTÓN PROPINA DESTACADO ===== */
+.btn-tip{
+  background: linear-gradient(180deg, #ff2a2a, #b80000) !important;
+  color:#fff !important;
+  border: 1px solid rgba(255,255,255,.22) !important;
+  box-shadow:
+    0 16px 32px rgba(0,0,0,.45),
+    0 0 22px rgba(255,0,0,.45) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+/* “brillo” que corre suave */
+.btn-tip::after{
+  content:"";
+  position:absolute;
+  top:-40%;
+  left:-60%;
+  width: 60%;
+  height: 180%;
+  transform: rotate(20deg);
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0),
+    rgba(255,255,255,.28),
+    rgba(255,255,255,0)
+  );
+  opacity:.75;
+  animation: tipShine 2.6s ease-in-out infinite;
+  pointer-events:none;
+}
+
+/* pulso leve para llamar atención */
+.btn-tip{
+  animation: tipPulse 1.6s ease-in-out infinite;
+}
+
+@keyframes tipPulse{
+  0%,100%{ transform: scale(1); }
+  50%{ transform: scale(1.03); }
+}
+
+@keyframes tipShine{
+  0%{ left:-70%; }
+  60%{ left:130%; }
+  100%{ left:130%; }
+}
+
+/* Si el usuario tiene “reducir movimiento”, respetarlo */
+@media (prefers-reduced-motion: reduce){
+  .btn-tip{ animation:none; }
+  .btn-tip::after{ animation:none; }
+}
