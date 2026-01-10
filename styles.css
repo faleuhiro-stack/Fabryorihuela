@@ -1341,3 +1341,40 @@ button:focus{
 .foot{
   text-align: center;
 }
+/* ===================================== */
+/* ICON LEFT – TEXT CENTERED – BUTTON OK */
+/* ===================================== */
+
+/* Botones tipo tarjeta (Merch / Music / Request) */
+.tile{
+  position: relative;
+  padding-left: 72px !important; /* espacio para el icono */
+  justify-content: center !important;
+  text-align: center;
+}
+
+/* Contenedor izquierdo deja de centrar todo */
+.tile-left{
+  display: block !important;
+}
+
+/* ICONO a la izquierda */
+.badge{
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0;
+}
+
+/* Textos centrados */
+.tile-title,
+.tile-sub{
+  text-align: center;
+  width: 100%;
+}
+
+/* Oculta flecha derecha */
+.chev{
+  display: none;
+}
