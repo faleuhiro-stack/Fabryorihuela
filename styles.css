@@ -2000,3 +2000,50 @@ a { text-decoration: none; }
     filter: brightness(1.15);
   }
 }
+/* ===== PROPINA: que se destaque (FORZADO) ===== */
+.btn.btn-tip{
+  position: relative;
+  text-decoration: none !important;
+
+  /* Glow fuerte */
+  box-shadow:
+    0 10px 22px rgba(0,0,0,.45),
+    0 0 18px rgba(255,26,26,.70),
+    0 0 42px rgba(255,26,26,.40) !important;
+
+  /* Animación */
+  animation: tipPulse 1.25s ease-in-out infinite !important;
+  will-change: transform, filter, box-shadow;
+}
+
+/* Mantener rojo siempre */
+.btn.btn-tip{
+  background: linear-gradient(180deg, #ff1a1a, #b00000) !important;
+  color: #fff !important;
+}
+
+/* Sin animación rara al tocar */
+.btn.btn-tip:active{
+  transform: none !important;
+  filter: none !important;
+}
+
+/* Pulso + brillo */
+@keyframes tipPulse{
+  0%, 100%{
+    transform: scale(1);
+    filter: brightness(1);
+    box-shadow:
+      0 10px 22px rgba(0,0,0,.45),
+      0 0 16px rgba(255,26,26,.65),
+      0 0 36px rgba(255,26,26,.35);
+  }
+  50%{
+    transform: scale(1.06);
+    filter: brightness(1.18);
+    box-shadow:
+      0 10px 22px rgba(0,0,0,.45),
+      0 0 26px rgba(255,26,26,.95),
+      0 0 60px rgba(255,26,26,.55);
+  }
+}
