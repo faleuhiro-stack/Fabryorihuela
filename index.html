@@ -144,6 +144,23 @@ function setLang(lang){
 btnES.onclick=()=>setLang("es");
 btnEN.onclick=()=>setLang("en");
 </script>
+<script>
+  (function(){
+    const box = document.getElementById("welcomeReel");
+    const iframe = document.getElementById("welcomeVideo");
+    if(!box || !iframe) return;
 
+    // Empieza oculto
+    box.style.opacity = "0";
+    box.style.transform = "translateY(14px)";
+
+    // Cuando carga, hace fade
+    iframe.addEventListener("load", () => {
+      box.style.transition = "opacity .7s ease, transform .7s ease";
+      box.style.opacity = "1";
+      box.style.transform = "translateY(0)";
+    });
+  })();
+</script>
 </body>
 </html>
