@@ -445,3 +445,35 @@ body{
 .booking-form .tagline{
   text-align: center !important;
 }
+
+/* ===== HOME (solo index) ===== */
+.wrap{ width:min(980px,92vw); margin:auto; padding:18px 0 40px; }
+
+.topbar{ display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; gap:12px; flex-wrap:wrap; }
+.top-actions{ display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
+
+.lang-switch{ display:flex; background:rgba(10,10,14,.55); border:1px solid rgba(255,255,255,.16); border-radius:999px; }
+.lang-switch button{ background:none; border:0; color:rgba(255,255,255,.75); padding:8px 14px; cursor:pointer; font-weight:800; }
+.lang-switch button.active{ background:#fff; color:#000; border-radius:999px; }
+
+.btn-metal{ padding:10px 16px; border-radius:14px; background:rgba(10,10,14,.55); border:1px solid rgba(255,255,255,.16); text-decoration:none; color:#fff; font-weight:800; }
+.btn-booking{ background:linear-gradient(180deg,#ff1a1a,#b00000); }
+
+.brand{ text-align:center; }
+.name{ font-family:"Playfair Display",serif; font-size:38px; margin:4px 0; }
+.tagline{ letter-spacing:2px; text-transform:uppercase; font-size:13px; }
+.subtag{ font-size:13px; opacity:.8; }
+
+.reel-center{ display:flex; justify-content:center; margin:18px 0; }
+.reel-container{ width:min(420px,92vw); aspect-ratio:9/16; border-radius:22px; overflow:hidden; border:1px solid rgba(255,255,255,.16); }
+.reel-container iframe{ width:100%; height:100%; border:0; }
+
+.menu{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:14px; }
+@media(max-width:760px){ .menu{ grid-template-columns:1fr; } }
+
+.tile{ display:flex; justify-content:space-between; align-items:center; padding:16px; background:rgba(10,10,14,.55); border:1px solid rgba(255,255,255,.16); border-radius:18px; text-decoration:none; color:#fff; }
+.badge{ width:42px; height:42px; display:grid; place-items:center; background:#fff; color:#000; border-radius:12px; font-size:20px; }
+.tile-title{ font-weight:900; }
+.tile-sub{ font-size:12px; opacity:.75; }
+.chev{ font-size:20px; opacity:.7; }
+.foot{ margin-top:18px; font-size:13px; opacity:.8; }
