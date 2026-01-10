@@ -499,3 +499,18 @@ body{
 .button:active{
   transform: scale(.99);
 }
+
+/* ===== MERCH: ajuste fino (opcional) ===== */
+.merch-item{
+  text-align:center !important;
+}
+
+.mini-track img{
+  width: 105px;
+  height: 105px;
+}
+
+@media (min-width: 900px){
+  .card{ width: min(620px, 92vw); }
+  .mini-track img{ width: 120px; height: 120px; }
+}
