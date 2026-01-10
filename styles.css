@@ -346,3 +346,6 @@ img{
   border: none !important;
   display: block !important;
 }
+.reel-center{
+  background: rgba(0,255,0,.15);
+}
