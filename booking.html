@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Booking | Fabry Orihuela</title>
-
-  <link rel="stylesheet" href="styles.css?v=12000">
+  <link rel="stylesheet" href="styles.css?v=12001">
 </head>
 
 <body>
@@ -17,7 +16,7 @@
       <h1>📅 Booking</h1>
       <p class="tagline">Completa el formulario y te respondo por WhatsApp</p>
 
-      <form id="bookingForm" class="booking-form">
+      <form id="bookingForm" class="booking-form" autocomplete="on">
         <label class="field">
           <span>Nombre / Empresa</span>
           <input type="text" id="nombre" placeholder="Ej: Juan Pérez / Bar XYZ" required>
@@ -25,7 +24,7 @@
 
         <label class="field">
           <span>Teléfono (opcional)</span>
-          <input type="tel" id="telefono" placeholder="Ej: +1 555 123 4567">
+          <input type="tel" id="telefono" placeholder="Ej: +1 555 123 4567" inputmode="tel">
         </label>
 
         <label class="field">
@@ -71,7 +70,8 @@
           <textarea id="detalles" rows="4" placeholder="Ej: sonido disponible, número de personas, repertorio, etc."></textarea>
         </label>
 
-        <button type="submit" class="button" style="justify-content:center;">
+        <!-- Botón ROJO consistente -->
+        <button type="submit" class="button">
           ✅ Enviar por WhatsApp
         </button>
       </form>
@@ -81,13 +81,47 @@
       <p class="footer-note">
         Respondo lo antes posible. Gracias 🙌
       </p>
+
     </div>
   </div>
+
+  <style>
+    /* SOLO para el booking: alinea perfecto en desktop y móvil sin afectar otras páginas */
+    .booking-form{ text-align:left; margin-top: 8px; }
+    .field{ display:grid; gap:8px; margin: 12px 0; }
+    .field span{ font-size: 13px; opacity: .88; }
+
+    .field input,
+    .field select,
+    .field textarea{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.28);
+      color:#fff;
+      outline:none;
+    }
+
+    .field input::placeholder,
+    .field textarea::placeholder{ color: rgba(255,255,255,.55); }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus{ border-color: rgba(255,255,255,.30); }
+
+    /* Mantiene el botón centrado dentro del form */
+    .booking-form .button{
+      max-width: 520px;
+      margin: 14px auto 0;
+      cursor:pointer;
+      border: 0; /* evita estilos raros por browser */
+    }
+  </style>
 
   <script>
     (function(){
       const PHONE = "14845442917"; // WhatsApp de Fabry
-
       function enc(v){ return encodeURIComponent(v || ""); }
 
       document.getElementById("bookingForm").addEventListener("submit", function(e){
