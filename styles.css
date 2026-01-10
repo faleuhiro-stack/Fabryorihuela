@@ -408,3 +408,40 @@ body{
     align-items: center;
   }
 }
+/* ===== FIX CENTRADO DESKTOP (sin romper Booking) ===== */
+
+/* Centrado global del contenido en páginas tipo "card" */
+.card{
+  text-align: center;
+}
+
+/* Títulos y textos centrados */
+.card h1,
+.card h2,
+.card h3,
+.card p,
+.card .tagline{
+  text-align: center !important;
+}
+
+/* Centra contenedores de secciones (Música / Merch / Redes) */
+.card .merch-item,
+.card .section{
+  text-align: center !important;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Mantén Booking alineado a la izquierda SOLO dentro del formulario */
+.booking-form,
+.booking-form *{
+  text-align: left !important;
+}
+
+/* Pero el título de Booking sí centrado */
+.booking-form h1,
+.booking-form h2,
+.booking-form h3,
+.booking-form .tagline{
+  text-align: center !important;
+}
