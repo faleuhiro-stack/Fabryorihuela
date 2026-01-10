@@ -514,3 +514,48 @@ body{
   .card{ width: min(620px, 92vw); }
   .mini-track img{ width: 120px; height: 120px; }
 }
+
+/* ===== BOTONES REDES (CENTRADOS Y PRO) ===== */
+.social-grid{
+  display: grid;
+  gap: 14px;
+  margin-top: 14px;
+  justify-items: center; /* CENTRA LOS BOTONES */
+}
+
+/* Botón base */
+.social-grid .button{
+  width: 100%;
+  max-width: 360px;   /* 👈 hace el botón más elegante */
+  text-align: center;
+  margin: 0 auto;
+
+  text-decoration: none !important; /* quita subrayado */
+  font-weight: 700;
+  letter-spacing: .6px;
+  font-size: 16px;
+
+  border-radius: 14px;
+  padding: 14px 18px;
+
+  background: linear-gradient(180deg, #ff2a2a, #b40000);
+  color: #fff !important;
+
+  box-shadow:
+    0 10px 22px rgba(0,0,0,.45),
+    inset 0 1px 0 rgba(255,255,255,.25);
+
+  transition: transform .15s ease, filter .15s ease;
+}
+
+.social-grid .button:hover{
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+}
+
+/* Desktop: 2 columnas */
+@media (min-width: 760px){
+  .social-grid{
+    grid-template-columns: 1fr 1fr;
+  }
+}
