@@ -25,17 +25,26 @@
   </style>
 </head>
 <body>
-<header>
-  <h1>Repertorio</h2>
+<header class="header">
+  <h1 class="repertorio-title">Repertorio</h1>
+
   <div class="row">
     <a class="btn" href="index.html">⬅️ Home</a>
     <a class="btn-metal btn-tip" href="propina.html">💵 Propina</a>
   </div>
-  <input id="q" class="search" placeholder="Buscar por artista o canción…" autocomplete="off" />
+
+  <input
+    id="q"
+    class="search"
+    placeholder="Buscar por artista o canción…"
+    autocomplete="off"
+  />
+
   <div id="count" class="meta">Cargando…</div>
 </header>
 
 <main id="list"></main>
+
 
 <script>
   async function loadSongs(){
