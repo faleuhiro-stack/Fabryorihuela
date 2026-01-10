@@ -1272,3 +1272,72 @@ button:focus{
   border-color: #9a9a9a !important;
   transform: none !important;
 }
+/* =============================== */
+/* CENTER ALL BUTTONS & TEXT       */
+/* =============================== */
+
+/* Contenedor general */
+.wrap,
+.container,
+.card{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* MENÚ DE BOTONES (Merch / Music / Request) */
+.menu{
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Cada botón tipo tarjeta */
+.tile{
+  width: 100%;
+  justify-content: center !important;
+  text-align: center;
+}
+
+/* Quita separación izquierda */
+.tile-left{
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Íconos centrados */
+.badge{
+  margin: 0 auto;
+}
+
+/* Textos centrados */
+.tile-title,
+.tile-sub{
+  text-align: center;
+  width: 100%;
+}
+
+/* Flecha derecha opcional (puedes ocultarla si quieres) */
+.chev{
+  display: none;
+}
+
+/* BOTONES NORMALES */
+.button,
+.btn,
+.btn-metal{
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  justify-content: center;
+}
+
+/* FOOTER */
+.foot{
+  text-align: center;
+}
