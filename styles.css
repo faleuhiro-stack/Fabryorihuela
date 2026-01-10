@@ -2168,3 +2168,12 @@ a.btn.btn-tip:active{
 .brand h1{
   display: none !important;
 }
+/* ===== ELIMINAR TEXTO "FABRY ORIHUELA" ===== */
+.brand h1,
+.brand .name,
+.brand-title,
+.brand::before,
+.brand::after {
+  display: none !important;
+  content: none !important;
+}
