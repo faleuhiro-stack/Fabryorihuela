@@ -1,383 +1,186 @@
+/* ===== VARIABLES ===== */
 :root{
-  --red1:#ff1a1a;
-  --red2:#b00000;
+  --red:#ff1a1a;
+  --red-dark:#b00000;
   --text:#ffffff;
-  --muted:rgba(255,255,255,.78);
-  --card:rgba(10,10,10,.55);
-  --border:rgba(255,255,255,.14);
+  --muted:rgba(255,255,255,.75);
+  --glass:rgba(10,10,14,.55);
+  --border:rgba(255,255,255,.18);
 }
 
+/* ===== RESET ===== */
 *{ box-sizing:border-box; }
-html,body{ height:100%; margin:0; }
+html,body{ margin:0; padding:0; }
 
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+/* ===== BODY ===== */
+body{
+  min-height:100vh;
+  font-family: Inter, system-ui, sans-serif;
+  color:var(--text);
   background:
-    linear-gradient(
-      rgba(0,0,0,0.65),
-      rgba(0,0,0,0.65)
-    ),
-    url("img/fondo-optimizado.jpg") no-repeat center center fixed;
-  background-size: cover;
-  color: #fff;
+    radial-gradient(circle at 20% 10%, rgba(255,60,40,.25), transparent 55%),
+    linear-gradient(rgba(0,0,0,.72), rgba(0,0,0,.88)),
+    url("img/fondo-optimizado.jpg") center/cover no-repeat fixed;
 }
 
-/* overlay elegante para lectura */
-body::before{
-  content:"";
-  position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(70% 55% at 50% 18%, rgba(0,0,0,.10), rgba(0,0,0,.78)),
-    linear-gradient(to bottom, rgba(0,0,0,.25), rgba(0,0,0,.90)),
-    radial-gradient(40% 30% at 70% 35%, rgba(225,6,0,.18), rgba(225,6,0,0));
-  z-index: -1;
+/* ===== LAYOUT ===== */
+.wrap{
+  width:min(980px,92vw);
+  margin:0 auto;
+  padding:18px 0 40px;
 }
 
-/* centra todo */
-.container{
-  min-height: 100vh;
-  display: grid;
-  place-items: center;
-  padding: 28px 16px;
+/* ===== TOP BAR ===== */
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:14px;
 }
 
-/* card central */
+.lang-switch{
+  display:flex;
+  gap:6px;
+  background:rgba(0,0,0,.45);
+  border:1px solid var(--border);
+  padding:6px;
+  border-radius:999px;
+}
+
+.lang-switch button{
+  background:none;
+  border:none;
+  color:var(--muted);
+  font-weight:800;
+  padding:8px 12px;
+  border-radius:999px;
+}
+
+.lang-switch button.active{
+  background:#fff;
+  color:#000;
+}
+
+.top-actions{
+  display:flex;
+  gap:10px;
+}
+
+.btn-metal{
+  padding:12px 16px;
+  border-radius:14px;
+  text-decoration:none;
+  color:#fff;
+  font-weight:800;
+  background:rgba(10,10,14,.55);
+  border:1px solid var(--border);
+  box-shadow:0 12px 26px rgba(0,0,0,.45);
+}
+
+.btn-booking{
+  background:linear-gradient(180deg,var(--red),var(--red-dark));
+  box-shadow:0 0 26px rgba(255,30,45,.45);
+}
+
+/* ===== CARD ===== */
 .card{
-  width: min(460px, 92vw);
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 22px;
-  padding: 22px 18px 18px;
-  text-align: center;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 18px 60px rgba(0,0,0,.55);
+  background:var(--glass);
+  border:1px solid var(--border);
+  border-radius:26px;
+  padding:22px 18px 24px;
+  backdrop-filter:blur(10px);
+  box-shadow:0 30px 80px rgba(0,0,0,.65);
+}
+
+/* ===== BRAND ===== */
+.brand{
+  text-align:center;
 }
 
 .logo{
-  width: 200px;
-  height: auto;
-  display: block;
-  margin: 10px auto 16px;
-
-  filter: invert(1) brightness(2);
-  opacity: 0.95;
-
-  /* animaciones */
-  animation:
-    logoEnter 1.2s ease-out forwards,
-    logoPulse 4s ease-in-out infinite;
-}
-
-
-h1{
-  margin: 6px 0 6px;
-  font-size: 32px;
-  letter-spacing: .2px;
+  width:220px;
+  max-width:80%;
+  margin:6px auto 8px;
+  display:block;
+  filter:
+    drop-shadow(0 18px 28px rgba(0,0,0,.75))
+    drop-shadow(0 0 22px rgba(255,80,40,.18));
 }
 
 .tagline{
-  margin: 0 0 16px;
-  color: var(--muted);
-  font-weight: 500;
+  font-family:"Playfair Display", serif;
+  letter-spacing:2px;
+  font-size:14px;
+  margin:6px 0 2px;
 }
 
-/* botones elegantes y consistentes */
-.button{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
+.subtag{
+  font-size:13px;
+  color:var(--muted);
+  margin-bottom:14px;
+}
 
-  width: 100%;
-  margin: 14px 0;
-  padding: 16px 16px;
+/* ===== REEL VIDEO ===== */
+.reel-center{
+  display:grid;
+  place-items:center;
+  margin:16px 0;
+}
 
-  text-decoration: none;
-  color: #fff;
-  font-weight: 800;
-  letter-spacing: .3px;
-
-  border-radius: 14px;
-
-  /* Fondo rojo */
-  background: linear-gradient(180deg, #ff1a1a, #b00000);
-
-  /* BORDE METÁLICO */
-  border: 2px solid transparent;
-  background-clip: padding-box;
-
-  position: relative;
-
+.reel-container{
+  width:min(420px,92vw);
+  aspect-ratio:9/16;
+  border-radius:22px;
+  overflow:hidden;
+  background:#000;
+  border:1px solid var(--border);
   box-shadow:
-    0 10px 25px rgba(0,0,0,.45),
-    inset 0 1px 0 rgba(255,255,255,.25);
+    0 25px 60px rgba(0,0,0,.7),
+    0 0 40px rgba(255,30,45,.35);
 }
 
-.button:hover{ opacity:.97; transform: translateY(-1px); }
-.button:active{ transform: translateY(0) scale(.99); }
-
-.footer-note{
-  margin: 14px 0 0;
-  color: rgba(255,255,255,.78);
-  font-size: 13px;
-}
-/* Animación de entrada */
-@keyframes logoEnter {
-  0%{
-    opacity: 0;
-    transform: translateY(-20px) scale(0.95);
-  }
-  100%{
-    opacity: 0.95;
-    transform: translateY(0) scale(1);
-  }
+.reel-container iframe{
+  width:100%;
+  height:100%;
+  border:0;
+  display:block;
 }
 
-/* Animación suave continua (respiración) */
-@keyframes logoPulse {
-  0%, 100%{
-    transform: scale(1);
-  }
-  50%{
-    transform: scale(1.03);
-  }
-}
-.button::before{
-  content: "";
-  position: absolute;
-  inset: -2px;
-  border-radius: inherit;
-
-  /* EFECTO METAL */
-  background: linear-gradient(
-    135deg,
-    #f5f5f5,
-    #bfbfbf,
-    #6f6f6f,
-    #e5e5e5
-  );
-
-  z-index: -1;
-}
-.merch-item{
-  margin: 18px 0;
-  padding: 14px 12px;
-  border-radius: 14px;
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.12);
+/* ===== MENU BUTTONS ===== */
+.menu{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:14px;
 }
 
-.merch-item h3{
-  margin: 0 0 6px;
-  font-size: 18px;
-}
-
-.merch-item p{
-  margin: 0 0 10px;
-  opacity: .85;
-  font-size: 14px;
-}
-.booking-form{
-  text-align: left;
-  margin-top: 10px;
-}
-
-.field{
-  display: grid;
-  gap: 6px;
-  margin: 12px 0;
-}
-
-.field span{
-  font-size: 13px;
-  opacity: .85;
-}
-
-.field input,
-.field select,
-.field textarea{
-  width: 100%;
-  padding: 12px 12px;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,.14);
-  background: rgba(0,0,0,.30);
-  color: #fff;
-  outline: none;
-}
-
-.field input::placeholder,
-.field textarea::placeholder{
-  color: rgba(255,255,255,.55);
-}
-
-.field input:focus,
-.field select:focus,
-.field textarea:focus{
-  border-color: rgba(255,255,255,.28);
-}
-/* ===== FIX Merch Layout ===== */
-.container{
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 24px 14px;
-}
-
-.card{
-  width: min(560px, 100%);
-  margin: 0 auto;
-}
-
-/* Evita que alguna imagen rompa el layout */
-img{
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* ===== Galería mini deslizable (fotos pequeñas) ===== */
-.mini-slider{
-  width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  margin: 12px 0 6px;
-  padding-bottom: 6px;
-  scrollbar-width: none;
-}
-.mini-slider::-webkit-scrollbar{ display:none; }
-
-.mini-track{
-  display: flex;
-  gap: 12px;
-  padding: 0 2px;
-}
-
-.mini-track img{
-  width: 110px;
-  height: 110px;
-  object-fit: cover;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,.20);
-  box-shadow: 0 8px 18px rgba(0,0,0,.35);
-  flex: 0 0 auto;
-}
-
-/* Asegura que dentro de merch-item todo se vea ordenado */
-.merch-item{
-  overflow: hidden;
-}
-/* ===== BOTONES (FIX) ===== */
-.btn{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-
-  width: 100%;
-  max-width: 520px;
-  margin: 10px auto 0;
-
+.tile{
+  text-align:center;
+  padding:16px;
+  border-radius:16px;
   text-decoration:none;
-  font-weight: 800;
-  letter-spacing: .2px;
-
-  padding: 16px 16px;
-  border-radius: 14px;
-
-  color: #fff !important;
-  background: linear-gradient(180deg, #ff1a1a, #b60000);
-  border: 1px solid rgba(255,255,255,.18);
-
-  box-shadow: 0 10px 22px rgba(0,0,0,.40);
-  position: relative;
+  font-weight:800;
+  color:#fff;
+  background:rgba(10,10,14,.55);
+  border:1px solid var(--border);
+  box-shadow:0 14px 30px rgba(0,0,0,.45);
 }
 
-/* borde metálico */
-.btn::before{
-  content:"";
-  position:absolute;
-  inset:-2px;
-  border-radius: 16px;
-  background: linear-gradient(135deg,
-    rgba(255,255,255,.70),
-    rgba(255,255,255,.15),
-    rgba(255,255,255,.55)
-  );
-  opacity: .55;
-  z-index: -1;
+.tile:hover{
+  transform:translateY(-2px);
 }
 
-/* evita que iPhone lo pinte azul */
-.btn:visited{ color:#fff !important; }
-.btn:hover{ transform: translateY(-1px); }
-.btn:active{ transform: scale(.99); }
-
-/* ===== FORZAR CENTRADO DEL REEL ===== */
-.reel-center{
-  width: 100% !important;
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
+/* ===== FOOTER ===== */
+.footer{
+  text-align:center;
+  margin-top:18px;
+  font-size:13px;
+  color:var(--muted);
 }
 
-/* ===== VIDEO REEL 9:16 ===== */
-.reel-container{
-  width: min(420px, 92vw) !important;   /* centrado y responsive */
-  aspect-ratio: 9 / 16 !important;
-  margin: 22px auto !important;
-  border-radius: 22px !important;
-  overflow: hidden !important;
-  position: relative !important;
-
-  background: #000 !important;
-  border: 1px solid rgba(255,255,255,0.18) !important;
-  box-shadow:
-    0 25px 60px rgba(0,0,0,0.7),
-    0 0 40px rgba(255,30,45,0.35) !important;
+/* ===== RESPONSIVE ===== */
+@media(max-width:760px){
+  .menu{ grid-template-columns:1fr; }
 }
 
-.reel-container iframe{
-  width: 100% !important;
-  height: 100% !important;
-  border: none !important;
-  display: block !important;
-}
-.reel-center{
-  display: grid !important;
-  place-items: center !important;
-  width: 100% !important;
-}
 
-/* ===== REEL (VIDEO VERTICAL) ===== */
-.reel-center{
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 16px 0 14px;
-}
-
-.reel-container{
-  width: min(420px, 92vw);
-  aspect-ratio: 9 / 16;
-  border-radius: 22px;
-  overflow: hidden;
-  position: relative;
-  background: #000;
-  border: 1px solid rgba(255,255,255,0.18);
-  box-shadow:
-    0 25px 60px rgba(0,0,0,0.7),
-    0 0 40px rgba(255,30,45,0.35);
-}
-
-/* Iframe ocupa TODO el contenedor */
-.reel-container iframe{
-  width: 100%;
-  height: 100%;
-  border: 0;
-  display: block;
-}
