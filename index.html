@@ -1,46 +1,579 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fabry Orihuela</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fabry Orihuela | Home</title>
 
-  <!-- CSS principal -->
-  <link rel="stylesheet" href="styles.css?v=2000">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#07070b;
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.75);
+
+      --stroke: rgba(255,255,255,.18);
+      --glass: rgba(10,10,14,.55);
+
+      --silver1: rgba(255,255,255,.98);
+      --silver2: rgba(255,255,255,.70);
+      --silver3: rgba(255,255,255,.40);
+
+      --ember1: rgba(255,120,40,.65);
+      --ember2: rgba(255,70,0,.25);
+
+      --radius: 26px;
+      --shadow: 0 20px 55px rgba(0,0,0,.55);
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      min-height:100vh;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(255,140,60,.12), transparent 55%),
+        radial-gradient(circle at 90% 40%, rgba(255,255,255,.08), transparent 55%),
+        linear-gradient(rgba(0,0,0,.68), rgba(0,0,0,.80)),
+        url("img/fondo-optimizado.jpg") center/cover no-repeat fixed;
+    }
+
+    .wrap{
+      width:min(980px, 92vw);
+      margin: 0 auto;
+      padding: 18px 0 40px;
+    }
+
+    /* ===== Topbar ===== */
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom: 14px;
+    }
+
+    .lang-switch{
+      display:inline-flex;
+      align-items:center;
+      padding: 6px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: rgba(10,10,14,.45);
+      box-shadow: 0 12px 24px rgba(0,0,0,.35);
+      user-select:none;
+    }
+    .lang-switch button{
+      border:0;
+      background:transparent;
+      color: var(--muted);
+      font-weight: 900;
+      padding: 10px 14px;
+      border-radius: 999px;
+      cursor:pointer;
+      letter-spacing:.6px;
+      transition: background .15s ease, color .15s ease, transform .15s ease;
+    }
+    .lang-switch button:hover{ transform: translateY(-1px); }
+    .lang-switch button.active{
+      color:#0b0b10;
+      background: linear-gradient(180deg, var(--silver1), var(--silver3));
+      box-shadow: 0 10px 18px rgba(0,0,0,.25);
+    }
+
+    .top-actions{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .btn-metal{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 11px 16px;
+      border-radius: 14px;
+      text-decoration:none;
+      font-weight: 900;
+      letter-spacing: .3px;
+      color: rgba(255,255,255,.92);
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(10,10,14,.55);
+      box-shadow: 0 16px 30px rgba(0,0,0,.35);
+      position:relative;
+      overflow:hidden;
+      transition: transform .15s ease, filter .15s ease;
+      white-space:nowrap;
+    }
+    .btn-metal:hover{ transform: translateY(-1px); filter: brightness(1.06); }
+
+    .btn-metal::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(255,255,255,.22), transparent 50%),
+        radial-gradient(circle at 90% 40%, rgba(255,120,40,.18), transparent 55%),
+        linear-gradient(90deg, rgba(255,255,255,.10), rgba(255,255,255,0));
+      opacity:.85;
+      pointer-events:none;
+    }
+    .btn-metal span{ position:relative; z-index:1; }
+
+    /* Booking destacado */
+    .btn-booking{
+      border: 1px solid rgba(255,255,255,.22);
+      background: linear-gradient(180deg, rgba(255,60,60,.32), rgba(10,10,14,.55));
+      box-shadow:
+        0 18px 36px rgba(0,0,0,.40),
+        0 0 26px rgba(255,90,30,.20);
+    }
+
+    /* ===== Card principal ===== */
+    .card{
+      background: rgba(10,10,14,.55);
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius);
+      padding: 22px 18px 22px;
+      overflow:hidden;
+      position:relative;
+    }
+
+    .card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(255,140,60,.20), transparent 45%),
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,.08), transparent 50%);
+      opacity:.85;
+    }
+
+    .brand{
+      position:relative;
+      z-index:1;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      text-align:center;
+      gap:10px;
+      padding-top: 4px;
+    }
+
+    .logo{
+      width: 210px;
+      max-width: 75%;
+      height:auto;
+      filter: drop-shadow(0 18px 26px rgba(0,0,0,.65));
+      animation: floatIn .85s ease both;
+    }
+
+    .name{
+      margin:0;
+      font-family:"Playfair Display", serif;
+      font-weight: 600;
+      letter-spacing:.6px;
+      font-size: clamp(30px, 4vw, 46px);
+      text-shadow: 0 12px 30px rgba(0,0,0,.55);
+    }
+
+    .tagline{
+      margin: 4px 0 0;
+      color: rgba(255,255,255,.88);
+      font-size: 14px;
+      letter-spacing: 2.3px;
+      text-transform: uppercase;
+    }
+
+    .subtag{
+      margin: 0;
+      color: rgba(255,255,255,.78);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    /* ===== Video frame ===== */
+    .video-wrap{
+      position:relative;
+      z-index:1;
+      margin: 16px auto 14px;
+      width: min(760px, 100%);
+      border-radius: 22px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.35);
+      box-shadow: 0 22px 55px rgba(0,0,0,.55);
+      transform: translateY(14px);
+      opacity: 0;
+      animation: riseIn .9s ease .15s forwards;
+    }
+
+    .video-wrap::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        linear-gradient(90deg, rgba(255,120,40,.35), rgba(255,255,255,.10), rgba(255,120,40,.25));
+      filter: blur(10px);
+      opacity: .55;
+      pointer-events:none;
+    }
+
+    .video-inner{
+      position:relative;
+      border-radius: 20px;
+      overflow:hidden;
+    }
+
+    .video-inner iframe{
+      width:100%;
+      aspect-ratio: 16/9;
+      border:0;
+      display:block;
+      background:#000;
+    }
+
+    .video-controls{
+      position:absolute;
+      top: 12px;
+      right: 12px;
+      z-index:2;
+      display:flex;
+      gap:10px;
+    }
+
+    .mini-btn{
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(10,10,14,.55);
+      color: rgba(255,255,255,.92);
+      font-weight: 900;
+      padding: 10px 12px;
+      border-radius: 14px;
+      cursor:pointer;
+      box-shadow: 0 12px 20px rgba(0,0,0,.35);
+      transition: transform .15s ease, filter .15s ease;
+      user-select:none;
+    }
+    .mini-btn:hover{ transform: translateY(-1px); filter: brightness(1.06); }
+
+    /* ===== Botones debajo del video ===== */
+    .menu{
+      position:relative;
+      z-index:1;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .tile{
+      text-decoration:none;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding: 16px 16px;
+      border-radius: 18px;
+      background: rgba(10,10,14,.45);
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow: 0 14px 28px rgba(0,0,0,.40);
+      transition: transform .15s ease, filter .15s ease;
+      overflow:hidden;
+      position:relative;
+    }
+    .tile:hover{ transform: translateY(-2px); filter: brightness(1.05); }
+
+    .tile::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,140,60,.14), transparent 55%),
+        linear-gradient(90deg, rgba(255,255,255,.06), rgba(255,255,255,0));
+      pointer-events:none;
+    }
+
+    .tile-left{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
+      position:relative;
+      z-index:1;
+    }
+
+    .badge{
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display:grid;
+      place-items:center;
+      font-size: 20px;
+      color:#0b0b10;
+      background: linear-gradient(180deg, var(--silver1), var(--silver3));
+      border: 1px solid rgba(255,255,255,.25);
+      box-shadow: 0 12px 18px rgba(0,0,0,.25);
+      flex: 0 0 auto;
+    }
+
+    .tile-title{
+      font-weight: 900;
+      font-size: 16px;
+      color: rgba(255,255,255,.95);
+      white-space: nowrap;
+      overflow:hidden;
+      text-overflow: ellipsis;
+    }
+
+    .tile-sub{
+      margin-top: 2px;
+      font-size: 12.8px;
+      color: rgba(255,255,255,.72);
+      white-space: nowrap;
+      overflow:hidden;
+      text-overflow: ellipsis;
+    }
+
+    .chev{
+      position:relative;
+      z-index:1;
+      color: rgba(255,255,255,.65);
+      font-weight: 900;
+      font-size: 18px;
+      flex: 0 0 auto;
+    }
+
+    .foot{
+      position:relative;
+      z-index:1;
+      margin-top: 16px;
+      text-align:center;
+      color: rgba(255,255,255,.72);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    /* Responsive */
+    @media (max-width: 760px){
+      .menu{ grid-template-columns: 1fr; }
+      .logo{ width: 185px; }
+      .video-inner iframe{ aspect-ratio: 9/16; }
+      .topbar{ align-items:flex-start; }
+      .top-actions{ justify-content:flex-end; }
+    }
+
+    @keyframes riseIn{ to{ transform: translateY(0); opacity:1; } }
+    @keyframes floatIn{ from{ transform: translateY(10px); opacity:0; } to{ transform: translateY(0); opacity:1; } }
+  </style>
 </head>
 
 <body>
+  <div class="wrap">
+    <!-- TOP BAR: idioma + booking + social -->
+    <div class="topbar">
+      <div class="lang-switch" aria-label="Language switch">
+        <button id="btnES" class="active" type="button">🇪🇸 ES</button>
+        <button id="btnEN" type="button">🇺🇸 EN</button>
+      </div>
 
-  <div class="container">
+      <div class="top-actions">
+        <!-- BOOKING arriba y destacado -->
+        <a class="btn-metal btn-booking" id="bookingTop" href="booking.html">
+          <span>✉️ <span id="txtBookingTop">Booking</span></span>
+        </a>
+
+        <!-- SOCIAL MEDIA -->
+        <a class="btn-metal" id="socialTop" href="redes.html">
+          <span>📱 <span id="txtSocialTop">Social Media</span></span>
+        </a>
+      </div>
+    </div>
+
     <div class="card">
+      <div class="brand">
+        <img class="logo" src="img/logo.png" alt="Fabry Orihuela Logo">
 
-      <!-- LOGO -->
-      <img src="img/logo.png" alt="Fabry Orihuela" class="logo">
+        <h1 class="name">Fabry Orihuela</h1>
 
-      <!-- NOMBRE -->
-      <h1>Fabry Orihuela</h1>
-      <p class="tagline">Cantante / Guitarrista • Live Music</p>
+        <!-- Tu texto principal (como pediste) -->
+        <p class="tagline" id="taglineTop">Latin Music · Pop · Rock · Ballads</p>
 
-      <!-- BOTONES -->
-      <a href="canciones.html" class="button">🎶 Pedir canción en vivo</a>
+        <!-- Si quieres una segunda línea más “booking internacional” -->
+        <p class="subtag" id="subtagTop">Solo, Trio or Band Performance</p>
+      </div>
 
-      <a href="shows.html" class="button">🎤 Calendario de Shows</a>
+      <!-- VIDEO -->
+      <div class="video-wrap">
+        <div class="video-controls">
+          <button class="mini-btn" id="muteBtn" type="button">🔇 Mute</button>
+        </div>
 
-      <a href="merch.html" class="button">🛍️ Merchandising</a>
+        <div class="video-inner">
+          <iframe
+            id="welcomeVideo"
+            src="https://www.youtube.com/embed/jSR1ZkBSNHw?rel=0&modestbranding=1&playsinline=1&mute=1"
+            title="Fabry Orihuela - Welcome"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
 
-      <a class="btn" href="musica.html">💿 Música / Contenido Digital</a>
+      <!-- BOTONES debajo del video: Merch / Escucha mi música / Pedir canción en vivo -->
+      <div class="menu">
+        <a class="tile" href="merch.html" id="btnMerch">
+          <div class="tile-left">
+            <div class="badge">🛍️</div>
+            <div style="min-width:0;">
+              <div class="tile-title" id="merchTitle">Merch</div>
+              <div class="tile-sub" id="merchSub">Camisetas, flash drives</div>
+            </div>
+          </div>
+          <div class="chev">›</div>
+        </a>
 
-      <a href="propina.html" class="button">💵 Propina</a>
+        <a class="tile" href="musica.html" id="btnMusic">
+          <div class="tile-left">
+            <div class="badge">🎧</div>
+            <div style="min-width:0;">
+              <div class="tile-title" id="musicTitle">Escucha mi música</div>
+              <div class="tile-sub" id="musicSub">Spotify • Apple Music</div>
+            </div>
+          </div>
+          <div class="chev">›</div>
+        </a>
 
-      <a href="redes.html" class="button">📱 Sígueme en mis redes</a>
+        <a class="tile" href="canciones.html" id="btnSong">
+          <div class="tile-left">
+            <div class="badge">🎶</div>
+            <div style="min-width:0;">
+              <div class="tile-title" id="songTitle">Pedir canción en vivo</div>
+              <div class="tile-sub" id="songSub">Request a song</div>
+            </div>
+          </div>
+          <div class="chev">›</div>
+        </a>
+      </div>
 
-      <a href="booking.html" class="button">📅 Booking</a>
-      
-      <!-- TEXTO FINAL -->
-      <p class="footer-note">Contratos para todo tipo de eventos</p>
-
+      <div class="foot" id="footerText">
+        Available for: Bars • Private Events • Weddings <br>
+        Based in PA • Travel available • Response time: 24–48h
+      </div>
     </div>
   </div>
 
+  <script>
+    // ===== VIDEO MUTE/UNMUTE (simple y fiable en iPhone: recarga iframe con mute=0/1) =====
+    const iframe = document.getElementById("welcomeVideo");
+    const muteBtn = document.getElementById("muteBtn");
+    let isMuted = true;
+
+    function setVideoMute(mute){
+      const base = "https://www.youtube.com/embed/jSR1ZkBSNHw";
+      const params = new URLSearchParams({
+        rel: "0",
+        modestbranding: "1",
+        playsinline: "1",
+        mute: mute ? "1" : "0"
+      });
+      iframe.src = `${base}?${params.toString()}`;
+    }
+
+    muteBtn.addEventListener("click", () => {
+      isMuted = !isMuted;
+      setVideoMute(isMuted);
+      applyLang(currentLang);
+    });
+
+    // ===== i18n ES/EN =====
+    const t = {
+      es: {
+        title: "Fabry Orihuela | Inicio",
+        booking: "Booking",
+        social: "Redes",
+        tagline: "Latin Music · Pop · Rock · Ballads",
+        subtag: "Solo, Trío o Banda",
+        merchTitle: "Merch",
+        merchSub: "Camisetas, flash drives",
+        musicTitle: "Escucha mi música",
+        musicSub: "Spotify • Apple Music",
+        songTitle: "Pedir canción en vivo",
+        songSub: "Request a song",
+        mute: "🔇 Mute",
+        sound: "🔊 Sonido",
+        footer: "Disponible para: Bares • Eventos privados • Bodas<br>Base en PA • Viajo • Respuesta: 24–48h"
+      },
+      en: {
+        title: "Fabry Orihuela | Home",
+        booking: "Booking",
+        social: "Social Media",
+        tagline: "Latin Music · Pop · Rock · Ballads",
+        subtag: "Solo, Trio or Band Performance",
+        merchTitle: "Merch",
+        merchSub: "Shirts, flash drives",
+        musicTitle: "Listen to my music",
+        musicSub: "Spotify • Apple Music",
+        songTitle: "Request a live song",
+        songSub: "Pedir canción",
+        mute: "🔇 Mute",
+        sound: "🔊 Sound",
+        footer: "Available for: Bars • Private Events • Weddings<br>Based in PA • Travel available • Response time: 24–48h"
+      }
+    };
+
+    let currentLang = "en"; // Por defecto EN (como tu ejemplo)
+    const btnES = document.getElementById("btnES");
+    const btnEN = document.getElementById("btnEN");
+
+    function applyLang(lang){
+      const L = t[lang];
+      document.title = L.title;
+
+      document.getElementById("txtBookingTop").textContent = L.booking;
+      document.getElementById("txtSocialTop").textContent = L.social;
+
+      document.getElementById("taglineTop").textContent = L.tagline;
+      document.getElementById("subtagTop").textContent = L.subtag;
+
+      document.getElementById("merchTitle").textContent = L.merchTitle;
+      document.getElementById("merchSub").textContent = L.merchSub;
+
+      document.getElementById("musicTitle").textContent = L.musicTitle;
+      document.getElementById("musicSub").textContent = L.musicSub;
+
+      document.getElementById("songTitle").textContent = L.songTitle;
+      document.getElementById("songSub").textContent = L.songSub;
+
+      document.getElementById("footerText").innerHTML = L.footer;
+
+      muteBtn.textContent = isMuted ? L.mute : L.sound;
+
+      if(lang === "es"){
+        btnES.classList.add("active");
+        btnEN.classList.remove("active");
+        document.documentElement.lang = "es";
+      } else {
+        btnEN.classList.add("active");
+        btnES.classList.remove("active");
+        document.documentElement.lang = "en";
+      }
+    }
+
+    btnES.addEventListener("click", () => { currentLang = "es"; applyLang(currentLang); });
+    btnEN.addEventListener("click", () => { currentLang = "en"; applyLang(currentLang); });
+
+    // Inicial
+    applyLang(currentLang);
+  </script>
 </body>
 </html>
