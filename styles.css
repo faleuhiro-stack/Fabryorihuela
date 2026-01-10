@@ -347,5 +347,7 @@ img{
   display: block !important;
 }
 .reel-center{
-  background: rgba(0,255,0,.15);
+  display: grid !important;
+  place-items: center !important;
+  width: 100% !important;
 }
