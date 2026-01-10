@@ -163,6 +163,17 @@ btnEN.onclick=()=>setLang("en");
       box.style.transform = "translateY(0)";
     });
   })();
+</script><script>
+  (function(){
+    const booking = document.getElementById("bookingTop");
+    if(!booking) return;
+
+    booking.style.animation = "none";
+
+    setTimeout(() => {
+      booking.style.animation = "bookingIdle 3.5s ease-in-out infinite";
+    }, 1400); // espera a que termine el zoom del video
+  })();
 </script>
 </body>
 </html>
