@@ -1241,3 +1241,34 @@ a:focus,
 button:focus{
   outline: none !important;
 }
+/* =============================== */
+/* BOOKING BUTTON – RED SOLID CLEAN */
+/* =============================== */
+
+#bookingTop,
+.btn-booking{
+  background: #d90000 !important;          /* rojo sólido */
+  color: #ffffff !important;
+  border: 1px solid #a80000 !important;    /* borde rojo simple */
+  box-shadow: none !important;             /* sin glow */
+  background-image: none !important;       /* sin metal */
+  transition: none !important;             /* sin animaciones */
+}
+
+/* Quita cualquier pseudo-elemento metálico */
+#bookingTop::before,
+#bookingTop::after,
+.btn-booking::before,
+.btn-booking::after{
+  display: none !important;
+  content: none !important;
+}
+
+/* ===== ESTADO PRESIONADO (GRIS) ===== */
+#bookingTop:active,
+.btn-booking:active{
+  background: #bfbfbf !important;          /* gris */
+  color: #111 !important;
+  border-color: #9a9a9a !important;
+  transform: none !important;
+}
