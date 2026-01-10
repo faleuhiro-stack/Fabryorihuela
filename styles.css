@@ -1414,3 +1414,121 @@ button:focus{
 .chev{
   display: none;
 }
+/* =========================
+   TILES (Merch / Music / Request)
+   Icono a la izquierda + texto alineado
+   ========================= */
+
+.menu{
+  width: 100%;
+  display: grid;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+/* Tile clickable */
+.tile{
+  width: 100%;
+  text-decoration: none !important;  /* quita subrayado */
+  color: inherit;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 16px 18px;
+  border-radius: 22px;
+
+  background: rgba(10,10,14,.55);
+  border: 1px solid rgba(255,255,255,.16);
+  box-shadow: 0 18px 40px rgba(0,0,0,.40);
+
+  position: relative;
+  overflow: hidden;
+}
+
+/* brillo suave */
+.tile::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 18% 35%, rgba(255,255,255,.08), transparent 55%),
+    radial-gradient(circle at 85% 30%, rgba(255,60,60,.10), transparent 60%);
+  opacity: .9;
+}
+
+.tile-left{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* Icono */
+.badge{
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+
+  background: rgba(255,255,255,.10);
+  border: 1px solid rgba(255,255,255,.20);
+  box-shadow: 0 10px 18px rgba(0,0,0,.25);
+
+  font-size: 22px;
+}
+
+/* Texto */
+.tile-text{
+  min-width: 0;
+  text-align: left; /* << clave */
+}
+
+.tile-title{
+  font-weight: 900;
+  font-size: 16px;
+  color: rgba(255,255,255,.95);
+  line-height: 1.15;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-decoration: none !important; /* quita subrayado */
+}
+
+.tile-sub{
+  margin-top: 4px;
+  font-size: 13px;
+  color: rgba(255,255,255,.70);
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-decoration: none !important; /* quita subrayado */
+}
+
+/* Flecha derecha */
+.chev{
+  position: relative;
+  z-index: 1;
+  font-size: 20px;
+  font-weight: 900;
+  color: rgba(255,255,255,.55);
+  flex: 0 0 auto;
+}
+
+/* hover solo escritorio (no molesta móvil) */
+@media (hover:hover){
+  .tile:hover{ filter: brightness(1.05); }
+}
+
+/* MOBILE: igual */
+@media (max-width: 760px){
+  .badge{ width: 52px; height: 52px; }
+}
