@@ -183,4 +183,11 @@ body{
   .menu{ grid-template-columns:1fr; }
 }
 
-
+/* ===== FIX ROJO BOOKING ===== */
+.btn-metal.btn-booking{
+  background: linear-gradient(180deg, #ff1a1a, #b00000) !important;
+  border: 1px solid rgba(255,255,255,.22) !important;
+  box-shadow:
+    0 0 28px rgba(255,26,26,.55),
+    0 14px 36px rgba(0,0,0,.45) !important;
+}
