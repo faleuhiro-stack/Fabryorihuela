@@ -2,412 +2,578 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Fabry Orihuela | Live Music</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fabry Orihuela | Home</title>
 
-  <!-- Fuentes bohemias/elegantes -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --red:#ff1e2d;                 /* rojo intenso */
-      --redGlow: rgba(255,30,45,.45);
-      --amberGlow: rgba(255,140,60,.35);
-      --glass: rgba(10,10,14,.55);
+      --bg:#07070b;
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.75);
+
       --stroke: rgba(255,255,255,.18);
-      --textSoft: rgba(255,255,255,.82);
+      --glass: rgba(10,10,14,.55);
+
+      --silver1: rgba(255,255,255,.98);
+      --silver2: rgba(255,255,255,.70);
+      --silver3: rgba(255,255,255,.40);
+
+      --ember1: rgba(255,120,40,.65);
+      --ember2: rgba(255,70,0,.25);
+
+      --radius: 26px;
+      --shadow: 0 20px 55px rgba(0,0,0,.55);
     }
 
-    *{box-sizing:border-box;}
+    *{box-sizing:border-box}
     body{
       margin:0;
-      color:#fff;
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
       min-height:100vh;
-
-      /* Fondo estilo cinematic (embers) + tu foto */
       background:
-        radial-gradient(circle at 20% 10%, rgba(255,80,40,.22), transparent 55%),
-        radial-gradient(circle at 80% 25%, rgba(255,30,45,.18), transparent 55%),
-        radial-gradient(circle at 60% 80%, rgba(255,160,60,.12), transparent 65%),
-        linear-gradient(rgba(0,0,0,.72), rgba(0,0,0,.88)),
+        radial-gradient(circle at 20% 10%, rgba(255,140,60,.12), transparent 55%),
+        radial-gradient(circle at 90% 40%, rgba(255,255,255,.08), transparent 55%),
+        linear-gradient(rgba(0,0,0,.68), rgba(0,0,0,.80)),
         url("img/fondo-optimizado.jpg") center/cover no-repeat fixed;
     }
 
-    /* Si tu fondo se llama distinto, cambia la línea anterior a:
-       url("img/fondo.jpg") */
-
     .wrap{
-      width:min(980px, 94vw);
-      margin: 18px auto 28px;
+      width:min(980px, 92vw);
+      margin: 0 auto;
+      padding: 18px 0 40px;
     }
 
-    /* Barra superior */
+    /* ===== Topbar ===== */
     .topbar{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:10px;
-      padding:10px 12px;
-      border:1px solid var(--stroke);
-      border-radius:16px;
-      background: rgba(0,0,0,.35);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 22px 55px rgba(0,0,0,.55);
+      gap:12px;
+      margin-bottom: 14px;
     }
 
-    .top-left, .top-right{
+    .lang-switch{
+      display:inline-flex;
+      align-items:center;
+      padding: 6px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: rgba(10,10,14,.45);
+      box-shadow: 0 12px 24px rgba(0,0,0,.35);
+      user-select:none;
+    }
+    .lang-switch button{
+      border:0;
+      background:transparent;
+      color: var(--muted);
+      font-weight: 900;
+      padding: 10px 14px;
+      border-radius: 999px;
+      cursor:pointer;
+      letter-spacing:.6px;
+      transition: background .15s ease, color .15s ease, transform .15s ease;
+    }
+    .lang-switch button:hover{ transform: translateY(-1px); }
+    .lang-switch button.active{
+      color:#0b0b10;
+      background: linear-gradient(180deg, var(--silver1), var(--silver3));
+      box-shadow: 0 10px 18px rgba(0,0,0,.25);
+    }
+
+    .top-actions{
       display:flex;
       gap:10px;
       align-items:center;
       flex-wrap:wrap;
+      justify-content:flex-end;
     }
 
-    .pill{
+    .btn-metal{
       display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:10px 12px;
-      border-radius:14px;
-      text-decoration:none;
-      color:#fff;
-      border:1px solid rgba(255,255,255,.20);
-      background: rgba(10,10,14,.55);
-      box-shadow: 0 12px 26px rgba(0,0,0,.40);
-      font-weight:600;
-      cursor:pointer;
-      user-select:none;
-    }
-
-    .pill:hover{ transform: translateY(-1px); }
-    .pill:active{ transform: translateY(0px); }
-
-    .pill-booking{
-      background: linear-gradient(180deg, rgba(255,30,45,.60), rgba(10,10,14,.55));
-      box-shadow:
-        0 16px 40px rgba(0,0,0,.45),
-        0 0 26px var(--redGlow);
-    }
-
-    .pill-lang{
-      background: linear-gradient(180deg, rgba(255,255,255,.20), rgba(10,10,14,.55));
-    }
-
-    .badge{
-      width:10px;height:10px;border-radius:50%;
-      background: var(--red);
-      box-shadow: 0 0 18px var(--redGlow);
-    }
-
-    /* Card principal */
-    .card{
-      margin-top:14px;
-      padding:22px 18px;
-      border-radius:22px;
-      border:1px solid var(--stroke);
-      background: var(--glass);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 30px 80px rgba(0,0,0,.65);
-      position:relative;
-      overflow:hidden;
-    }
-
-    .card::before{
-      content:"";
-      position:absolute;
-      inset:-2px;
-      background: linear-gradient(90deg,
-        rgba(255,120,40,.55),
-        rgba(255,255,255,.12),
-        rgba(255,30,45,.35)
-      );
-      filter: blur(14px);
-      opacity:.55;
-      pointer-events:none;
-    }
-
-    .hero{
-      position:relative;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      padding: 12px 8px 6px;
-    }
-
-    .logo{
-      width: min(360px, 78vw);
-      height:auto;
-      margin: 6px auto 10px;
-      /* look "pro": sombra + brillo */
-      filter:
-        drop-shadow(0 18px 30px rgba(0,0,0,.75))
-        drop-shadow(0 0 18px rgba(255,255,255,.10))
-        drop-shadow(0 0 24px rgba(255,140,60,.16));
-      animation: logoFloat 4.8s ease-in-out infinite;
-    }
-
-    @keyframes logoFloat{
-      0%,100%{ transform: translateY(0px); }
-      50%{ transform: translateY(-6px); }
-    }
-
-    .desc{
-      position:relative;
-      color: rgba(255,255,255,.90);
-      font-family: "Playfair Display", serif;
-      font-size: clamp(16px, 2.2vw, 22px);
-      letter-spacing:.3px;
-      margin: 6px 0 2px;
-      text-shadow: 0 16px 36px rgba(0,0,0,.65);
-    }
-
-    .subdesc{
-      position:relative;
-      color: var(--textSoft);
-      font-size: 14px;
-      margin: 6px 0 14px;
-    }
-
-    /* Video */
-    .video-wrap{
-      position:relative;
-      margin: 12px auto 14px;
-      width: min(860px, 100%);
-      border-radius: 22px;
-      border:1px solid rgba(255,255,255,.18);
-      overflow:hidden;
-      background: rgba(0,0,0,.35);
-      box-shadow:
-        0 30px 80px rgba(0,0,0,.70),
-        0 0 40px rgba(255,90,30,.22);
-      transform: translateY(16px);
-      opacity: 0;
-      animation: videoIn .9s ease-out .2s forwards;
-    }
-
-    @keyframes videoIn{
-      to{ transform: translateY(0px); opacity: 1; }
-    }
-
-    .video-inner{
-      aspect-ratio: 16/9;
-      width:100%;
-      display:block;
-    }
-
-    /* Botones debajo del video */
-    .grid3{
-      position:relative;
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin: 14px auto 10px;
-      width: min(860px, 100%);
-    }
-
-    @media (max-width: 720px){
-      .grid3{ grid-template-columns: 1fr; }
-    }
-
-    .tile{
-      display:flex;
       align-items:center;
       justify-content:center;
       gap:10px;
-      padding: 14px 14px;
-      border-radius: 16px;
+      padding: 11px 16px;
+      border-radius: 14px;
       text-decoration:none;
-      color:#fff;
-      font-weight:700;
-      border:1px solid rgba(255,255,255,.20);
-      background: rgba(10,10,14,.58);
-      box-shadow: 0 18px 40px rgba(0,0,0,.45);
+      font-weight: 900;
+      letter-spacing: .3px;
+      color: rgba(255,255,255,.92);
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(10,10,14,.55);
+      box-shadow: 0 16px 30px rgba(0,0,0,.35);
       position:relative;
       overflow:hidden;
+      transition: transform .15s ease, filter .15s ease;
+      white-space:nowrap;
     }
+    .btn-metal:hover{ transform: translateY(-1px); filter: brightness(1.06); }
+
+    .btn-metal::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(255,255,255,.22), transparent 50%),
+        radial-gradient(circle at 90% 40%, rgba(255,120,40,.18), transparent 55%),
+        linear-gradient(90deg, rgba(255,255,255,.10), rgba(255,255,255,0));
+      opacity:.85;
+      pointer-events:none;
+    }
+    .btn-metal span{ position:relative; z-index:1; }
+
+    /* Booking destacado */
+    .btn-booking{
+      border: 1px solid rgba(255,255,255,.22);
+      background: linear-gradient(180deg, rgba(255,60,60,.32), rgba(10,10,14,.55));
+      box-shadow:
+        0 18px 36px rgba(0,0,0,.40),
+        0 0 26px rgba(255,90,30,.20);
+    }
+
+    /* ===== Card principal ===== */
+    .card{
+      background: rgba(10,10,14,.55);
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius);
+      padding: 22px 18px 22px;
+      overflow:hidden;
+      position:relative;
+    }
+
+    .card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(255,140,60,.20), transparent 45%),
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,.08), transparent 50%);
+      opacity:.85;
+    }
+
+    .brand{
+      position:relative;
+      z-index:1;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      text-align:center;
+      gap:10px;
+      padding-top: 4px;
+    }
+
+    .logo{
+      width: 210px;
+      max-width: 75%;
+      height:auto;
+      filter: drop-shadow(0 18px 26px rgba(0,0,0,.65));
+      animation: floatIn .85s ease both;
+    }
+
+    .name{
+      margin:0;
+      font-family:"Playfair Display", serif;
+      font-weight: 600;
+      letter-spacing:.6px;
+      font-size: clamp(30px, 4vw, 46px);
+      text-shadow: 0 12px 30px rgba(0,0,0,.55);
+    }
+
+    .tagline{
+      margin: 4px 0 0;
+      color: rgba(255,255,255,.88);
+      font-size: 14px;
+      letter-spacing: 2.3px;
+      text-transform: uppercase;
+    }
+
+    .subtag{
+      margin: 0;
+      color: rgba(255,255,255,.78);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    /* ===== Video frame ===== */
+    .video-wrap{
+      position:relative;
+      z-index:1;
+      margin: 16px auto 14px;
+      width: min(760px, 100%);
+      border-radius: 22px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.35);
+      box-shadow: 0 22px 55px rgba(0,0,0,.55);
+      transform: translateY(14px);
+      opacity: 0;
+      animation: riseIn .9s ease .15s forwards;
+    }
+
+    .video-wrap::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        linear-gradient(90deg, rgba(255,120,40,.35), rgba(255,255,255,.10), rgba(255,120,40,.25));
+      filter: blur(10px);
+      opacity: .55;
+      pointer-events:none;
+    }
+
+    .video-inner{
+      position:relative;
+      border-radius: 20px;
+      overflow:hidden;
+    }
+
+    .video-inner iframe{
+      width:100%;
+      aspect-ratio: 16/9;
+      border:0;
+      display:block;
+      background:#000;
+    }
+
+    .video-controls{
+      position:absolute;
+      top: 12px;
+      right: 12px;
+      z-index:2;
+      display:flex;
+      gap:10px;
+    }
+
+    .mini-btn{
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(10,10,14,.55);
+      color: rgba(255,255,255,.92);
+      font-weight: 900;
+      padding: 10px 12px;
+      border-radius: 14px;
+      cursor:pointer;
+      box-shadow: 0 12px 20px rgba(0,0,0,.35);
+      transition: transform .15s ease, filter .15s ease;
+      user-select:none;
+    }
+    .mini-btn:hover{ transform: translateY(-1px); filter: brightness(1.06); }
+
+    /* ===== Botones debajo del video ===== */
+    .menu{
+      position:relative;
+      z-index:1;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .tile{
+      text-decoration:none;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding: 16px 16px;
+      border-radius: 18px;
+      background: rgba(10,10,14,.45);
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow: 0 14px 28px rgba(0,0,0,.40);
+      transition: transform .15s ease, filter .15s ease;
+      overflow:hidden;
+      position:relative;
+    }
+    .tile:hover{ transform: translateY(-2px); filter: brightness(1.05); }
 
     .tile::after{
       content:"";
       position:absolute;
-      inset:-40%;
-      background: radial-gradient(circle, rgba(255,30,45,.22), transparent 60%);
-      transform: rotate(12deg);
-      opacity:.55;
+      inset:0;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,140,60,.14), transparent 55%),
+        linear-gradient(90deg, rgba(255,255,255,.06), rgba(255,255,255,0));
       pointer-events:none;
     }
 
-    .tile:hover{
-      transform: translateY(-2px);
-      box-shadow:
-        0 22px 50px rgba(0,0,0,.52),
-        0 0 22px rgba(255,30,45,.18);
-    }
-    .tile:active{ transform: translateY(0px); }
-
-    /* CTA WhatsApp */
-    .cta{
-      position:relative;
-      margin: 14px auto 6px;
-      width: min(860px, 100%);
+    .tile-left{
       display:flex;
-      justify-content:center;
+      align-items:center;
+      gap:12px;
+      min-width:0;
+      position:relative;
+      z-index:1;
     }
 
-    .cta a{
-      width:100%;
-      text-align:center;
-      padding: 16px 18px;
-      border-radius: 18px;
-      text-decoration:none;
-      color:#fff;
-      font-weight:800;
-      background: linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.60));
-      border: 1px solid rgba(255,255,255,.20);
-      box-shadow:
-        0 22px 55px rgba(0,0,0,.55),
-        0 0 26px var(--amberGlow);
-    }
-
-    .cta a span{
-      display:inline-block;
-      padding: 8px 14px;
+    .badge{
+      width: 44px;
+      height: 44px;
       border-radius: 14px;
-      background: linear-gradient(180deg, rgba(255,30,45,.55), rgba(10,10,14,.55));
-      border: 1px solid rgba(255,255,255,.20);
-      box-shadow: 0 0 24px var(--redGlow);
+      display:grid;
+      place-items:center;
+      font-size: 20px;
+      color:#0b0b10;
+      background: linear-gradient(180deg, var(--silver1), var(--silver3));
+      border: 1px solid rgba(255,255,255,.25);
+      box-shadow: 0 12px 18px rgba(0,0,0,.25);
+      flex: 0 0 auto;
     }
 
-    .footer{
+    .tile-title{
+      font-weight: 900;
+      font-size: 16px;
+      color: rgba(255,255,255,.95);
+      white-space: nowrap;
+      overflow:hidden;
+      text-overflow: ellipsis;
+    }
+
+    .tile-sub{
+      margin-top: 2px;
+      font-size: 12.8px;
+      color: rgba(255,255,255,.72);
+      white-space: nowrap;
+      overflow:hidden;
+      text-overflow: ellipsis;
+    }
+
+    .chev{
+      position:relative;
+      z-index:1;
+      color: rgba(255,255,255,.65);
+      font-weight: 900;
+      font-size: 18px;
+      flex: 0 0 auto;
+    }
+
+    .foot{
+      position:relative;
+      z-index:1;
+      margin-top: 16px;
       text-align:center;
-      margin-top: 12px;
-      color: rgba(255,255,255,.70);
-      font-size: 12.5px;
+      color: rgba(255,255,255,.72);
+      font-size: 13px;
+      line-height: 1.35;
     }
-    .footer strong{ color:#fff; }
 
+    /* Responsive */
+    @media (max-width: 760px){
+      .menu{ grid-template-columns: 1fr; }
+      .logo{ width: 185px; }
+      .video-inner iframe{ aspect-ratio: 9/16; }
+      .topbar{ align-items:flex-start; }
+      .top-actions{ justify-content:flex-end; }
+    }
+
+    @keyframes riseIn{ to{ transform: translateY(0); opacity:1; } }
+    @keyframes floatIn{ from{ transform: translateY(10px); opacity:0; } to{ transform: translateY(0); opacity:1; } }
   </style>
 </head>
 
 <body>
   <div class="wrap">
-    <!-- TOPBAR -->
+    <!-- TOP BAR: idioma + booking + social -->
     <div class="topbar">
-      <div class="top-left">
-        <button class="pill pill-lang" id="langBtn" type="button">🇺🇸 English</button>
+      <div class="lang-switch" aria-label="Language switch">
+        <button id="btnES" class="active" type="button">🇪🇸 ES</button>
+        <button id="btnEN" type="button">🇺🇸 EN</button>
       </div>
 
-      <div class="top-right">
-        <a class="pill" id="socialBtn" href="redes.html">📲 <span data-i18n="social">Social Media</span></a>
-        <a class="pill pill-booking" id="bookingBtn" href="booking.html">✉️ <span data-i18n="booking">Booking</span></a>
+      <div class="top-actions">
+        <!-- BOOKING arriba y destacado -->
+        <a class="btn-metal btn-booking" id="bookingTop" href="booking.html">
+          <span>✉️ <span id="txtBookingTop">Booking</span></span>
+        </a>
+
+        <!-- SOCIAL MEDIA -->
+        <a class="btn-metal" id="socialTop" href="redes.html">
+          <span>📱 <span id="txtSocialTop">Social Media</span></span>
+        </a>
       </div>
     </div>
 
-    <!-- MAIN CARD -->
     <div class="card">
-      <div class="hero">
-        <!-- TU LOGO ORIGINAL (con texto abajo) -->
+      <div class="brand">
         <img class="logo" src="img/logo.png" alt="Fabry Orihuela Logo">
+
+        <h1 class="name">Fabry Orihuela</h1>
+
+        <!-- Tu texto principal (como pediste) -->
+        <p class="tagline" id="taglineTop">Latin Music · Pop · Rock · Ballads</p>
+
+        <!-- Si quieres una segunda línea más “booking internacional” -->
+        <p class="subtag" id="subtagTop">Solo, Trio or Band Performance</p>
       </div>
 
-      <div style="position:relative; text-align:center;">
-        <div class="desc" data-i18n="headline">Latin Music · Pop · Rock · Ballads</div>
-        <div class="subdesc" data-i18n="subheadline">Solo, Trio or Band Performance · Based in PA · Travel available</div>
-      </div>
-
-      <!-- VIDEO (YouTube Shorts embed) -->
+      <!-- VIDEO -->
       <div class="video-wrap">
-        <iframe
-          class="video-inner"
-          src="https://www.youtube.com/embed/jSR1ZkBSNHw?rel=0&modestbranding=1"
-          title="Fabry Orihuela - Welcome"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen>
-        </iframe>
+        <div class="video-controls">
+          <button class="mini-btn" id="muteBtn" type="button">🔇 Mute</button>
+        </div>
+
+        <div class="video-inner">
+          <iframe
+            id="welcomeVideo"
+            src="https://www.youtube.com/embed/jSR1ZkBSNHw?rel=0&modestbranding=1&playsinline=1&mute=1"
+            title="Fabry Orihuela - Welcome"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
       </div>
 
-      <!-- BOTONES DEBAJO DEL VIDEO -->
-      <div class="grid3">
-        <a class="tile" href="merch.html">🛍️ <span data-i18n="merch">Merch</span></a>
+      <!-- BOTONES debajo del video: Merch / Escucha mi música / Pedir canción en vivo -->
+      <div class="menu">
+        <a class="tile" href="merch.html" id="btnMerch">
+          <div class="tile-left">
+            <div class="badge">🛍️</div>
+            <div style="min-width:0;">
+              <div class="tile-title" id="merchTitle">Merch</div>
+              <div class="tile-sub" id="merchSub">Camisetas, flash drives</div>
+            </div>
+          </div>
+          <div class="chev">›</div>
+        </a>
 
-        <a class="tile" href="musica.html">🎧 <span data-i18n="listen">Listen to my music</span></a>
+        <a class="tile" href="musica.html" id="btnMusic">
+          <div class="tile-left">
+            <div class="badge">🎧</div>
+            <div style="min-width:0;">
+              <div class="tile-title" id="musicTitle">Escucha mi música</div>
+              <div class="tile-sub" id="musicSub">Spotify • Apple Music</div>
+            </div>
+          </div>
+          <div class="chev">›</div>
+        </a>
 
-        <a class="tile"
-           href="https://wa.me/14845442917?text=Hola%20Fabry%2C%20quiero%20pedir%20una%20canci%C3%B3n%20en%20vivo.%20%F0%9F%8E%B6%0A1)%20Canci%C3%B3n%3A%20__%0A2)%20Tu%20nombre%20(opcional)%3A%20__"
-           target="_blank" rel="noopener">
-          🎵 <span data-i18n="request">Request a song (live)</span>
+        <a class="tile" href="canciones.html" id="btnSong">
+          <div class="tile-left">
+            <div class="badge">🎶</div>
+            <div style="min-width:0;">
+              <div class="tile-title" id="songTitle">Pedir canción en vivo</div>
+              <div class="tile-sub" id="songSub">Request a song</div>
+            </div>
+          </div>
+          <div class="chev">›</div>
         </a>
       </div>
 
-      <!-- CTA WHATSAPP -->
-      <div class="cta">
-        <a href="https://wa.me/14845442917?text=Hola%20Fabry%2C%20quiero%20hacer%20una%20consulta%20para%20booking.%20%F0%9F%93%85%0AFecha%3A%20__%0ALugar%3A%20__%0ATipo%20de%20evento%3A%20__"
-           target="_blank" rel="noopener">
-          <span data-i18n="cta">Book now via WhatsApp</span>
-        </a>
-      </div>
-
-      <div class="footer">
-        <span data-i18n="footer1">Response time:</span> <strong>24–48h</strong> ·
-        <span data-i18n="footer2">Payments:</span>
-        <strong>Cash App $fabrymusic · Venmo @fabryorihuela-music · Zelle +1 484 544 2917</strong>
+      <div class="foot" id="footerText">
+        Available for: Bars • Private Events • Weddings <br>
+        Based in PA • Travel available • Response time: 24–48h
       </div>
     </div>
   </div>
 
   <script>
-    // ====== i18n simple (ES / EN) ======
-    const dict = {
+    // ===== VIDEO MUTE/UNMUTE (simple y fiable en iPhone: recarga iframe con mute=0/1) =====
+    const iframe = document.getElementById("welcomeVideo");
+    const muteBtn = document.getElementById("muteBtn");
+    let isMuted = true;
+
+    function setVideoMute(mute){
+      const base = "https://www.youtube.com/embed/jSR1ZkBSNHw";
+      const params = new URLSearchParams({
+        rel: "0",
+        modestbranding: "1",
+        playsinline: "1",
+        mute: mute ? "1" : "0"
+      });
+      iframe.src = `${base}?${params.toString()}`;
+    }
+
+    muteBtn.addEventListener("click", () => {
+      isMuted = !isMuted;
+      setVideoMute(isMuted);
+      applyLang(currentLang);
+    });
+
+    // ===== i18n ES/EN =====
+    const t = {
       es: {
+        title: "Fabry Orihuela | Inicio",
         booking: "Booking",
-        social: "Redes sociales",
-        headline: "Latin Music · Pop · Rock · Ballads",
-        subheadline: "Solo, Trío o Banda · Basado en PA · Disponible para viajar",
-        merch: "Merch",
-        listen: "Escucha mi música",
-        request: "Pedir canción (en vivo)",
-        cta: "Reservar por WhatsApp",
-        footer1: "Tiempo de respuesta:",
-        footer2: "Pagos:"
+        social: "Redes",
+        tagline: "Latin Music · Pop · Rock · Ballads",
+        subtag: "Solo, Trío o Banda",
+        merchTitle: "Merch",
+        merchSub: "Camisetas, flash drives",
+        musicTitle: "Escucha mi música",
+        musicSub: "Spotify • Apple Music",
+        songTitle: "Pedir canción en vivo",
+        songSub: "Request a song",
+        mute: "🔇 Mute",
+        sound: "🔊 Sonido",
+        footer: "Disponible para: Bares • Eventos privados • Bodas<br>Base en PA • Viajo • Respuesta: 24–48h"
       },
       en: {
+        title: "Fabry Orihuela | Home",
         booking: "Booking",
         social: "Social Media",
-        headline: "Latin Music · Pop · Rock · Ballads",
-        subheadline: "Solo, Trio or Band · Based in PA · Travel available",
-        merch: "Merch",
-        listen: "Listen to my music",
-        request: "Request a song (live)",
-        cta: "Book now via WhatsApp",
-        footer1: "Response time:",
-        footer2: "Payments:"
+        tagline: "Latin Music · Pop · Rock · Ballads",
+        subtag: "Solo, Trio or Band Performance",
+        merchTitle: "Merch",
+        merchSub: "Shirts, flash drives",
+        musicTitle: "Listen to my music",
+        musicSub: "Spotify • Apple Music",
+        songTitle: "Request a live song",
+        songSub: "Pedir canción",
+        mute: "🔇 Mute",
+        sound: "🔊 Sound",
+        footer: "Available for: Bars • Private Events • Weddings<br>Based in PA • Travel available • Response time: 24–48h"
       }
     };
 
-    let lang = "es";
-    const langBtn = document.getElementById("langBtn");
+    let currentLang = "en"; // Por defecto EN (como tu ejemplo)
+    const btnES = document.getElementById("btnES");
+    const btnEN = document.getElementById("btnEN");
 
-    function applyLang(){
-      document.querySelectorAll("[data-i18n]").forEach(el=>{
-        const key = el.getAttribute("data-i18n");
-        if(dict[lang] && dict[lang][key]) el.textContent = dict[lang][key];
-      });
+    function applyLang(lang){
+      const L = t[lang];
+      document.title = L.title;
 
-      // Botón muestra el idioma al que cambiarás
-      langBtn.textContent = (lang === "es") ? "🇺🇸 English" : "🇪🇸 Español";
-      document.documentElement.lang = lang;
+      document.getElementById("txtBookingTop").textContent = L.booking;
+      document.getElementById("txtSocialTop").textContent = L.social;
+
+      document.getElementById("taglineTop").textContent = L.tagline;
+      document.getElementById("subtagTop").textContent = L.subtag;
+
+      document.getElementById("merchTitle").textContent = L.merchTitle;
+      document.getElementById("merchSub").textContent = L.merchSub;
+
+      document.getElementById("musicTitle").textContent = L.musicTitle;
+      document.getElementById("musicSub").textContent = L.musicSub;
+
+      document.getElementById("songTitle").textContent = L.songTitle;
+      document.getElementById("songSub").textContent = L.songSub;
+
+      document.getElementById("footerText").innerHTML = L.footer;
+
+      muteBtn.textContent = isMuted ? L.mute : L.sound;
+
+      if(lang === "es"){
+        btnES.classList.add("active");
+        btnEN.classList.remove("active");
+        document.documentElement.lang = "es";
+      } else {
+        btnEN.classList.add("active");
+        btnES.classList.remove("active");
+        document.documentElement.lang = "en";
+      }
     }
 
-    langBtn.addEventListener("click", ()=>{
-      lang = (lang === "es") ? "en" : "es";
-      applyLang();
-    });
+    btnES.addEventListener("click", () => { currentLang = "es"; applyLang(currentLang); });
+    btnEN.addEventListener("click", () => { currentLang = "en"; applyLang(currentLang); });
 
-    applyLang();
+    // Inicial
+    applyLang(currentLang);
   </script>
 </body>
 </html>
-
