@@ -1378,3 +1378,39 @@ button:focus{
 .chev{
   display: none;
 }
+/* ===================================== */
+/* ICON LEFT NEXT TO TEXT (CENTERED)     */
+/* ===================================== */
+
+.tile{
+  display: flex;
+  align-items: center;
+  justify-content: center;   /* todo centrado */
+  gap: 14px;                 /* espacio icono-texto */
+  text-align: center;
+}
+
+/* Contenedor izquierdo ahora es inline */
+.tile-left{
+  display: flex !important;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Icono normal, no absoluto */
+.badge{
+  position: static !important;
+  transform: none !important;
+  flex-shrink: 0;
+}
+
+/* Texto centrado */
+.tile-title,
+.tile-sub{
+  text-align: left; /* más elegante al leer */
+}
+
+/* Oculta flecha derecha */
+.chev{
+  display: none;
+}
