@@ -152,7 +152,9 @@ function setLang(lang){
   document.getElementById("musicTitle").textContent=t[lang].musicTitle;
   document.getElementById("songTitle").textContent=t[lang].songTitle;
   document.getElementById("footer").innerHTML=t[lang].footer;
-
+  document.getElementById("showsTitle").textContent = t[lang].showsTitle;
+  document.getElementById("showsSub").textContent   = t[lang].showsSub;
+  
   btnES.classList.toggle("active",lang==="es");
   btnEN.classList.toggle("active",lang==="en");
 }
