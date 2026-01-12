@@ -75,7 +75,30 @@
 
     </div>
   </div>
-</body>
+  <script>
+  const zoomImgs = document.querySelectorAll("img[data-zoom]");
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightboxImg");
+  const closeBtn = document.querySelector(".lightbox-close");
+
+  zoomImgs.forEach(img => {
+    img.addEventListener("click", () => {
+      lightboxImg.src = img.src;
+      lightbox.classList.add("show");
+    });
+  });
+
+  closeBtn.addEventListener("click", () => {
+    lightbox.classList.remove("show");
+  });
+
+  lightbox.addEventListener("click", e => {
+    if(e.target === lightbox){
+      lightbox.classList.remove("show");
+    }
+  });
+</script>
+</body> 
 </html>
 <!-- ===== LIGHTBOX ===== -->
 <div class="lightbox" id="lightbox">
