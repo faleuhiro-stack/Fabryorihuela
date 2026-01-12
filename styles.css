@@ -2396,3 +2396,54 @@ a.btn.btn-tip:active{
     width: 350px;
   }
 }
+/* ===============================
+   LIGHTBOX – ZOOM IMÁGENES MERCH
+=============================== */
+
+.lightbox{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.85);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s ease;
+  z-index: 9999;
+}
+
+.lightbox.show{
+  opacity: 1;
+  pointer-events: all;
+}
+
+.lightbox-img{
+  max-width: 92vw;
+  max-height: 88vh;
+  border-radius: 16px;
+  box-shadow: 0 30px 80px rgba(0,0,0,.7);
+  animation: zoomIn .25s ease;
+}
+
+.lightbox-close{
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  font-size: 28px;
+  color: #fff;
+  cursor: pointer;
+  user-select: none;
+  opacity: .85;
+}
+
+@keyframes zoomIn{
+  from{ transform: scale(.92); opacity: 0; }
+  to{ transform: scale(1); opacity: 1; }
+}
+
+/* Cursor tipo “zoom” */
+img[data-zoom]{
+  cursor: zoom-in;
+}
