@@ -2338,3 +2338,36 @@ a.btn.btn-tip:active{
   box-shadow: 0 6px 14px rgba(255,0,0,.25);
   opacity: .9;
 }
+/* ===============================
+   SOCIAL MEDIA GRID
+   =============================== */
+
+.social-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* Botones dentro de la grilla */
+.social-grid .btn-red {
+  width: 100%;
+  text-align: center;
+  padding: 14px 10px;
+  font-size: 16px;
+  border-radius: 16px;
+}
+
+/* Ajuste fino SOLO para móviles */
+@media (max-width: 480px) {
+  .social-grid {
+    gap: 14px;
+  }
+
+  .social-grid .btn-red {
+    font-size: 15px;
+    padding: 13px 8px;
+  }
+}
