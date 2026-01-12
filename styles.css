@@ -2297,3 +2297,44 @@ a.btn.btn-tip:active{
     padding: 16px 16px;
   }
 }
+/* ==============================
+   BOTONES FINALES BOOKING
+============================== */
+
+.booking-actions{
+  display: flex;
+  flex-direction: column;
+  align-items: center;     /* 👈 centra horizontal */
+  gap: 14px;
+  margin-top: 20px;
+}
+
+/* Botones rojos */
+.booking-actions .btn-red{
+  width: 100%;
+  max-width: 420px;        /* 👈 mismo ancho, centrados */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 👈 texto centrado real */
+  gap: 10px;
+
+  padding: 16px 18px;
+  font-size: 17px;
+  font-weight: 600;
+
+  color: #fff;
+  text-decoration: none;
+
+  border-radius: 14px;
+  background: linear-gradient(180deg, #ff3b3b, #c80000);
+  box-shadow: 0 10px 22px rgba(255,0,0,.35);
+
+  transition: transform .15s ease, box-shadow .15s ease, opacity .15s ease;
+}
+
+/* Feedback táctil */
+.booking-actions .btn-red:active{
+  transform: scale(0.97);
+  box-shadow: 0 6px 14px rgba(255,0,0,.25);
+  opacity: .9;
+}
