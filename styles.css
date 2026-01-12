@@ -2177,3 +2177,52 @@ a.btn.btn-tip:active{
   display: none !important;
   content: none !important;
 }
+/* =====================================
+   FIX DEFINITIVO CENTRADO MUSIC
+===================================== */
+
+/* contenedor global */
+.wrap{
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 24px 14px;
+}
+
+/* tarjeta principal */
+.card{
+  width: 100%;
+  max-width: 420px;        /* ancho fijo elegante */
+  margin: 0 auto;          /* CENTRADO REAL */
+  box-sizing: border-box;
+}
+
+/* evita desplazamientos raros */
+.card *{
+  box-sizing: border-box;
+}
+
+/* secciones internas */
+.section,
+.menu,
+.menu-tiles{
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* botones rojos */
+.btn,
+.button,
+.btn-red{
+  width: 100%;
+  max-width: 100%;
+}
+
+/* corrige efecto visual en mobile */
+@media (max-width: 480px){
+  body{
+    overflow-x: hidden;
+  }
+}
