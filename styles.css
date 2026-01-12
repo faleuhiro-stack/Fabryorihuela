@@ -2226,3 +2226,74 @@ a.btn.btn-tip:active{
     overflow-x: hidden;
   }
 }
+/* ==============================
+   BOOKING – más legible y cómodo
+   (pegar al FINAL de styles.css)
+============================== */
+
+/* Tamaño general del texto en Booking */
+.booking-form{
+  width: 100%;
+  max-width: 520px;     /* más ancho en móvil grande/desktop */
+  margin: 0 auto;
+  font-size: 16.5px;    /* base más grande */
+  line-height: 1.35;
+}
+
+/* Labels */
+.booking-form .field > span{
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 10px 0 8px;
+  opacity: .95;
+}
+
+/* Inputs, select, textarea */
+.booking-form input,
+.booking-form select,
+.booking-form textarea{
+  width: 100%;
+  font-size: 17px;          /* letra más grande */
+  padding: 14px 14px;       /* más “cómodo” */
+  border-radius: 14px;
+  min-height: 52px;         /* altura fácil de tocar */
+}
+
+/* Textarea un poco más grande */
+.booking-form textarea{
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* El select a veces se ve más bajo en iPhone: fuerza altura */
+.booking-form select{
+  min-height: 52px;
+}
+
+/* Botón Enviar + Volver (si usan .button) */
+.booking-form .button,
+.card > .button{
+  font-size: 17px;
+  padding: 14px 16px;
+  border-radius: 16px;
+}
+
+/* Separación entre campos */
+.booking-form .field{
+  margin-bottom: 10px;
+}
+
+/* En pantallas grandes, un poquito más grande aún */
+@media (min-width: 900px){
+  .booking-form{
+    font-size: 17px;
+  }
+  .booking-form input,
+  .booking-form select,
+  .booking-form textarea{
+    font-size: 18px;
+    min-height: 56px;
+    padding: 16px 16px;
+  }
+}
