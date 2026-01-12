@@ -2393,6 +2393,6 @@ a.btn.btn-tip:active{
 /* Escritorio */
 @media (min-width: 1024px) {
   .logo {
-    width: 300px;
+    width: 350px;
   }
 }
