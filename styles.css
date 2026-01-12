@@ -2371,3 +2371,28 @@ a.btn.btn-tip:active{
     padding: 13px 8px;
   }
 }
+/* ===============================
+   LOGO PRINCIPAL
+   =============================== */
+
+.logo {
+  width: 220px;        /* tamaño base */
+  max-width: 70vw;
+  height: auto;
+  display: block;
+  margin: 0 auto 14px;
+}
+
+/* Tablets */
+@media (min-width: 600px) {
+  .logo {
+    width: 260px;
+  }
+}
+
+/* Escritorio */
+@media (min-width: 1024px) {
+  .logo {
+    width: 300px;
+  }
+}
