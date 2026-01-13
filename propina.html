@@ -4,44 +4,57 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Propina | Fabry Orihuela</title>
-    .btn-follow{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    margin:18px auto 10px;
-    width:100%;
-    max-width:420px;
 
-    padding:14px 18px;
-    border-radius:14px;
-
-    background:linear-gradient(180deg,#ff2a2a,#c90000);
-    color:#fff;
-    font-weight:800;
-    text-decoration:none;
-
-    box-shadow:0 10px 26px rgba(255,0,0,.35);
-    transition:transform .15s ease, box-shadow .15s ease;
-  }
-
-  .btn-follow:active{
-    transform:scale(0.97);
-    box-shadow:0 6px 18px rgba(255,0,0,.25);
-  }
   <style>
     :root{ --bg:#0b0b0f; --card:#14141c; --txt:#f3f3f5; --muted:#a7a7b3; --red:#e11d2e; }
     body{ margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial; background:var(--bg); color:var(--txt); }
-    .wrap{ padding:18px 16px 28px; }
+    .wrap{ padding:18px 16px 28px; max-width:520px; margin:0 auto; }
     .card{ background:var(--card); border:1px solid #232334; border-radius:16px; padding:16px; }
     h1{ margin:0 0 8px; font-size:22px; }
     p{ margin:0 0 14px; color:var(--muted); }
     .row{ display:flex; gap:10px; margin:10px 0; }
-    .btn{ flex:1; padding:14px; border-radius:12px; border:1px solid #2a2a35; background:#0f0f16; color:var(--txt); font-weight:800; text-align:center; text-decoration:none; }
+    .btn{
+      flex:1;
+      padding:14px;
+      border-radius:12px;
+      border:1px solid #2a2a35;
+      background:#0f0f16;
+      color:var(--txt);
+      font-weight:800;
+      text-align:center;
+      text-decoration:none;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+    }
     .primary{ background:var(--red); border:0; color:white; }
     .skip{ display:block; margin-top:12px; text-align:center; color:var(--muted); text-decoration:none; }
-    small{ color:var(--muted); }
+    small{ color:var(--muted); display:block; margin-top:8px; }
+
+    /* ✅ Botón "Sígueme" */
+    .btn-follow{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      margin:14px auto 0;
+      width:100%;
+      padding:14px 18px;
+      border-radius:14px;
+      background:linear-gradient(180deg,#ff2a2a,#c90000);
+      color:#fff;
+      font-weight:900;
+      text-decoration:none;
+      box-shadow:0 10px 26px rgba(255,0,0,.35);
+      transition:transform .15s ease, box-shadow .15s ease;
+    }
+    .btn-follow:active{
+      transform:scale(0.97);
+      box-shadow:0 6px 18px rgba(255,0,0,.25);
+    }
   </style>
 </head>
+
 <body>
   <div class="wrap">
     <h1>💵 Muchas gracias por tu aporte 🤗</h1>
@@ -52,16 +65,17 @@
         <a class="btn primary" href="#" onclick="alert('Zelle: 484-544-2917'); return false;">Zelle</a>
         <a class="btn" href="https://cash.app/$Fabrymusic" target="_blank" rel="noopener">Cash App</a>
       </div>
+
       <div class="row">
         <a class="btn" href="https://venmo.com/Fabryorihuela-Music" target="_blank" rel="noopener">Venmo</a>
         <a class="btn" href="index.html">Inicio</a>
       </div>
 
       <small>🔎 Zelle no abre link directo en todos los teléfonos, por eso mostramos el número.</small>
+
+      <!-- ✅ Botón nuevo -->
+      <a class="btn-follow" href="redes.html">📲 Sígueme en mis redes sociales</a>
     </div>
-        <a href="redes.html" class="btn btn-follow">
-      📲 Sígueme en mis redes sociales
-    </a>
 
     <a class="skip" href="index.html">Omitir / Skip</a>
   </div>
