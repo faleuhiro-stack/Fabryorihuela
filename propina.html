@@ -4,6 +4,30 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Propina | Fabry Orihuela</title>
+    .btn-follow{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:18px auto 10px;
+    width:100%;
+    max-width:420px;
+
+    padding:14px 18px;
+    border-radius:14px;
+
+    background:linear-gradient(180deg,#ff2a2a,#c90000);
+    color:#fff;
+    font-weight:800;
+    text-decoration:none;
+
+    box-shadow:0 10px 26px rgba(255,0,0,.35);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+
+  .btn-follow:active{
+    transform:scale(0.97);
+    box-shadow:0 6px 18px rgba(255,0,0,.25);
+  }
   <style>
     :root{ --bg:#0b0b0f; --card:#14141c; --txt:#f3f3f5; --muted:#a7a7b3; --red:#e11d2e; }
     body{ margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial; background:var(--bg); color:var(--txt); }
