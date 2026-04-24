@@ -1,1 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Bohemian Night JetPort</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
+<style>
+body{
+  background:#0b0b0f;
+  color:white;
+  font-family: Arial;
+  padding:20px;
+}
+
+.card{
+  background:#12121a;
+  border-radius:16px;
+  padding:20px;
+  max-width:600px;
+  margin:auto;
+}
+
+h1{
+  color:#e11d2e;
+}
+
+.btn{
+  display:block;
+  text-align:center;
+  padding:14px;
+  border-radius:12px;
+  margin-top:12px;
+  text-decoration:none;
+  font-weight:700;
+}
+
+.cash{background:#00d632;color:black;}
+.venmo{background:#008CFF;color:white;}
+.zelle{background:#6d1ed4;color:white;}
+.whatsapp{background:#1f1f2a;color:white;}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1>🎤 Bohemian Night JetPort</h1>
+
+  <p>📍 JetPort</p>
+  <p>📅 Fecha: Sábado</p>
+  <p>⏰ Hora: 8:00 PM</p>
+
+  <h2>🎟 Entrada: $15</h2>
+
+  <!-- PAGOS -->
+  <a class="btn cash" href="https://cash.app/$TUUSUARIO" target="_blank">
+    Pagar con Cash App
+  </a>
+
+  <a class="btn venmo" href="https://venmo.com/TUUSUARIO" target="_blank">
+    Pagar con Venmo
+  </a>
+
+  <div class="btn zelle">
+    Zelle: 484-544-2917
+  </div>
+
+  <hr style="margin:20px 0; border:1px solid #333;">
+
+  <h3>✅ Confirmar pago</h3>
+
+  <input id="nombre" placeholder="Tu nombre" style="width:100%;padding:12px;margin-top:10px;border-radius:10px;">
+  <input id="email" placeholder="Tu email" style="width:100%;padding:12px;margin-top:10px;border-radius:10px;">
+
+  <button class="btn whatsapp" onclick="confirmar()">
+    Confirmar y enviar comprobante
+  </button>
+</div>
+
+<script>
+function confirmar(){
+  const nombre = document.getElementById("nombre").value;
+  const email = document.getElementById("email").value;
+
+  if(!nombre){
+    alert("Por favor ingresa tu nombre");
+    return;
+  }
+
+  const mensaje =
+    `🎟 ENTRADA COMPRADA - Bohemian Night JetPort%0A` +
+    `Nombre: ${nombre}%0A` +
+    `Email: ${email}%0A` +
+    `Ya realicé el pago. Te envío comprobante.`;
+
+  window.open(
+    "https://wa.me/14845442917?text=" + mensaje,
+    "_blank"
+  );
+}
+</script>
+
+</body>
+</html>
