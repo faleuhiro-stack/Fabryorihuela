@@ -1,64 +1,98 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Bohemian Night JetPort</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>Bohemian Night JetPort | Fabry Orihuela</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-body{
-  background:#0b0b0f;
-  color:white;
-  font-family: Arial;
-  padding:20px;
-}
+  <style>
+    body{
+      margin:0;
+      font-family:Arial, sans-serif;
+      background:#0b0b0f;
+      color:white;
+      padding:20px;
+    }
 
-.card{
-  background:#12121a;
-  border-radius:16px;
-  padding:20px;
-  max-width:600px;
-  margin:auto;
-}
+    .card{
+      max-width:620px;
+      margin:auto;
+      background:#12121a;
+      border:1px solid rgba(255,255,255,.1);
+      border-radius:20px;
+      padding:22px;
+      box-shadow:0 20px 40px rgba(0,0,0,.35);
+    }
 
-h1{
-  color:#e11d2e;
-}
+    h1{
+      color:#e11d2e;
+      margin-top:0;
+    }
 
-.btn{
-  display:block;
-  text-align:center;
-  padding:14px;
-  border-radius:12px;
-  margin-top:12px;
-  text-decoration:none;
-  font-weight:700;
-}
+    .tag{
+      color:#e11d2e;
+      font-weight:bold;
+      letter-spacing:1px;
+      font-size:13px;
+    }
 
-.cash{background:#00d632;color:black;}
-.venmo{background:#008CFF;color:white;}
-.zelle{background:#6d1ed4;color:white;}
-.whatsapp{background:#1f1f2a;color:white;}
-</style>
+    .info{
+      color:#ddd;
+      line-height:1.6;
+    }
+
+    .price{
+      font-size:28px;
+      font-weight:900;
+      margin:18px 0;
+    }
+
+    .btn{
+      display:block;
+      text-align:center;
+      padding:15px;
+      border-radius:14px;
+      margin:12px 0;
+      text-decoration:none;
+      font-weight:800;
+    }
+
+    .cash{background:#00d632;color:#000;}
+    .venmo{background:#008cff;color:#fff;}
+    .zelle{background:#6d1ed4;color:#fff;}
+    .form{background:#e11d2e;color:#fff;}
+    .wa{background:#1f1f2a;color:#fff;border:1px solid rgba(255,255,255,.1);}
+    .back{color:#ccc;text-decoration:none;display:inline-block;margin-bottom:16px;}
+    .note{font-size:13px;color:#aaa;line-height:1.5;margin-top:16px;}
+  </style>
 </head>
 
 <body>
 
+<a class="back" href="index.html">⬅ Volver</a>
+
 <div class="card">
-  <h1>Fabry / Live Band Show / JetPort</h1>
 
-  <p>📍 JetPort</p>
-  <p>📅 Fecha: Jueves 7 De Mayo</p>
-  <p>⏰ Hora: 10:00 PM</p>
+  <p class="tag">EVENTO DESTACADO</p>
 
-  <h2>🎟 Entrada: $20</h2>
+  <h1>🎤 Bohemian Night JetPort</h1>
 
-  <!-- PAGOS -->
-  <a class="btn cash" href="https://cash.app/$TUUSUARIO" target="_blank">
+  <p class="info">
+    📍 Lugar: JetPort<br>
+    📅 Fecha: Agregar fecha aquí<br>
+    ⏰ Hora: Agregar hora aquí<br>
+    🎶 Live Music by Fabry Orihuela
+  </p>
+
+  <div class="price">Entrada: $15</div>
+
+  <h3>1. Realiza tu pago</h3>
+
+  <a class="btn cash" href="https://cash.app/$Fabrymusic" target="_blank">
     Pagar con Cash App
   </a>
 
-  <a class="btn venmo" href="https://venmo.com/TUUSUARIO" target="_blank">
+  <a class="btn venmo" href="https://venmo.com/@Fabryorihuela-Music" target="_blank">
     Pagar con Venmo
   </a>
 
@@ -66,40 +100,25 @@ h1{
     Zelle: 484-544-2917
   </div>
 
-  <hr style="margin:20px 0; border:1px solid #333;">
+  <h3>2. Registra tu entrada</h3>
 
-  <h3>✅ Confirmar pago</h3>
+  <a class="btn form" href="PEGA_AQUI_TU_LINK_DE_GOOGLE_FORM" target="_blank">
+    Registrar mi entrada
+  </a>
 
-  <input id="nombre" placeholder="Tu nombre" style="width:100%;padding:12px;margin-top:10px;border-radius:10px;">
-  <input id="email" placeholder="Tu email" style="width:100%;padding:12px;margin-top:10px;border-radius:10px;">
+  <h3>3. Enviar comprobante</h3>
 
-  <button class="btn whatsapp" onclick="confirmar()">
-    Confirmar y enviar comprobante
-  </button>
+  <a class="btn wa"
+     href="https://wa.me/14845442917?text=Hola%20Fabry,%20compré%20mi%20entrada%20para%20Bohemian%20Night%20JetPort.%20Te%20envío%20mi%20comprobante."
+     target="_blank">
+    Enviar comprobante por WhatsApp
+  </a>
+
+  <p class="note">
+    Importante: tu entrada queda confirmada cuando completas el registro y envías el comprobante de pago.
+  </p>
+
 </div>
-
-<script>
-function confirmar(){
-  const nombre = document.getElementById("nombre").value;
-  const email = document.getElementById("email").value;
-
-  if(!nombre){
-    alert("Por favor ingresa tu nombre");
-    return;
-  }
-
-  const mensaje =
-    `🎟 ENTRADA COMPRADA - Bohemian Night JetPort%0A` +
-    `Nombre: ${nombre}%0A` +
-    `Email: ${email}%0A` +
-    `Ya realicé el pago. Te envío comprobante.`;
-
-  window.open(
-    "https://wa.me/14845442917?text=" + mensaje,
-    "_blank"
-  );
-}
-</script>
 
 </body>
 </html>
