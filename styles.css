@@ -2761,3 +2761,43 @@ body.event-page{
 body.event-page{
   background:red !important;
 }
+.zelle{
+  background: linear-gradient(180deg,#7b22ff,#4b0fb8);
+  color:white !important;
+  border:1px solid rgba(255,255,255,.18);
+  box-shadow:
+    0 0 14px rgba(123,34,255,.55),
+    inset 0 0 10px rgba(255,255,255,.10);
+}
+
+.zelle-copy{
+  cursor:pointer;
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.zelle-badge{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,.18);
+  color:#fff;
+  font-weight:900;
+  box-shadow:0 0 10px rgba(255,255,255,.25);
+}
+
+.zelle strong{
+  color:#fff !important;
+}
+
+.copy-text{
+  font-size:13px;
+  color:#fff;
+  opacity:.85;
+}
