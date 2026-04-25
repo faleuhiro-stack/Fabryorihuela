@@ -2744,3 +2744,13 @@ img[data-zoom]{
 .event-hero-btn.ultra:active{
   transform:scale(.96);
 }
+body.event-page{
+  margin:0;
+  font-family:Arial, sans-serif;
+
+  background: 
+    linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.9)),
+    url("bohemian-bg.jpg") center/cover no-repeat;
+
+  color:white;
+}
