@@ -2818,3 +2818,14 @@ body.event-page{
 
   box-shadow:0 6px 20px rgba(123,34,255,.5);
 }
+.zelle-badge{
+  background:rgba(255,255,255,.2);
+  padding:6px 10px;
+  border-radius:8px;
+  font-weight:900;
+}
+
+.copy-text{
+  font-size:13px;
+  opacity:.8;
+}
