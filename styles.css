@@ -2497,3 +2497,59 @@ img[data-zoom]{
       0 0 16px rgba(255,0,0,0.3);
   }
 }
+.btn-evento{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+
+  width:100%;
+  max-width:420px;
+  margin:20px auto;
+
+  padding:18px;
+  border-radius:16px;
+
+  background: linear-gradient(180deg,#ff2a2a,#b30000);
+  color:#fff;
+
+  font-weight:900;
+  font-size:18px;
+  text-decoration:none;
+
+  box-shadow:
+    0 0 12px rgba(255,0,0,0.7),
+    0 0 30px rgba(255,0,0,0.5);
+
+  animation: glowPulse 1.8s infinite;
+  transition: all .2s ease;
+}
+
+/* icono */
+.icon-ticket{
+  font-size:20px;
+}
+
+/* efecto presionar */
+.btn-evento:active{
+  transform: scale(0.96);
+}
+
+/* animación glow */
+@keyframes glowPulse{
+  0%{
+    box-shadow:
+      0 0 10px rgba(255,0,0,0.5),
+      0 0 20px rgba(255,0,0,0.3);
+  }
+  50%{
+    box-shadow:
+      0 0 25px rgba(255,0,0,1),
+      0 0 50px rgba(255,0,0,0.7);
+  }
+  100%{
+    box-shadow:
+      0 0 10px rgba(255,0,0,0.5),
+      0 0 20px rgba(255,0,0,0.3);
+  }
+}
