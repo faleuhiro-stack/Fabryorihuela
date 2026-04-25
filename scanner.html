@@ -1,1 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Scanner Entradas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <script src="https://unpkg.com/html5-qrcode"></script>
+
+  <style>
+    body{
+      background:#0b0b0f;
+      color:white;
+      font-family:Arial, sans-serif;
+      padding:20px;
+      text-align:center;
+    }
+
+    h1{color:#e11d2e;}
+
+    #reader{
+      width:100%;
+      max-width:400px;
+      margin:20px auto;
+      background:white;
+      border-radius:12px;
+      overflow:hidden;
+    }
+
+    input, button{
+      width:100%;
+      max-width:400px;
+      padding:14px;
+      margin:8px auto;
+      border-radius:10px;
+      border:none;
+      font-size:16px;
+      display:block;
+    }
+
+    button{
+      background:#e11d2e;
+      color:white;
+      font-weight:bold;
+    }
+
+    .result{
+      margin-top:20px;
+      padding:18px;
+      border-radius:12px;
+      font-size:22px;
+      font-weight:bold;
+    }
+
+    .ok{background:#0a7f32;}
+    .bad{background:#9b111e;}
+  </style>
+</head>
+
+<body>
+
+<h1>🎟 Scanner Bohemian Night</h1>
+
+<input id="pin" type="password" placeholder="PIN de staff">
+
+<div id="reader"></div>
+
+<input id="manualCode" placeholder="O escribe el código manualmente">
+<button onclick="checkManual()">Validar código</button>
+
+<div id="result"></div>
+
+<script>
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwwQMlSOUyN3g6nf8xvFHrL2joos2RS4n_Eh2BjJcw2bqJnRAf3CailbzHkOqBKZg0m/exec";
+
+function callApi(code){
+  const pin = document.getElementById("pin").value.trim();
+
+  if(!pin){
+    alert("Escribe el PIN primero");
+    return;
+  }
+
+  const callbackName = "cb_" + Date.now();
+
+  window[callbackName] = function(data){
+    showResult(data);
+    delete window[callbackName];
+  };
+
+  const script = document.createElement("script");
+  script.src =
+    WEB_APP_URL +
+    "?callback=" + callbackName +
+    "&pin=" + encodeURIComponent(pin) +
+    "&code=" + encodeURIComponent(code);
+
+  document.body.appendChild(script);
+}
+
+function showResult(data){
+  const box = document.getElementById("result");
+
+  if(data.ok){
+    box.className = "result ok";
+    box.innerHTML = "✅ " + data.status + "<br>" + data.code;
+  } else {
+    box.className = "result bad";
+    box.innerHTML = "❌ " + data.status + "<br>" + (data.code || "");
+  }
+}
+
+function onScanSuccess(decodedText){
+  callApi(decodedText);
+}
+
+const html5QrcodeScanner = new Html5QrcodeScanner(
+  "reader",
+  { fps: 10, qrbox: 250 }
+);
+
+html5QrcodeScanner.render(onScanSuccess);
+
+function checkManual(){
+  const code = document.getElementById("manualCode").value.trim();
+  if(!code){
+    alert("Escribe un código");
+    return;
+  }
+  callApi(code);
+}
+</script>
+
+</body>
+</html>
