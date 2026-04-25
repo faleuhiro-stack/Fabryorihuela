@@ -2758,3 +2758,6 @@ body.event-page{
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
+body.event-page{
+  background:red !important;
+}
