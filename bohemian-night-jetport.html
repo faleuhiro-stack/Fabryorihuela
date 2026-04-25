@@ -6,31 +6,50 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
-    body{
-      <body class="event-page">
-
-  <!-- HERO (IMAGEN + TEXTO FABRY) -->
-  <div class="event-hero">
-    <div class="hero-overlay">
-      <h1>FABRY</h1>
-      <p>Noche Bohemia</p>
-    </div>
-  </div>
+    body.event-page{
       margin:0;
       font-family:Arial, sans-serif;
-      background:#0b0b0f;
       color:white;
-      padding:20px;
+
+      background:
+        linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.9)),
+        url("bohemian-bg.jpg") center 30%/cover no-repeat;
+    }
+
+    .event-hero{
+      height:55vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+    }
+
+    .hero-overlay h1{
+      font-size:60px;
+      font-weight:900;
+      color:#FFD700;
+      text-shadow:0 0 20px gold;
+      margin:0;
+    }
+
+    .hero-overlay p{
+      font-size:24px;
+      margin-top:10px;
+      font-style:italic;
     }
 
     .card{
       max-width:620px;
-      margin:auto;
-      background:#12121a;
+      margin:-80px auto 40px;
+
+      background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(12px);
+
       border:1px solid rgba(255,255,255,.1);
       border-radius:20px;
       padding:22px;
-      box-shadow:0 20px 40px rgba(0,0,0,.35);
+
+      box-shadow:0 20px 40px rgba(0,0,0,.5);
     }
 
     h1{
@@ -71,15 +90,24 @@
     .zelle{background:#6d1ed4;color:#fff;}
     .form{background:#e11d2e;color:#fff;}
     .wa{background:#1f1f2a;color:#fff;border:1px solid rgba(255,255,255,.1);}
-    .back{color:#ccc;text-decoration:none;display:inline-block;margin-bottom:16px;}
+    .back{color:#ccc;text-decoration:none;display:inline-block;margin:16px;}
     .note{font-size:13px;color:#aaa;line-height:1.5;margin-top:16px;}
   </style>
 </head>
 
-<body>
+<body class="event-page">
 
 <a class="back" href="index.html">⬅ Volver</a>
 
+<!-- HERO -->
+<div class="event-hero">
+  <div class="hero-overlay">
+    <h1>FABRY</h1>
+    <p>Noche Bohemia</p>
+  </div>
+</div>
+
+<!-- PANEL -->
 <div class="card">
 
   <p class="tag">EVENTO DESTACADO</p>
