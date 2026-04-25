@@ -2747,10 +2747,9 @@ img[data-zoom]{
 body.event-page{
   margin:0;
   font-family:Arial, sans-serif;
-
-  background: 
-    linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.9)),
-   url("images/bohemian-bg.jpg") center/cover no-repeat;
-
   color:white;
+
+  background:
+    linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.9)),
+    url("img/bohemian-bg.jpg") center 30%/cover no-repeat;
 }
