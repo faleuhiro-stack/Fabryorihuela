@@ -2749,7 +2749,12 @@ body.event-page{
   font-family:Arial, sans-serif;
   color:white;
 
-  background:
-    linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.9)),
-    url("img/bohemian-bg.jpg") center 30%/cover no-repeat;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.9)),
+    url("/img/bohemian-bg.jpg");
+
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
