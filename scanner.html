@@ -144,11 +144,14 @@ function callApi(code){
     "&code=" + encodeURIComponent(code) +
     "&callback=" + callbackName;
 
-  script.onerror = function(){
-    box.className = "result bad";
-    box.innerHTML = "❌ Error conectando con Apps Script";
-    locked = false;
-  };
+ script.onerror = function(){
+  box.className = "result bad";
+  box.innerHTML =
+    "❌ Error conectando con Apps Script<br><small>" +
+    script.src +
+    "</small>";
+  locked = false;
+};
 
   document.body.appendChild(script);
 }
