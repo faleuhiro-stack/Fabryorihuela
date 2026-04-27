@@ -86,22 +86,33 @@ let locked = false;
 
 function normalizeCode(text){
   text = String(text || "").trim().toUpperCase();
-
   const match = text.match(/FABRY-\d{4,6}/);
   if(match) return match[0];
-
   return text;
+}
+
+function feedback(ok){
+  if(navigator.vibrate){
+    navigator.vibrate(ok ? [120,60,120] : [300]);
+  }
+
+  const audio = new Audio(ok
+    ? "https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg"
+    : "https://actions.google.com/sounds/v1/alarms/beep_short.ogg"
+  );
+
+  audio.play().catch(()=>{});
 }
 
 function showResult(data){
   const box = document.getElementById("result");
 
   if(data.ok){
-    feedback(true); // 🔊 sonido + vibración
+    feedback(true);
     box.className = "result ok";
     box.innerHTML = "✅ " + data.status + "<br>" + data.code;
   }else{
-    feedback(false); // 🔊 sonido + vibración
+    feedback(false);
     box.className = "result bad";
     box.innerHTML = "❌ " + data.status + "<br>" + (data.code || "");
   }
@@ -144,14 +155,14 @@ function callApi(code){
     "&code=" + encodeURIComponent(code) +
     "&callback=" + callbackName;
 
- script.onerror = function(){
-  box.className = "result bad";
-  box.innerHTML =
-    "❌ Error conectando con Apps Script<br><small>" +
-    script.src +
-    "</small>";
-  locked = false;
-};
+  script.onerror = function(){
+    box.className = "result bad";
+    box.innerHTML =
+      "❌ Error conectando con Apps Script<br><small>" +
+      script.src +
+      "</small>";
+    locked = false;
+  };
 
   document.body.appendChild(script);
 }
@@ -191,18 +202,6 @@ function startScanner(){
     document.getElementById("result").className = "result bad";
     document.getElementById("result").innerHTML = "❌ Permiso de cámara denegado";
   });
-  function feedback(ok){
-  if(navigator.vibrate){
-    navigator.vibrate(ok ? [120,60,120] : [300]);
-  }
-
-  const audio = new Audio(ok
-    ? "https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg"
-    : "https://actions.google.com/sounds/v1/alarms/beep_short.ogg"
-  );
-
-  audio.play().catch(()=>{});
-}
 }
 </script>
 
