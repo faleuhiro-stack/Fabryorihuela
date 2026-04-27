@@ -1,19 +1,107 @@
-<h1>🎟 Pago en Puerta</h1>
-<p>Fabry Noche Bohemia</p>
-<div class="price">$20</div>
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pago en Puerta | Fabry</title>
 
-<a class="btn cash" href="https://cash.app/$Fabrymusic" target="_blank">
-  Pagar Cash App
-</a>
+<style>
+body{
+  margin:0;
+  background:radial-gradient(circle at top,#1a0000,#050507);
+  font-family:Arial,sans-serif;
+  color:white;
+  text-align:center;
+  padding:20px;
+}
 
-<a class="btn venmo" href="https://venmo.com/Fabryorihuela-Music" target="_blank">
-  Pagar Venmo
-</a>
+.card{
+  max-width:420px;
+  margin:auto;
+  background:rgba(20,20,25,0.9);
+  border-radius:24px;
+  padding:30px;
+  border:1px solid rgba(255,255,255,0.1);
+  box-shadow:0 0 40px rgba(255,0,0,0.3);
+}
 
-<a class="btn zelle" href="#" onclick="copyZelle(); return false;">
-  Zelle: 484-544-2917
-</a>
+h1{
+  color:#ff2a2a;
+  font-size:32px;
+  margin-bottom:10px;
+}
 
-<p class="note">
-  Después de pagar, muestra tu comprobante al staff para ingresar.
-</p>
+.subtitle{
+  color:#ccc;
+  margin-bottom:20px;
+}
+
+.price{
+  font-size:42px;
+  font-weight:900;
+  color:#FFD700;
+  margin:20px 0;
+}
+
+.btn{
+  display:block;
+  padding:16px;
+  border-radius:16px;
+  margin:12px 0;
+  text-decoration:none;
+  font-weight:900;
+  font-size:18px;
+  transition:.2s;
+}
+
+.btn:hover{
+  transform:scale(1.03);
+}
+
+.cash{background:#00d632;color:#000;}
+.venmo{background:#008cff;color:#fff;}
+.zelle{background:#6d1ed4;color:#fff;}
+
+.note{
+  margin-top:20px;
+  font-size:14px;
+  color:#aaa;
+  line-height:1.5;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1>🎟 Pago en Puerta</h1>
+  <div class="subtitle">Fabry Noche Bohemia</div>
+
+  <div class="price">$20</div>
+
+  <a class="btn cash" href="https://cash.app/$Fabrymusic" target="_blank">
+    💵 Pagar con Cash App
+  </a>
+
+  <a class="btn venmo" href="https://venmo.com/Fabryorihuela-Music" target="_blank">
+    💳 Pagar con Venmo
+  </a>
+
+  <a class="btn zelle" href="#" onclick="copyZelle(); return false;">
+    ⚡ Zelle: 484-544-2917
+  </a>
+
+  <div class="note">
+    Después de pagar, muestra tu comprobante al staff para ingresar.
+  </div>
+</div>
+
+<script>
+function copyZelle(){
+  navigator.clipboard.writeText("4845442917");
+  alert("Número de Zelle copiado");
+}
+</script>
+
+</body>
+</html>
