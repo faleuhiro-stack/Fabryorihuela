@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Scanner PRO | Fabry</title>
+<title>Scanner PRO Fabry</title>
 
 <script src="https://unpkg.com/html5-qrcode"></script>
 
@@ -12,84 +12,91 @@ body{
   margin:0;
   background:#050507;
   color:white;
-  font-family:Arial,sans-serif;
+  font-family:Arial;
   text-align:center;
-  padding:18px;
+  padding:20px;
 }
-h1{color:#e11d2e;font-size:38px;}
+
+h1{color:#e11d2e;}
+
+#reader{
+  width:260px;
+  margin:20px auto;
+  border-radius:20px;
+  overflow:hidden;
+  border:2px solid rgba(255,255,255,.2);
+  box-shadow:0 0 20px rgba(255,0,0,.4);
+}
+
 input,button{
-  width:100%;
-  max-width:420px;
-  padding:16px;
-  margin:10px auto;
-  border-radius:14px;
+  width:90%;
+  max-width:320px;
+  padding:14px;
+  margin:8px auto;
+  border-radius:12px;
   border:none;
-  font-size:18px;
   display:block;
+  font-size:16px;
 }
+
 button{
   background:#e11d2e;
   color:white;
-  font-weight:900;
+  font-weight:bold;
 }
-.scanner-wrap{
-  max-width:420px;
-  margin:20px auto;
-  border-radius:22px;
-  overflow:hidden;
-  border:2px solid rgba(255,255,255,.2);
-  box-shadow:0 0 35px rgba(255,0,0,.35);
-}
-#reader{
+
+/* 🔥 MENSAJE CENTRAL */
+.overlay{
+  position:fixed;
+  top:0;
+  left:0;
   width:100%;
-  min-height:320px;
-  background:#000;
-}
-.result{
-  max-width:420px;
-  margin:18px auto;
-  padding:22px;
-  border-radius:18px;
-  font-size:24px;
+  height:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:40px;
   font-weight:900;
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+  z-index:999;
 }
-.ok{background:#008f3a;box-shadow:0 0 35px rgba(0,255,100,.75);}
-.bad{background:#a00018;box-shadow:0 0 35px rgba(255,0,0,.75);}
-.info{background:#222;}
-.small{color:#aaa;font-size:14px;}
+
+.overlay.ok{
+  background:rgba(0,150,0,.85);
+}
+
+.overlay.bad{
+  background:rgba(150,0,0,.85);
+}
+
+.overlay.show{
+  opacity:1;
+}
 </style>
 </head>
 
 <body>
 
 <h1>🎟 Scanner PRO</h1>
-<p class="small">Check-in Fabry Noche Bohemia</p>
 
-<input id="pin" type="password" placeholder="PIN de staff">
+<input id="pin" type="password" placeholder="PIN staff">
 
-<div class="scanner-wrap">
-  <div id="reader"></div>
-</div>
+<div id="reader"></div>
 
-<button onclick="startScanner()">📷 Activar cámara</button>
+<button onclick="startScanner()">Activar cámara</button>
 
-<input id="manualCode" placeholder="Código manual: FABRY-0001">
+<input id="manualCode" placeholder="FABRY-0001">
 <button onclick="checkManual()">Validar manual</button>
 
-<div id="result" class="result info">Esperando lectura...</div>
+<div id="overlay" class="overlay"></div>
 
 <script>
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwG1-39WhJ9VG2wjmRG8t_zt2OD1CBZE9eGJFtnx9d7f3kqMPK7_2dAQTJw-2ktBzxF/exec";
 
 let html5QrCode;
 let locked = false;
-
-function normalizeCode(text){
-  text = String(text || "").trim().toUpperCase();
-  const match = text.match(/FABRY-\d{4,6}/);
-  if(match) return match[0];
-  return text;
-}
 
 function feedback(ok){
   if(navigator.vibrate){
@@ -100,52 +107,38 @@ function feedback(ok){
     ? "https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg"
     : "https://actions.google.com/sounds/v1/alarms/beep_short.ogg"
   );
-
   audio.play().catch(()=>{});
 }
 
-function showResult(data){
-  const box = document.getElementById("result");
+function showOverlay(text, ok){
+  const overlay = document.getElementById("overlay");
 
-  if(data.ok){
-    feedback(true);
-    box.className = "result ok";
-    box.innerHTML = "✅ " + data.status + "<br>" + data.code;
-  }else{
-    feedback(false);
-    box.className = "result bad";
-    box.innerHTML = "❌ " + data.status + "<br>" + (data.code || "");
-  }
+  overlay.className = "overlay show " + (ok ? "ok" : "bad");
+  overlay.innerHTML = ok ? "✅ APROBADO" : "❌ RECHAZADO";
 
-  setTimeout(()=>{ locked = false; }, 2500);
+  setTimeout(()=>{
+    overlay.className = "overlay";
+    locked = false;
+  }, 2000);
 }
 
 function callApi(code){
   if(locked) return;
 
   const pin = document.getElementById("pin").value.trim();
-  const box = document.getElementById("result");
-
-  code = normalizeCode(code);
 
   if(!pin){
-    alert("Escribe el PIN primero");
-    return;
-  }
-
-  if(!code){
-    alert("Código vacío");
+    alert("Ingresa PIN");
     return;
   }
 
   locked = true;
-  box.className = "result info";
-  box.innerHTML = "⏳ Validando " + code + "...";
 
   const callbackName = "cb_" + Date.now();
 
   window[callbackName] = function(data){
-    showResult(data);
+    feedback(data.ok);
+    showOverlay(data.status, data.ok);
     delete window[callbackName];
   };
 
@@ -156,11 +149,7 @@ function callApi(code){
     "&callback=" + callbackName;
 
   script.onerror = function(){
-    box.className = "result bad";
-    box.innerHTML =
-      "❌ Error conectando con Apps Script<br><small>" +
-      script.src +
-      "</small>";
+    showOverlay("ERROR", false);
     locked = false;
   };
 
@@ -172,8 +161,8 @@ function checkManual(){
   callApi(code);
 }
 
-function onScanSuccess(decodedText){
-  callApi(decodedText);
+function onScanSuccess(text){
+  callApi(text);
 }
 
 function startScanner(){
@@ -182,25 +171,13 @@ function startScanner(){
   }
 
   Html5Qrcode.getCameras().then(cameras => {
-    if(!cameras || cameras.length === 0){
-      document.getElementById("result").className = "result bad";
-      document.getElementById("result").innerHTML = "❌ No se encontró cámara";
-      return;
-    }
-
     const cameraId = cameras[cameras.length - 1].id;
 
     html5QrCode.start(
       cameraId,
-      {
-        fps: 10,
-        qrbox: { width: 240, height: 240 }
-      },
+      { fps: 10, qrbox: 200 },
       onScanSuccess
     );
-  }).catch(err => {
-    document.getElementById("result").className = "result bad";
-    document.getElementById("result").innerHTML = "❌ Permiso de cámara denegado";
   });
 }
 </script>
