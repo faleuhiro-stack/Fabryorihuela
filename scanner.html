@@ -97,11 +97,11 @@ function showResult(data){
   const box = document.getElementById("result");
 
   if(data.ok){
-    if(navigator.vibrate) navigator.vibrate([120,60,120]);
+    feedback(true); // 🔊 sonido + vibración
     box.className = "result ok";
     box.innerHTML = "✅ " + data.status + "<br>" + data.code;
   }else{
-    if(navigator.vibrate) navigator.vibrate([300]);
+    feedback(false); // 🔊 sonido + vibración
     box.className = "result bad";
     box.innerHTML = "❌ " + data.status + "<br>" + (data.code || "");
   }
