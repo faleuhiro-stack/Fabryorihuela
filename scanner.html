@@ -1,69 +1,126 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Scanner Entradas</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>Scanner Entradas Fabry</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <script src="https://unpkg.com/html5-qrcode"></script>
+<script src="https://unpkg.com/html5-qrcode"></script>
 
-  <style>
-    body{
-      background:#0b0b0f;
-      color:white;
-      font-family:Arial, sans-serif;
-      padding:20px;
-      text-align:center;
-    }
+<style>
+body{
+  margin:0;
+  background:#050507;
+  color:white;
+  font-family:Arial,sans-serif;
+  text-align:center;
+  padding:20px;
+}
 
-    h1{color:#e11d2e;}
+h1{
+  color:#e11d2e;
+  margin-bottom:10px;
+}
 
-    #reader{
-      width:100%;
-      max-width:400px;
-      margin:20px auto;
-      background:white;
-      border-radius:12px;
-      overflow:hidden;
-    }
+.scanner-box{
+  position:relative;
+  max-width:420px;
+  margin:20px auto;
+  border-radius:22px;
+  overflow:hidden;
+  border:2px solid rgba(255,255,255,.15);
+  box-shadow:0 0 35px rgba(255,0,0,.35);
+}
 
-    input, button{
-      width:100%;
-      max-width:400px;
-      padding:14px;
-      margin:8px auto;
-      border-radius:10px;
-      border:none;
-      font-size:16px;
-      display:block;
-    }
+#reader{
+  width:100%;
+  background:#000;
+}
 
-    button{
-      background:#e11d2e;
-      color:white;
-      font-weight:bold;
-    }
+.scan-line{
+  position:absolute;
+  left:0;
+  width:100%;
+  height:3px;
+  background:#00ff66;
+  box-shadow:0 0 18px #00ff66;
+  animation:scanMove 2s infinite;
+  z-index:5;
+}
 
-    .result{
-      margin-top:20px;
-      padding:18px;
-      border-radius:12px;
-      font-size:22px;
-      font-weight:bold;
-    }
+@keyframes scanMove{
+  0%{top:10%;}
+  50%{top:88%;}
+  100%{top:10%;}
+}
 
-    .ok{background:#0a7f32;}
-    .bad{background:#9b111e;}
-  </style>
+input,button{
+  width:100%;
+  max-width:420px;
+  padding:15px;
+  margin:8px auto;
+  border-radius:14px;
+  border:none;
+  font-size:16px;
+  display:block;
+}
+
+button{
+  background:#e11d2e;
+  color:white;
+  font-weight:bold;
+}
+
+.result{
+  max-width:420px;
+  margin:20px auto;
+  padding:22px;
+  border-radius:18px;
+  font-size:22px;
+  font-weight:900;
+}
+
+.ok{
+  background:#00a344;
+  box-shadow:0 0 35px rgba(0,255,100,.7);
+  animation:pop .3s ease;
+}
+
+.bad{
+  background:#b00020;
+  box-shadow:0 0 35px rgba(255,0,0,.7);
+  animation:shake .35s ease;
+}
+
+@keyframes pop{
+  from{transform:scale(.9);}
+  to{transform:scale(1);}
+}
+
+@keyframes shake{
+  0%,100%{transform:translateX(0);}
+  25%{transform:translateX(-8px);}
+  75%{transform:translateX(8px);}
+}
+
+.small{
+  color:#aaa;
+  font-size:13px;
+}
+</style>
 </head>
 
 <body>
 
-<h1>🎟 Scanner Bohemian Night</h1>
+<h1>🎟 Scanner Fabry</h1>
+<p class="small">Sistema de check-in oficial</p>
 
 <input id="pin" type="password" placeholder="PIN de staff">
 
-<div id="reader"></div>
+<div class="scanner-box">
+  <div class="scan-line"></div>
+  <div id="reader"></div>
+</div>
 
 <input id="manualCode" placeholder="O escribe el código manualmente">
 <button onclick="checkManual()">Validar código</button>
@@ -71,9 +128,45 @@
 <div id="result"></div>
 
 <script>
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwwQMlSOUyN3g6nf8xvFHrL2joos2RS4n_Eh2BjJcw2bqJnRAf3CailbzHkOqBKZg0m/exec";
+const WEB_APP_URL = "https://www.fabryorihuela.com/scanner.html";
+
+let lastCode = "";
+let locked = false;
+
+function vibrateOk(){
+  if(navigator.vibrate){
+    navigator.vibrate([120, 60, 120]);
+  }
+}
+
+function vibrateBad(){
+  if(navigator.vibrate){
+    navigator.vibrate([300]);
+  }
+}
+
+function beep(){
+  try{
+    const ctx = new AudioContext();
+    const oscillator = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    oscillator.connect(gain);
+    gain.connect(ctx.destination);
+
+    oscillator.frequency.value = 880;
+    oscillator.type = "sine";
+
+    gain.gain.setValueAtTime(0.15, ctx.currentTime);
+
+    oscillator.start();
+    oscillator.stop(ctx.currentTime + 0.12);
+  }catch(e){}
+}
 
 function callApi(code){
+  if(locked) return;
+
   const pin = document.getElementById("pin").value.trim();
 
   if(!pin){
@@ -81,11 +174,18 @@ function callApi(code){
     return;
   }
 
+  locked = true;
+  lastCode = code;
+
   const callbackName = "cb_" + Date.now();
 
   window[callbackName] = function(data){
     showResult(data);
     delete window[callbackName];
+
+    setTimeout(()=>{
+      locked = false;
+    }, 2500);
   };
 
   const script = document.createElement("script");
@@ -102,21 +202,32 @@ function showResult(data){
   const box = document.getElementById("result");
 
   if(data.ok){
+    vibrateOk();
+    beep();
+
     box.className = "result ok";
-    box.innerHTML = "✅ " + data.status + "<br>" + data.code;
-  } else {
+    box.innerHTML =
+      "✅ ENTRADA VÁLIDA<br>" +
+      "<span style='font-size:16px;'>Marcada como USADO</span><br>" +
+      "<strong>" + data.code + "</strong>";
+  }else{
+    vibrateBad();
+
     box.className = "result bad";
-    box.innerHTML = "❌ " + data.status + "<br>" + (data.code || "");
+    box.innerHTML =
+      "❌ " + data.status + "<br>" +
+      "<span style='font-size:16px;'>" + (data.code || "") + "</span>";
   }
 }
 
 function onScanSuccess(decodedText){
-  callApi(decodedText);
+  if(decodedText === lastCode && locked) return;
+  callApi(decodedText.trim());
 }
 
 const html5QrcodeScanner = new Html5QrcodeScanner(
   "reader",
-  { fps: 10, qrbox: 250 }
+  { fps:10, qrbox:260 }
 );
 
 html5QrcodeScanner.render(onScanSuccess);
