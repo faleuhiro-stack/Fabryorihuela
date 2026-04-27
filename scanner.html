@@ -191,6 +191,18 @@ function startScanner(){
     document.getElementById("result").className = "result bad";
     document.getElementById("result").innerHTML = "❌ Permiso de cámara denegado";
   });
+  function feedback(ok){
+  if(navigator.vibrate){
+    navigator.vibrate(ok ? [120,60,120] : [300]);
+  }
+
+  const audio = new Audio(ok
+    ? "https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg"
+    : "https://actions.google.com/sounds/v1/alarms/beep_short.ogg"
+  );
+
+  audio.play().catch(()=>{});
+}
 }
 </script>
 
