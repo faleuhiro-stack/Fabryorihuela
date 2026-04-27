@@ -1,10 +1,9 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Scanner Entradas Fabry</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Scanner PRO | Fabry</title>
 <script src="https://unpkg.com/html5-qrcode"></script>
 
 <style>
@@ -14,223 +13,165 @@ body{
   color:white;
   font-family:Arial,sans-serif;
   text-align:center;
-  padding:20px;
+  padding:18px;
 }
-
-h1{
-  color:#e11d2e;
-  margin-bottom:10px;
-}
-
-.scanner-box{
-  position:relative;
-  max-width:420px;
-  margin:20px auto;
-  border-radius:22px;
-  overflow:hidden;
-  border:2px solid rgba(255,255,255,.15);
-  box-shadow:0 0 35px rgba(255,0,0,.35);
-}
-
-#reader{
-  width:100%;
-  background:#000;
-}
-
-.scan-line{
-  position:absolute;
-  left:0;
-  width:100%;
-  height:3px;
-  background:#00ff66;
-  box-shadow:0 0 18px #00ff66;
-  animation:scanMove 2s infinite;
-  z-index:5;
-}
-
-@keyframes scanMove{
-  0%{top:10%;}
-  50%{top:88%;}
-  100%{top:10%;}
-}
-
+h1{color:#e11d2e;margin:8px 0}
 input,button{
   width:100%;
   max-width:420px;
-  padding:15px;
+  padding:14px;
   margin:8px auto;
   border-radius:14px;
   border:none;
   font-size:16px;
   display:block;
 }
-
 button{
   background:#e11d2e;
   color:white;
-  font-weight:bold;
+  font-weight:900;
 }
-
+.scanner-wrap{
+  position:relative;
+  max-width:420px;
+  margin:18px auto;
+  border-radius:22px;
+  overflow:hidden;
+  border:2px solid rgba(255,255,255,.18);
+  box-shadow:0 0 35px rgba(255,0,0,.35);
+}
+#reader{background:#000}
+.scan-line{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:4px;
+  background:#00ff66;
+  box-shadow:0 0 22px #00ff66;
+  animation:scan 2s infinite;
+  z-index:10;
+}
+@keyframes scan{
+  0%{top:8%}
+  50%{top:88%}
+  100%{top:8%}
+}
 .result{
   max-width:420px;
-  margin:20px auto;
+  margin:18px auto;
   padding:22px;
   border-radius:18px;
   font-size:22px;
   font-weight:900;
 }
-
 .ok{
-  background:#00a344;
-  box-shadow:0 0 35px rgba(0,255,100,.7);
-  animation:pop .3s ease;
+  background:#008f3a;
+  box-shadow:0 0 35px rgba(0,255,100,.75);
 }
-
 .bad{
-  background:#b00020;
-  box-shadow:0 0 35px rgba(255,0,0,.7);
-  animation:shake .35s ease;
+  background:#a00018;
+  box-shadow:0 0 35px rgba(255,0,0,.75);
 }
-
-@keyframes pop{
-  from{transform:scale(.9);}
-  to{transform:scale(1);}
-}
-
-@keyframes shake{
-  0%,100%{transform:translateX(0);}
-  25%{transform:translateX(-8px);}
-  75%{transform:translateX(8px);}
-}
-
-.small{
-  color:#aaa;
-  font-size:13px;
-}
+.small{color:#aaa;font-size:13px}
 </style>
 </head>
 
 <body>
 
-<h1>🎟 Scanner Fabry</h1>
-<p class="small">Sistema de check-in oficial</p>
+<h1>🎟 Scanner PRO</h1>
+<p class="small">Check-in Fabry Noche Bohemia</p>
 
 <input id="pin" type="password" placeholder="PIN de staff">
 
-<div class="scanner-box">
+<div class="scanner-wrap">
   <div class="scan-line"></div>
   <div id="reader"></div>
 </div>
 
-<input id="manualCode" placeholder="O escribe el código manualmente">
-<button onclick="checkManual()">Validar código</button>
+<input id="manualCode" placeholder="Código manual: FABRY-0001">
+<button onclick="checkManual()">Validar manual</button>
 
 <div id="result"></div>
 
 <script>
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwmVWDGETWu5khZTT7EevSevm5jXZy3Ape9d-f5uQGfzniW9AK8inenlPG1GorbgEHD/exec";
+const WEB_APP_URL = "https://script.google.com/macros/library/d/1gYlLK67OKMe1vU29Z4N8WrkYl9Ezi5nB6wLqWX1mTU1RQd4qe9NdkAeH/1";
 
-let lastCode = "";
 let locked = false;
+let lastCode = "";
 
-function vibrateOk(){
-  if(navigator.vibrate){
-    navigator.vibrate([120, 60, 120]);
-  }
+function vibrate(pattern){
+  if(navigator.vibrate) navigator.vibrate(pattern);
 }
 
-function vibrateBad(){
-  if(navigator.vibrate){
-    navigator.vibrate([300]);
-  }
-}
-
-function beep(){
+function beep(ok=true){
   try{
     const ctx = new AudioContext();
-    const oscillator = ctx.createOscillator();
+    const osc = ctx.createOscillator();
     const gain = ctx.createGain();
-
-    oscillator.connect(gain);
+    osc.connect(gain);
     gain.connect(ctx.destination);
-
-    oscillator.frequency.value = 880;
-    oscillator.type = "sine";
-
-    gain.gain.setValueAtTime(0.15, ctx.currentTime);
-
-    oscillator.start();
-    oscillator.stop(ctx.currentTime + 0.12);
+    osc.frequency.value = ok ? 880 : 220;
+    gain.gain.value = 0.14;
+    osc.start();
+    osc.stop(ctx.currentTime + 0.15);
   }catch(e){}
-}
-
-function callApi(code){
-  if(locked) return;
-
-  const pin = document.getElementById("pin").value.trim();
-
-  if(!pin){
-    alert("Escribe el PIN primero");
-    return;
-  }
-
-  locked = true;
-  lastCode = code;
-
-  const callbackName = "cb_" + Date.now();
-
-  window[callbackName] = function(data){
-    showResult(data);
-    delete window[callbackName];
-
-    setTimeout(()=>{
-      locked = false;
-    }, 2500);
-  };
-
-  const script = document.createElement("script");
-  script.src =
-    WEB_APP_URL +
-    "?callback=" + callbackName +
-    "&pin=" + encodeURIComponent(pin) +
-    "&code=" + encodeURIComponent(code);
-
-  document.body.appendChild(script);
 }
 
 function showResult(data){
   const box = document.getElementById("result");
 
   if(data.ok){
-    vibrateOk();
-    beep();
-
+    vibrate([120,60,120]);
+    beep(true);
     box.className = "result ok";
-    box.innerHTML =
-      "✅ ENTRADA VÁLIDA<br>" +
-      "<span style='font-size:16px;'>Marcada como USADO</span><br>" +
-      "<strong>" + data.code + "</strong>";
+    box.innerHTML = `✅ ENTRADA VÁLIDA<br><span style="font-size:16px">Marcada como USADO</span><br>${data.code}`;
   }else{
-    vibrateBad();
-
+    vibrate([350]);
+    beep(false);
     box.className = "result bad";
-    box.innerHTML =
-      "❌ " + data.status + "<br>" +
-      "<span style='font-size:16px;'>" + (data.code || "") + "</span>";
+    box.innerHTML = `❌ ${data.status}<br><span style="font-size:16px">${data.code || ""}</span>`;
   }
 }
 
-function onScanSuccess(decodedText){
-  if(decodedText === lastCode && locked) return;
-  callApi(decodedText.trim());
+function callApi(code){
+  const pin = document.getElementById("pin").value.trim();
+  if(!pin){
+    alert("Escribe el PIN primero");
+    return;
+  }
+
+  if(locked) return;
+  locked = true;
+  lastCode = code;
+
+  const cb = "cb_" + Date.now();
+  window[cb] = function(data){
+    showResult(data);
+    delete window[cb];
+    setTimeout(()=>{ locked = false; }, 2500);
+  };
+
+  const s = document.createElement("script");
+  s.src = WEB_APP_URL +
+    "?callback=" + cb +
+    "&pin=" + encodeURIComponent(pin) +
+    "&code=" + encodeURIComponent(code);
+
+  document.body.appendChild(s);
 }
 
-const html5QrcodeScanner = new Html5QrcodeScanner(
-  "reader",
-  { fps:10, qrbox:260 }
-);
+function onScanSuccess(decodedText){
+  const code = decodedText.trim();
+  if(code === lastCode && locked) return;
+  callApi(code);
+}
 
-html5QrcodeScanner.render(onScanSuccess);
+new Html5QrcodeScanner("reader", {
+  fps: 10,
+  qrbox: 230,
+  rememberLastUsedCamera: true
+}).render(onScanSuccess);
 
 function checkManual(){
   const code = document.getElementById("manualCode").value.trim();
