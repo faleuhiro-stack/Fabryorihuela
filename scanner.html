@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Scanner PRO | Fabry</title>
 
 <script src="https://unpkg.com/html5-qrcode"></script>
@@ -16,15 +16,15 @@ body{
   text-align:center;
   padding:18px;
 }
-h1{color:#e11d2e;}
+h1{color:#e11d2e;font-size:38px;}
 input,button{
   width:100%;
   max-width:420px;
-  padding:15px;
+  padding:16px;
   margin:10px auto;
   border-radius:14px;
   border:none;
-  font-size:16px;
+  font-size:18px;
   display:block;
 }
 button{
@@ -33,47 +33,30 @@ button{
   font-weight:900;
 }
 .scanner-wrap{
-  position:relative;
   max-width:420px;
-  margin:18px auto;
+  margin:20px auto;
   border-radius:22px;
   overflow:hidden;
-  border:2px solid rgba(255,255,255,.18);
+  border:2px solid rgba(255,255,255,.2);
   box-shadow:0 0 35px rgba(255,0,0,.35);
 }
-#reader{background:#000;}
-.scan-line{
-  position:absolute;
-  left:0;
+#reader{
   width:100%;
-  height:4px;
-  background:#00ff66;
-  box-shadow:0 0 22px #00ff66;
-  animation:scanMove 2s infinite;
-  z-index:10;
-}
-@keyframes scanMove{
-  0%{top:8%;}
-  50%{top:88%;}
-  100%{top:8%;}
+  min-height:320px;
+  background:#000;
 }
 .result{
   max-width:420px;
   margin:18px auto;
   padding:22px;
   border-radius:18px;
-  font-size:22px;
+  font-size:24px;
   font-weight:900;
 }
-.ok{
-  background:#008f3a;
-  box-shadow:0 0 35px rgba(0,255,100,.75);
-}
-.bad{
-  background:#a00018;
-  box-shadow:0 0 35px rgba(255,0,0,.75);
-}
-.small{color:#aaa;font-size:13px;}
+.ok{background:#008f3a;box-shadow:0 0 35px rgba(0,255,100,.75);}
+.bad{background:#a00018;box-shadow:0 0 35px rgba(255,0,0,.75);}
+.info{background:#222;}
+.small{color:#aaa;font-size:14px;}
 </style>
 </head>
 
@@ -85,62 +68,29 @@ button{
 <input id="pin" type="password" placeholder="PIN de staff">
 
 <div class="scanner-wrap">
-  <div class="scan-line"></div>
   <div id="reader"></div>
 </div>
+
+<button onclick="startScanner()">📷 Activar cámara</button>
 
 <input id="manualCode" placeholder="Código manual: FABRY-0001">
 <button onclick="checkManual()">Validar manual</button>
 
-<div id="result"></div>
+<div id="result" class="result info">Esperando lectura...</div>
 
 <script>
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwmVWDGETWu5khZTT7EevSevm5jXZy3Ape9d-f5uQGfzniW9AK8inenlPG1GorbgEHD/exec";
 
+let html5QrCode;
 let locked = false;
 
-function callApi(code){
-  if(locked) return;
+function normalizeCode(text){
+  text = String(text || "").trim().toUpperCase();
 
-  const pin = document.getElementById("pin").value.trim();
-  const resultBox = document.getElementById("result");
+  const match = text.match(/FABRY-\d{4,6}/);
+  if(match) return match[0];
 
-  if(!pin){
-    alert("Escribe el PIN primero");
-    return;
-  }
-
-  if(!code){
-    alert("Código vacío");
-    return;
-  }
-
-  locked = true;
-  resultBox.className = "result";
-  resultBox.innerHTML = "⏳ Validando...";
-
-  const callbackName = "cb_" + Date.now();
-
-  window[callbackName] = function(data){
-    showResult(data);
-    delete window[callbackName];
-    locked = false;
-  };
-
-  const script = document.createElement("script");
-  script.src =
-    WEB_APP_URL +
-    "?pin=" + encodeURIComponent(pin) +
-    "&code=" + encodeURIComponent(code) +
-    "&callback=" + callbackName;
-
-  script.onerror = function(){
-    resultBox.className = "result bad";
-    resultBox.innerHTML = "❌ Error conectando con Apps Script";
-    locked = false;
-  };
-
-  document.body.appendChild(script);
+  return text;
 }
 
 function showResult(data){
@@ -155,22 +105,90 @@ function showResult(data){
     box.className = "result bad";
     box.innerHTML = "❌ " + data.status + "<br>" + (data.code || "");
   }
+
+  setTimeout(()=>{ locked = false; }, 2500);
+}
+
+function callApi(code){
+  if(locked) return;
+
+  const pin = document.getElementById("pin").value.trim();
+  const box = document.getElementById("result");
+
+  code = normalizeCode(code);
+
+  if(!pin){
+    alert("Escribe el PIN primero");
+    return;
+  }
+
+  if(!code){
+    alert("Código vacío");
+    return;
+  }
+
+  locked = true;
+  box.className = "result info";
+  box.innerHTML = "⏳ Validando " + code + "...";
+
+  const callbackName = "cb_" + Date.now();
+
+  window[callbackName] = function(data){
+    showResult(data);
+    delete window[callbackName];
+  };
+
+  const script = document.createElement("script");
+  script.src = WEB_APP_URL +
+    "?pin=" + encodeURIComponent(pin) +
+    "&code=" + encodeURIComponent(code) +
+    "&callback=" + callbackName;
+
+  script.onerror = function(){
+    box.className = "result bad";
+    box.innerHTML = "❌ Error conectando con Apps Script";
+    locked = false;
+  };
+
+  document.body.appendChild(script);
 }
 
 function checkManual(){
-  const code = document.getElementById("manualCode").value.trim().toUpperCase();
+  const code = document.getElementById("manualCode").value.trim();
   callApi(code);
 }
 
 function onScanSuccess(decodedText){
-  callApi(decodedText.trim().toUpperCase());
+  callApi(decodedText);
 }
 
-new Html5QrcodeScanner("reader", {
-  fps:10,
-  qrbox:230,
-  rememberLastUsedCamera:true
-}).render(onScanSuccess);
+function startScanner(){
+  if(!html5QrCode){
+    html5QrCode = new Html5Qrcode("reader");
+  }
+
+  Html5Qrcode.getCameras().then(cameras => {
+    if(!cameras || cameras.length === 0){
+      document.getElementById("result").className = "result bad";
+      document.getElementById("result").innerHTML = "❌ No se encontró cámara";
+      return;
+    }
+
+    const cameraId = cameras[cameras.length - 1].id;
+
+    html5QrCode.start(
+      cameraId,
+      {
+        fps: 10,
+        qrbox: { width: 240, height: 240 }
+      },
+      onScanSuccess
+    );
+  }).catch(err => {
+    document.getElementById("result").className = "result bad";
+    document.getElementById("result").innerHTML = "❌ Permiso de cámara denegado";
+  });
+}
 </script>
 
 </body>
