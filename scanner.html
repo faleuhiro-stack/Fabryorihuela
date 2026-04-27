@@ -1,3 +1,99 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Scanner PRO | Fabry</title>
+
+<script src="https://unpkg.com/html5-qrcode"></script>
+
+<style>
+body{
+  margin:0;
+  background:#050507;
+  color:white;
+  font-family:Arial,sans-serif;
+  text-align:center;
+  padding:18px;
+}
+h1{color:#e11d2e;}
+input,button{
+  width:100%;
+  max-width:420px;
+  padding:15px;
+  margin:10px auto;
+  border-radius:14px;
+  border:none;
+  font-size:16px;
+  display:block;
+}
+button{
+  background:#e11d2e;
+  color:white;
+  font-weight:900;
+}
+.scanner-wrap{
+  position:relative;
+  max-width:420px;
+  margin:18px auto;
+  border-radius:22px;
+  overflow:hidden;
+  border:2px solid rgba(255,255,255,.18);
+  box-shadow:0 0 35px rgba(255,0,0,.35);
+}
+#reader{background:#000;}
+.scan-line{
+  position:absolute;
+  left:0;
+  width:100%;
+  height:4px;
+  background:#00ff66;
+  box-shadow:0 0 22px #00ff66;
+  animation:scanMove 2s infinite;
+  z-index:10;
+}
+@keyframes scanMove{
+  0%{top:8%;}
+  50%{top:88%;}
+  100%{top:8%;}
+}
+.result{
+  max-width:420px;
+  margin:18px auto;
+  padding:22px;
+  border-radius:18px;
+  font-size:22px;
+  font-weight:900;
+}
+.ok{
+  background:#008f3a;
+  box-shadow:0 0 35px rgba(0,255,100,.75);
+}
+.bad{
+  background:#a00018;
+  box-shadow:0 0 35px rgba(255,0,0,.75);
+}
+.small{color:#aaa;font-size:13px;}
+</style>
+</head>
+
+<body>
+
+<h1>🎟 Scanner PRO</h1>
+<p class="small">Check-in Fabry Noche Bohemia</p>
+
+<input id="pin" type="password" placeholder="PIN de staff">
+
+<div class="scanner-wrap">
+  <div class="scan-line"></div>
+  <div id="reader"></div>
+</div>
+
+<input id="manualCode" placeholder="Código manual: FABRY-0001">
+<button onclick="checkManual()">Validar manual</button>
+
+<div id="result"></div>
+
 <script>
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwmVWDGETWu5khZTT7EevSevm5jXZy3Ape9d-f5uQGfzniW9AK8inenlPG1GorbgEHD/exec";
 
@@ -6,10 +102,8 @@ let locked = false;
 function callApi(code){
   if(locked) return;
 
-  const pinInput = document.getElementById("pin");
+  const pin = document.getElementById("pin").value.trim();
   const resultBox = document.getElementById("result");
-
-  const pin = pinInput ? pinInput.value.trim() : "1234";
 
   if(!pin){
     alert("Escribe el PIN primero");
@@ -64,9 +158,7 @@ function showResult(data){
 }
 
 function checkManual(){
-  const input = document.getElementById("manualCode");
-  const code = input.value.trim().toUpperCase();
-
+  const code = document.getElementById("manualCode").value.trim().toUpperCase();
   callApi(code);
 }
 
@@ -75,8 +167,11 @@ function onScanSuccess(decodedText){
 }
 
 new Html5QrcodeScanner("reader", {
-  fps: 10,
-  qrbox: 230,
-  rememberLastUsedCamera: true
+  fps:10,
+  qrbox:230,
+  rememberLastUsedCamera:true
 }).render(onScanSuccess);
 </script>
+
+</body>
+</html>
