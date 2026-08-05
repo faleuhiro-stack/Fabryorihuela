@@ -2907,3 +2907,7 @@ body.event-page{
 
   backdrop-filter: blur(6px);
 }
+/* Ocultar temporalmente el botón del evento */
+a[href="bohemian-night-jetport.html"] {
+  display: none !important;
+}
