@@ -300,12 +300,6 @@ body.fabry-home{
 }
 
 
-/*
-   IMPORTANTE:
-   Usamos sobre-mi.jpg porque es un archivo confirmado
-   dentro de tu carpeta /img.
-*/
-
 .hero-photo-pro{
   position:absolute;
   inset:0;
@@ -313,7 +307,17 @@ body.fabry-home{
   z-index:0;
 
   background-image:
-    url("img/sobre-mi.jpg");
+    url("img/hero.jpg");
+
+  background-size:cover;
+  background-position:center center;
+
+  transform:scale(1.015);
+
+  filter:
+    saturate(.92)
+    contrast(1.05);
+}
 
   background-size:cover;
   background-position:center center;
