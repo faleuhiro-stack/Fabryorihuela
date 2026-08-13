@@ -2202,3 +2202,341 @@ body.event-page{
     order:3;
 
     width:100%
+
+   /* =====================================================
+   FABRY ORIHUELA — AJUSTES MOBILE
+   No afecta la versión desktop
+===================================================== */
+
+@media (max-width: 600px) {
+
+  /* Evita cualquier desplazamiento horizontal */
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+
+  /* =========================
+     TOP BAR
+  ========================= */
+
+  .topbar-pro {
+    width: 100%;
+    max-width: 100%;
+    min-height: 115px;
+    padding: 14px 16px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .top-brand {
+    width: auto;
+    display: flex;
+    justify-content: center;
+  }
+
+  .top-brand img {
+    width: 105px;
+    max-width: 105px;
+    height: auto;
+    display: block;
+  }
+
+  .lang-switch {
+    order: 1;
+  }
+
+  .top-brand {
+    order: 2;
+  }
+
+  .top-actions-pro {
+    order: 3;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .top-link {
+    font-size: 12px;
+    padding: 8px 13px;
+    white-space: nowrap;
+  }
+
+
+  /* =========================
+     HERO
+  ========================= */
+
+  .hero-pro {
+    width: 100%;
+    max-width: 100%;
+    min-height: 620px;
+    height: 620px;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .hero-photo-pro,
+  .hero-overlay-pro {
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero-content-pro {
+    width: 100%;
+    max-width: 100%;
+    padding: 35px 20px 45px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    text-align: center;
+  }
+
+  .hero-kicker {
+    font-size: 10px;
+    letter-spacing: 4px;
+    margin-bottom: 12px;
+  }
+
+  .hero-pro h1 {
+    font-size: clamp(48px, 14vw, 70px);
+    line-height: .9;
+    margin: 0;
+  }
+
+  .hero-pro h1 span {
+    display: block;
+  }
+
+  .hero-pro p {
+    font-size: 12px;
+    letter-spacing: 2px;
+    line-height: 1.4;
+    margin: 14px 0 22px;
+  }
+
+
+  /* =========================
+     BOTONES HERO
+  ========================= */
+
+  .hero-actions-pro {
+    width: 100%;
+    max-width: 360px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .hero-actions-pro a {
+    min-height: 50px;
+    padding: 0 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    font-size: 12px;
+  }
+
+  .hero-actions-pro .gold-btn,
+  .hero-actions-pro .outline-btn {
+    flex: 1;
+  }
+
+
+  /* =========================
+     MENU PRINCIPAL
+  ========================= */
+
+  .home-menu-pro {
+    width: 100%;
+    max-width: 100%;
+    padding: 18px 14px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .pro-tile {
+    min-width: 0;
+    width: 100%;
+    padding: 15px 12px;
+  }
+
+  .tile-icon {
+    flex: 0 0 auto;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pro-tile span:not(.tile-icon) {
+    min-width: 0;
+  }
+
+  .pro-tile b {
+    font-size: 13px;
+  }
+
+  .pro-tile small {
+    font-size: 10px;
+    line-height: 1.25;
+  }
+
+  .pro-tile strong {
+    display: none;
+  }
+
+
+  /* =========================
+     SOBRE FABRY
+  ========================= */
+
+  .about-pro {
+    width: 100%;
+    max-width: 100%;
+    grid-template-columns: 1fr;
+    padding: 25px 16px;
+    gap: 25px;
+  }
+
+  .about-photo-pro {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .about-photo-pro img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .about-text-pro {
+    width: 100%;
+    max-width: 100%;
+  }
+
+
+  /* =========================
+     SHOWS
+  ========================= */
+
+  .live-pro {
+    width: 100%;
+    max-width: 100%;
+    padding: 30px 16px;
+  }
+
+  .section-heading-pro {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .section-heading-pro h2 {
+    font-size: 32px;
+    line-height: 1.05;
+  }
+
+  #calendarLink {
+    font-size: 11px;
+  }
+
+  .gallery-pro {
+    width: 100%;
+    max-width: 100%;
+  }
+
+
+  /* =========================
+     MÚSICA
+  ========================= */
+
+  .music-pro {
+    width: 100%;
+    max-width: 100%;
+    padding: 30px 16px;
+    overflow: hidden;
+  }
+
+  .music-links-pro {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .music-links-pro a {
+    min-width: 0;
+    padding: 18px 10px;
+    text-align: center;
+  }
+
+
+  /* =========================
+     BOOKING
+  ========================= */
+
+  .booking-pro {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 28px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .booking-pro h2 {
+    font-size: 30px;
+    line-height: 1.05;
+  }
+
+  .booking-pro .gold-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+
+  /* =========================
+     FOOTER
+  ========================= */
+
+  .footer-pro {
+    width: 100%;
+    max-width: 100%;
+    grid-template-columns: 1fr 1fr;
+    padding: 35px 18px;
+    gap: 30px 20px;
+  }
+
+  .footer-logo {
+    grid-column: 1 / -1;
+  }
+
+  .copyright {
+    grid-column: 1 / -1;
+  }
+
+}
