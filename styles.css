@@ -2316,15 +2316,59 @@ body.event-page {
    Reduce el espacio negro antes de la foto
 ========================================= */
 
+/* =========================================
+   FABRY — HERO MOBILE FINAL
+========================================= */
+
 @media (max-width: 768px) {
 
+  /* El Hero vuelve a tener altura real */
   .hero-pro {
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-    min-height: 0 !important;
-    height: auto !important;
+    position: relative !important;
+    height: 720px !important;
+    min-height: 720px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
   }
 
+  /* FOTO HERO COMPLETA */
   .hero-photo-pro {
-    height: 72vh !important;
-    min-height:
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+
+    background-image: url("img/hero.jpg") !important;
+    background-size: cover !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+
+    z-index: 0 !important;
+  }
+
+  /* OSCURECIMIENTO */
+  .hero-overlay-pro {
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 1 !important;
+  }
+
+  /* TEXTO Y BOTONES */
+  .hero-content-pro {
+    position: relative !important;
+    z-index: 2 !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+
+    padding: 80px 24px 40px !important;
+    box-sizing: border-box !important;
+  }
+
+}
