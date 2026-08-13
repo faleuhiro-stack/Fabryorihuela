@@ -4024,3 +4024,141 @@ body.event-page{
     max-width:350px;
   }
 }
+/* =========================================================
+   FABRY ORIHUELA — FIX DEFINITIVO BIO MOBILE
+   FOTO ARRIBA / BIO DEBAJO
+   NO MODIFICA DESKTOP
+========================================================= */
+
+@media screen and (max-width: 760px) {
+
+  body.fabry-home .about-pro {
+    width: 100% !important;
+    max-width: 430px !important;
+
+    margin: 0 auto !important;
+    padding: 45px 18px 55px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    align-items: center !important;
+    justify-content: flex-start !important;
+
+    gap: 30px !important;
+
+    text-align: center !important;
+  }
+
+
+  /* FOTO */
+  body.fabry-home .about-pro .about-photo-pro {
+    order: 1 !important;
+
+    width: 100% !important;
+    max-width: 360px !important;
+
+    margin: 0 auto !important;
+
+    flex: none !important;
+
+    display: block !important;
+  }
+
+
+  body.fabry-home .about-pro .about-photo-pro img {
+    display: block !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    height: auto !important;
+
+    margin: 0 auto !important;
+
+    object-fit: cover !important;
+  }
+
+
+  /* BIO COMPLETA */
+  body.fabry-home .about-pro .about-text-pro {
+    order: 2 !important;
+
+    width: 100% !important;
+    max-width: 390px !important;
+
+    margin: 0 auto !important;
+    padding: 0 !important;
+
+    flex: none !important;
+
+    display: block !important;
+
+    text-align: center !important;
+  }
+
+
+  /* SOBRE FABRY */
+  body.fabry-home .about-pro .about-text-pro .section-label-pro {
+    display: block !important;
+
+    width: 100% !important;
+
+    margin: 0 auto 13px !important;
+
+    text-align: center !important;
+  }
+
+
+  /* FABRY ORIHUELA */
+  body.fabry-home .about-pro .about-text-pro h2 {
+    display: block !important;
+
+    width: 100% !important;
+
+    margin: 0 auto 15px !important;
+
+    text-align: center !important;
+
+    font-size: 34px !important;
+
+    line-height: 1.03 !important;
+  }
+
+
+  /* CANTANTE · GUITARRISTA · COMPOSITOR */
+  body.fabry-home .about-pro .about-text-pro .bio-role {
+    display: block !important;
+
+    width: 100% !important;
+
+    margin: 0 auto 20px !important;
+
+    text-align: center !important;
+
+    font-size: 11px !important;
+
+    line-height: 1.5 !important;
+
+    letter-spacing: 1.7px !important;
+  }
+
+
+  /* TEXTO DE LA BIO */
+  body.fabry-home .about-pro .about-text-pro p {
+    display: block !important;
+
+    width: 100% !important;
+    max-width: 390px !important;
+
+    margin: 0 auto !important;
+    padding: 0 !important;
+
+    text-align: center !important;
+
+    font-size: 15px !important;
+
+    line-height: 1.7 !important;
+  }
+
+}
