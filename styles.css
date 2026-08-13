@@ -2591,3 +2591,357 @@ body.event-page {
   }
 
 }
+/* =========================================================
+   FOOTER PRO — DISEÑO FINAL RESPONSIVE
+   ========================================================= */
+
+/* ---------- BASE / DESKTOP ---------- */
+
+.footer-pro {
+  width: 100%;
+  box-sizing: border-box;
+
+  display: grid;
+  grid-template-columns: 1.1fr 1fr 1fr 1.2fr;
+  gap: 50px;
+
+  padding: 70px 7% 35px;
+
+  background: #050505;
+  border-top: 1px solid rgba(212, 175, 55, 0.18);
+
+  color: #ffffff;
+  text-align: left;
+}
+
+.footer-pro > div {
+  min-width: 0;
+}
+
+
+/* LOGO */
+
+.footer-logo {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.footer-logo img {
+  display: block;
+
+  width: 180px;
+  height: auto;
+
+  object-fit: contain;
+}
+
+
+/* TITULOS */
+
+.footer-pro > div:not(.footer-logo) > b {
+  display: block;
+
+  margin-bottom: 22px;
+
+  color: #d8b45a;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  letter-spacing: 4px;
+  line-height: 1.4;
+}
+
+
+/* LINKS */
+
+.footer-pro a {
+  display: block;
+
+  width: fit-content;
+
+  margin-bottom: 12px;
+
+  color: rgba(255, 255, 255, 0.68);
+
+  font-size: 15px;
+  line-height: 1.5;
+
+  text-decoration: none;
+
+  transition:
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.footer-pro a:hover {
+  color: #d8b45a;
+  transform: translateX(3px);
+}
+
+
+/* CONTACTO */
+
+.footer-pro p {
+  margin: 0 0 10px;
+
+  color: rgba(255, 255, 255, 0.68);
+
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+
+/* BOTON BOOKING */
+
+.footer-pro .footer-cta {
+  display: inline-block;
+
+  margin-top: 12px;
+  margin-bottom: 0;
+
+  padding: 12px 22px;
+
+  color: #080808;
+
+  background: linear-gradient(
+    135deg,
+    #f1d27a,
+    #c79f3e
+  );
+
+  border-radius: 999px;
+
+  font-size: 13px;
+  font-weight: 800;
+
+  letter-spacing: 1.5px;
+
+  box-shadow:
+    0 8px 25px rgba(212, 175, 55, 0.16);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.footer-pro .footer-cta:hover {
+  color: #080808;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 12px 30px rgba(212, 175, 55, 0.25);
+}
+
+
+/* COPYRIGHT */
+
+.footer-pro .copyright {
+  grid-column: 1 / -1;
+
+  display: block;
+
+  margin-top: 30px;
+  padding-top: 25px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+  color: rgba(255, 255, 255, 0.38);
+
+  font-size: 12px;
+  line-height: 1.5;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .footer-pro {
+    grid-template-columns: 1fr 1fr;
+
+    gap: 40px 50px;
+
+    padding: 60px 8% 30px;
+  }
+
+  .footer-logo {
+    grid-column: 1 / -1;
+
+    justify-content: center;
+  }
+
+  .footer-pro > div:last-of-type {
+    grid-column: 1 / -1;
+
+    text-align: center;
+  }
+
+  .footer-pro > div:last-of-type a {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .footer-pro .footer-cta {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+
+/* =========================================================
+   MOBILE — DISEÑO FINAL
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .footer-pro {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    column-gap: 30px;
+    row-gap: 38px;
+
+    padding: 45px 28px 28px;
+
+    text-align: center;
+  }
+
+
+  /* LOGO */
+
+  .footer-logo {
+    grid-column: 1 / -1;
+
+    justify-content: center;
+
+    margin-bottom: 2px;
+  }
+
+  .footer-logo img {
+    width: 150px;
+    max-width: 150px;
+  }
+
+
+  /* NAVEGACION + SIGUEME */
+
+  .footer-pro > div:not(.footer-logo):not(:last-of-type) {
+    text-align: center;
+  }
+
+  .footer-pro > div:not(.footer-logo):not(:last-of-type) > b {
+    margin-bottom: 18px;
+
+    font-size: 11px;
+    letter-spacing: 3px;
+  }
+
+
+  /* LINKS */
+
+  .footer-pro a {
+    width: auto;
+
+    margin: 0 0 12px;
+
+    color: rgba(255, 255, 255, 0.62);
+
+    font-size: 14px;
+
+    line-height: 1.35;
+  }
+
+  .footer-pro a:hover {
+    transform: none;
+  }
+
+
+  /* BOOKING + CONTACTO */
+
+  .footer-pro > div:last-of-type {
+    grid-column: 1 / -1;
+
+    padding-top: 4px;
+
+    text-align: center;
+  }
+
+  .footer-pro > div:last-of-type > b {
+    margin-bottom: 18px;
+
+    font-size: 11px;
+    letter-spacing: 3px;
+  }
+
+
+  .footer-pro p {
+    margin-bottom: 7px;
+
+    font-size: 14px;
+  }
+
+
+  /* BOTON */
+
+  .footer-pro .footer-cta {
+    margin-top: 14px;
+
+    padding: 12px 25px;
+
+    font-size: 12px;
+    letter-spacing: 1.3px;
+  }
+
+
+  /* COPYRIGHT */
+
+  .footer-pro .copyright {
+    grid-column: 1 / -1;
+
+    margin-top: 5px;
+    padding-top: 22px;
+
+    font-size: 10px;
+
+    line-height: 1.5;
+  }
+
+}
+
+
+/* =========================================================
+   TELEFONOS MUY PEQUEÑOS
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+  .footer-pro {
+    padding-left: 20px;
+    padding-right: 20px;
+
+    column-gap: 20px;
+  }
+
+  .footer-logo img {
+    width: 135px;
+  }
+
+  .footer-pro a {
+    font-size: 13px;
+  }
+
+  .footer-pro p {
+    font-size: 13px;
+  }
+
+}
