@@ -2317,57 +2317,90 @@ body.event-page {
 ========================================= */
 
 /* =========================================
-   FABRY — HERO MOBILE FINAL
+   HERO MOBILE — FOTO COMPLETA
 ========================================= */
 
 @media (max-width: 768px) {
 
-  /* El Hero vuelve a tener altura real */
   .hero-pro {
     position: relative !important;
-    height: 720px !important;
-    min-height: 720px !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
     margin: 0 !important;
     padding: 0 !important;
-    overflow: hidden !important;
+    overflow: visible !important;
+    background: #000 !important;
   }
 
-  /* FOTO HERO COMPLETA */
+  /* FOTO COMPLETA SIN RECORTE */
   .hero-photo-pro {
-    position: absolute !important;
-    inset: 0 !important;
+    position: relative !important;
+    inset: auto !important;
+
     width: 100% !important;
-    height: 100% !important;
+    height: auto !important;
+
+    aspect-ratio: 16 / 9 !important;
 
     background-image: url("img/hero.jpg") !important;
-    background-size: cover !important;
+    background-size: 100% 100% !important;
     background-position: center center !important;
     background-repeat: no-repeat !important;
 
     z-index: 0 !important;
+    transform: none !important;
+    filter: none !important;
   }
 
-  /* OSCURECIMIENTO */
+  /* No necesitamos overlay sobre la foto */
   .hero-overlay-pro {
-    position: absolute !important;
-    inset: 0 !important;
-    z-index: 1 !important;
+    display: none !important;
   }
 
-  /* TEXTO Y BOTONES */
+  /* TEXTO DEBAJO DE LA FOTO */
   .hero-content-pro {
     position: relative !important;
     z-index: 2 !important;
 
     width: 100% !important;
-    height: 100% !important;
+    height: auto !important;
+
+    min-height: 0 !important;
 
     display: flex !important;
     flex-direction: column !important;
     justify-content: center !important;
     align-items: center !important;
 
-    padding: 80px 24px 40px !important;
+    box-sizing: border-box !important;
+
+    padding: 32px 24px 38px !important;
+
+    background: #000 !important;
+  }
+
+  .hero-kicker {
+    margin-bottom: 14px !important;
+  }
+
+  .hero-content-pro h1 {
+    margin: 0 !important;
+  }
+
+  .hero-content-pro p {
+    margin: 16px 0 26px !important;
+  }
+
+  .hero-actions-pro {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 14px !important;
+  }
+
+  .hero-actions-pro a {
+    width: 100% !important;
     box-sizing: border-box !important;
   }
 
