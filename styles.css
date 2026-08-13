@@ -3619,439 +3619,871 @@ body.event-page{
 
 }
 /* =========================================================
-   FABRY ORIHUELA — MOBILE BIO FINAL
-   FOTO ARRIBA / BIO ABAJO
+   MOBILE
+   FABRY ORIHUELA
+   NO AFECTA DESKTOP
 ========================================================= */
 
-@media only screen and (max-width: 600px) {
+@media screen and (max-width: 760px){
 
-  /* ELIMINA CUALQUIER COLUMNA HORIZONTAL */
-  .about-pro {
-    display: flex !important;
-    flex-direction: column !important;
+  /* =====================================================
+     BASE
+  ===================================================== */
 
-    width: 100vw !important;
-    max-width: 100vw !important;
+  html,
+  body{
+    width:100%;
+    max-width:100%;
+    min-width:0;
+    margin:0;
+    padding:0;
+    overflow-x:hidden;
+  }
 
-    margin: 0 !important;
-    padding: 45px 18px !important;
-
-    align-items: center !important;
-    justify-content: flex-start !important;
-
-    text-align: center !important;
-
-    gap: 30px !important;
-
-    grid-template-columns: none !important;
+  *,
+  *::before,
+  *::after{
+    box-sizing:border-box;
   }
 
 
-  /* =========================
-     FOTO
-  ========================= */
+  /* =====================================================
+     TOP BAR
+  ===================================================== */
 
-  .about-photo-pro {
-    display: block !important;
+  .topbar-pro{
+    width:100%;
+    max-width:100%;
 
-    width: 100% !important;
-    max-width: 360px !important;
+    min-height:auto;
 
-    margin: 0 auto !important;
+    display:flex;
+    flex-direction:column;
 
-    flex: none !important;
+    align-items:center;
+    justify-content:center;
 
-    order: 1 !important;
+    gap:9px;
+
+    padding:14px 16px 12px;
+
+    margin:0 auto;
+  }
+
+  .lang-switch{
+    order:1;
+
+    margin:0 auto;
+  }
+
+  .top-brand{
+    order:2;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    margin:0 auto;
+  }
+
+  .top-brand img{
+    width:105px;
+    max-width:105px;
+    height:auto;
+
+    display:block;
+
+    margin:0 auto;
+  }
+
+  .top-actions-pro{
+    order:3;
+
+    width:100%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    gap:8px;
+
+    flex-wrap:wrap;
+
+    margin:0 auto;
+  }
+
+  .top-link{
+    min-height:40px;
+
+    padding:8px 13px;
+
+    font-size:12px;
+
+    white-space:nowrap;
   }
 
 
-  .about-photo-pro img {
-    display: block !important;
+  /* =====================================================
+     HERO
+  ===================================================== */
 
-    width: 100% !important;
-    max-width: 100% !important;
+  .hero-pro{
+    width:100%;
+    max-width:100%;
 
-    height: auto !important;
+    height:600px;
+    min-height:600px;
 
-    margin: 0 auto !important;
+    margin:0;
 
-    object-fit: cover !important;
-    object-position: center center !important;
+    overflow:hidden;
+  }
 
-    border-radius: 22px !important;
+  .hero-photo-pro,
+  .hero-overlay-pro{
+    width:100%;
+    height:100%;
+  }
+
+  .hero-content-pro{
+    width:100%;
+    max-width:100%;
+
+    height:100%;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+    justify-content:flex-end;
+
+    text-align:center;
+
+    padding:30px 16px 40px;
+
+    margin:0 auto;
+  }
+
+  .hero-kicker{
+    font-size:10px;
+
+    letter-spacing:4px;
+
+    margin-bottom:12px;
+
+    text-align:center;
+  }
+
+  .hero-pro h1{
+    font-size:clamp(48px,14vw,70px);
+
+    line-height:.9;
+
+    margin:0;
+
+    text-align:center;
+  }
+
+  .hero-pro h1 span{
+    display:block;
+
+    margin-top:7px;
+  }
+
+  .hero-pro p{
+    font-size:12px;
+
+    letter-spacing:2px;
+
+    line-height:1.4;
+
+    margin:14px 0 22px;
+
+    text-align:center;
   }
 
 
-  /* =========================
-     BIO — DEBAJO DE LA FOTO
-  ========================= */
+  /* =====================================================
+     HERO BUTTONS
+  ===================================================== */
 
-  .about-text-pro {
-    display: block !important;
+  .hero-actions-pro{
+    width:100%;
+    max-width:360px;
 
-    width: 100% !important;
-    max-width: 600px !important;
+    display:flex;
 
-    margin: 0 auto !important;
-    padding: 0 !important;
+    flex-direction:row;
 
-    flex: none !important;
+    align-items:center;
+    justify-content:center;
 
-    order: 2 !important;
+    gap:10px;
 
-    text-align: center !important;
+    margin:0 auto;
+  }
 
-    grid-column: auto !important;
+  .hero-actions-pro a{
+    flex:1;
+
+    min-height:50px;
+
+    padding:0 16px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    white-space:nowrap;
+
+    font-size:12px;
   }
 
 
-  .about-text-pro .section-label-pro {
-    width: 100% !important;
+  /* =====================================================
+     MAIN MENU
+  ===================================================== */
 
-    margin: 0 0 12px 0 !important;
+  .home-menu-pro{
+    width:100%;
+    max-width:430px;
 
-    text-align: center !important;
+    margin:0 auto;
+
+    padding:20px 16px 40px;
+
+    display:grid;
+
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
+
+    gap:12px;
+  }
+
+  .pro-tile{
+    width:100%;
+    min-width:0;
+
+    min-height:82px;
+
+    padding:14px 12px;
+
+    display:grid;
+
+    grid-template-columns:
+      48px minmax(0,1fr);
+
+    align-items:center;
+
+    gap:11px;
+
+    margin:0;
+  }
+
+  .tile-icon{
+    width:48px;
+    height:48px;
+
+    flex-shrink:0;
+  }
+
+  .pro-tile > span:nth-child(2){
+    min-width:0;
+
+    text-align:left;
+  }
+
+  .pro-tile b{
+    font-size:13px;
+
+    line-height:1.15;
+  }
+
+  .pro-tile small{
+    font-size:10px;
+
+    line-height:1.25;
+
+    margin-top:5px;
+  }
+
+  .pro-tile > strong{
+    display:none;
   }
 
 
-  .about-text-pro h2 {
-    width: 100% !important;
+  /* =====================================================
+     SOBRE FABRY
+     FOTO ARRIBA
+     BIO ABAJO
+  ===================================================== */
 
-    margin: 0 0 14px 0 !important;
+  .about-pro{
+    width:100%;
+    max-width:430px;
 
-    text-align: center !important;
+    margin:0 auto;
 
-    font-size: 32px !important;
+    padding:45px 18px 55px;
 
-    line-height: 1.05 !important;
+    display:flex !important;
+
+    flex-direction:column !important;
+
+    align-items:center !important;
+    justify-content:flex-start !important;
+
+    gap:30px;
+
+    text-align:center;
+
+    overflow:hidden;
   }
 
 
-  .about-text-pro .bio-role {
-    width: 100% !important;
+  /* =====================================================
+     FOTO BIO
+  ===================================================== */
 
-    margin: 0 0 20px 0 !important;
+  .about-photo-pro{
+    width:100%;
+    max-width:360px;
 
-    text-align: center !important;
+    margin:0 auto;
 
-    font-size: 11px !important;
+    flex:none;
 
-    line-height: 1.5 !important;
+    order:1;
 
-    letter-spacing: 1.8px !important;
+    border-radius:22px;
+
+    overflow:hidden;
+
+    align-self:center;
+  }
+
+  .about-photo-pro img{
+    display:block;
+
+    width:100%;
+    max-width:100%;
+
+    height:auto;
+
+    margin:0 auto;
+
+    object-fit:cover;
+
+    object-position:center center;
   }
 
 
-  .about-text-pro p {
-    display: block !important;
+  /* =====================================================
+     TEXTO BIO
+     SIEMPRE DEBAJO DE LA FOTO
+  ===================================================== */
 
-    width: 100% !important;
-    max-width: 580px !important;
+  .about-text-pro{
+    width:100%;
+    max-width:390px;
 
-    margin: 0 auto !important;
-    padding: 0 !important;
+    margin:0 auto;
+    padding:0;
 
-    text-align: center !important;
+    flex:none;
 
-    font-size: 15px !important;
+    order:2;
 
-    line-height: 1.7 !important;
+    text-align:center;
+
+    align-self:center;
+  }
+
+  .about-text-pro .section-label-pro{
+    width:100%;
+
+    margin:0 0 13px;
+
+    text-align:center;
+  }
+
+  .about-text-pro h2{
+    width:100%;
+
+    margin:0 0 15px;
+
+    font-size:34px;
+
+    line-height:1.03;
+
+    text-align:center;
+  }
+
+  .about-text-pro .bio-role{
+    width:100%;
+
+    margin:0 0 20px;
+
+    font-size:11px;
+
+    line-height:1.5;
+
+    letter-spacing:1.7px;
+
+    text-align:center;
+  }
+
+  .about-text-pro p{
+    width:100%;
+    max-width:390px;
+
+    margin:0 auto;
+
+    padding:0;
+
+    font-size:15px;
+
+    line-height:1.7;
+
+    text-align:center;
   }
 
 
-  /* =========================
-     EVITAR DESPLAZAMIENTO
-     HORIZONTAL DEL SITIO
-  ========================= */
+  /* =====================================================
+     SHOWS EN VIVO
+  ===================================================== */
 
-  body,
-  main,
-  .about-pro {
-    overflow-x: hidden !important;
+  .live-pro{
+    width:100%;
+    max-width:100%;
+
+    margin:0;
+
+    padding:45px 16px 55px;
+
+    text-align:center;
+
+    overflow:hidden;
+  }
+
+  .live-pro > *{
+    width:100%;
+    max-width:430px;
+
+    margin-left:auto;
+    margin-right:auto;
+  }
+
+  .section-heading-pro{
+    width:100%;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+    justify-content:center;
+
+    gap:13px;
+
+    margin:0 auto 25px;
+
+    text-align:center;
+  }
+
+  .section-heading-pro > div{
+    width:100%;
+
+    text-align:center;
+  }
+
+  .section-heading-pro .section-label-pro{
+    text-align:center;
+
+    margin-left:auto;
+    margin-right:auto;
+  }
+
+  .section-heading-pro h2{
+    width:100%;
+
+    margin:0;
+
+    font-size:30px;
+
+    line-height:1.1;
+
+    text-align:center;
+  }
+
+  #calendarLink{
+    display:inline-block;
+
+    margin:0 auto;
+
+    font-size:10px;
+
+    text-align:center;
+  }
+
+
+  /* =====================================================
+     GALERÍA MOBILE
+     DISEÑO CENTRADO
+  ===================================================== */
+
+  .gallery-pro{
+    width:100%;
+    max-width:400px;
+
+    margin:0 auto;
+
+    display:grid;
+
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
+
+    gap:10px;
+
+    align-items:start;
+    justify-items:center;
+  }
+
+  .gallery-pro a{
+    position:relative;
+
+    display:block;
+
+    width:100%;
+
+    min-width:0;
+
+    margin:0;
+
+    overflow:hidden;
+
+    border-radius:18px;
+
+    aspect-ratio:4 / 5;
+  }
+
+  .gallery-pro img{
+    display:block;
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    transition:
+      transform .6s ease,
+      filter .6s ease;
+  }
+
+
+  /* =====================================================
+     PRIMERA FOTO
+     GRANDE
+  ===================================================== */
+
+  .gallery-pro a:first-child{
+    grid-column:1 / -1;
+
+    width:100%;
+
+    aspect-ratio:4 / 5;
+  }
+
+  .gallery-pro a:first-child img{
+    object-position:center 25%;
+  }
+
+
+  /* =====================================================
+     SEGUNDA FOTO
+  ===================================================== */
+
+  .gallery-pro a:nth-child(2) img{
+    object-position:center 25%;
+  }
+
+
+  /* =====================================================
+     TERCERA FOTO
+  ===================================================== */
+
+  .gallery-pro a:nth-child(3) img{
+    object-position:center 20%;
+  }
+
+
+  /* =====================================================
+     CUARTA FOTO
+  ===================================================== */
+
+  .gallery-pro a:nth-child(4){
+    grid-column:span 1;
+  }
+
+  .gallery-pro a:nth-child(4) img{
+    object-position:center 28%;
+  }
+
+
+  /* =====================================================
+     QUINTA FOTO
+     CENTRADA
+     MÁS GRANDE
+     CARA COMPLETA
+  ===================================================== */
+
+  .gallery-pro a:nth-child(5){
+    grid-column:1 / -1;
+
+    width:48%;
+
+    justify-self:center;
+
+    aspect-ratio:3 / 4;
+
+    margin:0 auto;
+  }
+
+  .gallery-pro a:nth-child(5) img{
+    object-position:38% 28%;
+  }
+
+
+  /* =====================================================
+     MÚSICA
+  ===================================================== */
+
+  .music-pro{
+    width:100%;
+    max-width:430px;
+
+    margin:0 auto;
+
+    padding:45px 16px;
+
+    text-align:center;
+  }
+
+  .music-pro .section-label-pro{
+    text-align:center;
+  }
+
+  .music-links-pro{
+    width:100%;
+    max-width:400px;
+
+    margin:20px auto 0;
+
+    display:grid;
+
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
+
+    gap:10px;
+  }
+
+  .music-links-pro a{
+    min-width:0;
+
+    min-height:85px;
+
+    padding:16px 8px;
+
+    text-align:center;
+  }
+
+
+  /* =====================================================
+     BOOKING
+  ===================================================== */
+
+  .booking-pro{
+    width:100%;
+    max-width:430px;
+
+    margin:0 auto;
+
+    padding:40px 18px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+    justify-content:center;
+
+    gap:20px;
+
+    text-align:center;
+  }
+
+  .booking-pro > div{
+    width:100%;
+
+    text-align:center;
+  }
+
+  .booking-pro h2{
+    font-size:29px;
+
+    line-height:1.1;
+
+    text-align:center;
+  }
+
+  .booking-pro p{
+    text-align:center;
+  }
+
+  .booking-pro .gold-btn{
+    width:auto;
+
+    margin:0 auto;
+  }
+
+
+  /* =====================================================
+     FOOTER
+  ===================================================== */
+
+  .footer-pro{
+    width:100%;
+    max-width:430px;
+
+    margin:0 auto;
+
+    padding:40px 18px 30px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:28px;
+
+    text-align:center;
+  }
+
+  .footer-logo{
+    width:100%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+  }
+
+  .footer-logo img{
+    margin:0 auto;
+  }
+
+  .footer-pro > div:not(.footer-logo){
+    width:100%;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    text-align:center;
+  }
+
+  .footer-pro b,
+  .footer-pro a,
+  .footer-pro p{
+    text-align:center;
+  }
+
+  .copyright{
+    width:100%;
+
+    text-align:center;
   }
 
 }
-   /* =========================================================
-   FABRY ORIHUELA — MOBILE BIO FINAL
-   FOTO ARRIBA / BIO ABAJO
-========================================================= */
 
-@media only screen and (max-width: 600px) {
 
-  /* ELIMINA CUALQUIER COLUMNA HORIZONTAL */
-  .about-pro {
-    display: flex !important;
-    flex-direction: column !important;
+/* =========================================================
+   TELÉFONOS MUY PEQUEÑOS
+   ========================================================= */
 
-    width: 100vw !important;
-    max-width: 100vw !important;
+@media screen and (max-width:380px){
 
-    margin: 0 !important;
-    padding: 45px 18px !important;
-
-    align-items: center !important;
-    justify-content: flex-start !important;
-
-    text-align: center !important;
-
-    gap: 30px !important;
-
-    grid-template-columns: none !important;
+  .hero-pro{
+    height:570px;
+    min-height:570px;
   }
 
-
-  /* =========================
-     FOTO
-  ========================= */
-
-  .about-photo-pro {
-    display: block !important;
-
-    width: 100% !important;
-    max-width: 360px !important;
-
-    margin: 0 auto !important;
-
-    flex: none !important;
-
-    order: 1 !important;
+  .hero-content-pro{
+    padding-left:12px;
+    padding-right:12px;
   }
 
-
-  .about-photo-pro img {
-    display: block !important;
-
-    width: 100% !important;
-    max-width: 100% !important;
-
-    height: auto !important;
-
-    margin: 0 auto !important;
-
-    object-fit: cover !important;
-    object-position: center center !important;
-
-    border-radius: 22px !important;
+  .hero-actions-pro{
+    gap:7px;
   }
 
+  .hero-actions-pro a{
+    padding-left:11px;
+    padding-right:11px;
 
-  /* =========================
-     BIO — DEBAJO DE LA FOTO
-  ========================= */
-
-  .about-text-pro {
-    display: block !important;
-
-    width: 100% !important;
-    max-width: 600px !important;
-
-    margin: 0 auto !important;
-    padding: 0 !important;
-
-    flex: none !important;
-
-    order: 2 !important;
-
-    text-align: center !important;
-
-    grid-column: auto !important;
+    font-size:11px;
   }
 
-
-  .about-text-pro .section-label-pro {
-    width: 100% !important;
-
-    margin: 0 0 12px 0 !important;
-
-    text-align: center !important;
+  .home-menu-pro{
+    padding-left:12px;
+    padding-right:12px;
   }
 
+  .pro-tile{
+    padding:12px 9px;
 
-  .about-text-pro h2 {
-    width: 100% !important;
-
-    margin: 0 0 14px 0 !important;
-
-    text-align: center !important;
-
-    font-size: 32px !important;
-
-    line-height: 1.05 !important;
+    gap:8px;
   }
 
-
-  .about-text-pro .bio-role {
-    width: 100% !important;
-
-    margin: 0 0 20px 0 !important;
-
-    text-align: center !important;
-
-    font-size: 11px !important;
-
-    line-height: 1.5 !important;
-
-    letter-spacing: 1.8px !important;
+  .tile-icon{
+    width:44px;
+    height:44px;
   }
 
-
-  .about-text-pro p {
-    display: block !important;
-
-    width: 100% !important;
-    max-width: 580px !important;
-
-    margin: 0 auto !important;
-    padding: 0 !important;
-
-    text-align: center !important;
-
-    font-size: 15px !important;
-
-    line-height: 1.7 !important;
+  .pro-tile b{
+    font-size:12px;
   }
 
-
-  /* =========================
-     EVITAR DESPLAZAMIENTO
-     HORIZONTAL DEL SITIO
-  ========================= */
-
-  body,
-  main,
-  .about-pro {
-    overflow-x: hidden !important;
+  .pro-tile small{
+    font-size:9px;
   }
 
-}
-   /* =========================================================
-   FABRY — MOBILE ABOUT
-   FOTO ARRIBA + BIO ABAJO
-========================================================= */
-
-@media screen and (max-width: 600px) {
-
-  /* CONTENEDOR SOBRE FABRY */
-  .about-pro {
-    display: grid !important;
-
-    grid-template-columns: 1fr !important;
-    grid-template-rows: auto auto !important;
-
-    width: 100% !important;
-    max-width: 100% !important;
-
-    margin: 0 !important;
-
-    padding: 45px 18px !important;
-
-    gap: 30px !important;
-
-    justify-items: center !important;
-    align-items: start !important;
-
-    text-align: center !important;
-
-    overflow: hidden !important;
+  .about-pro{
+    padding-left:14px;
+    padding-right:14px;
   }
 
-
-  /* FOTO — PRIMERA FILA */
-  .about-photo-pro {
-    grid-column: 1 !important;
-    grid-row: 1 !important;
-
-    width: 100% !important;
-    max-width: 360px !important;
-
-    margin: 0 auto !important;
-
-    justify-self: center !important;
-
-    overflow: hidden !important;
-
-    border-radius: 22px !important;
+  .about-photo-pro{
+    max-width:340px;
   }
 
-
-  .about-photo-pro img {
-    display: block !important;
-
-    width: 100% !important;
-    height: auto !important;
-
-    margin: 0 auto !important;
-
-    object-fit: cover !important;
-    object-position: center center !important;
+  .about-text-pro{
+    max-width:350px;
   }
 
-
-  /* BIO — SEGUNDA FILA */
-  .about-text-pro {
-    grid-column: 1 !important;
-    grid-row: 2 !important;
-
-    width: 100% !important;
-    max-width: 600px !important;
-
-    margin: 0 auto !important;
-    padding: 0 !important;
-
-    justify-self: center !important;
-
-    text-align: center !important;
+  .about-text-pro h2{
+    font-size:31px;
   }
 
-
-  .about-text-pro .section-label-pro {
-    width: 100% !important;
-
-    margin: 0 0 12px !important;
-
-    text-align: center !important;
-  }
-
-
-  .about-text-pro h2 {
-    width: 100% !important;
-
-    margin: 0 0 14px !important;
-
-    text-align: center !important;
-
-    font-size: 32px !important;
-
-    line-height: 1.05 !important;
-  }
-
-
-  .about-text-pro .bio-role {
-    width: 100% !important;
-
-    margin: 0 0 20px !important;
-
-    text-align: center !important;
-
-    font-size: 11px !important;
-
-    line-height: 1.5 !important;
-
-    letter-spacing: 1.8px !important;
-  }
-
-
-  .about-text-pro p {
-    width: 100% !important;
-    max-width: 580px !important;
-
-    margin: 0 auto !important;
-
-    text-align: center !important;
-
-    font-size: 15px !important;
-
-    line-height: 1.7 !important;
+  .gallery-pro{
+    max-width:350px;
   }
 
 }
