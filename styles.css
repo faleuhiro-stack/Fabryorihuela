@@ -3111,4 +3111,77 @@ body.event-page{
   }
 
 }
+/* =========================================
+   HERO — MOBILE
+   ========================================= */
 
+@media (max-width: 768px) {
+
+  .hero-pro {
+    position: relative;
+    min-height: 880px;
+    overflow: hidden;
+  }
+
+  .hero-content-pro {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 92%;
+    max-width: 520px;
+
+    transform: translate(-50%, -50%);
+
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 3;
+  }
+
+  .hero-kicker {
+    width: 100%;
+    text-align: center;
+    margin: 0 0 14px;
+  }
+
+  .hero-content-pro h1 {
+    width: 100%;
+    margin: 0;
+    text-align: center;
+  }
+
+  .hero-content-pro h1 span {
+    display: block;
+    text-align: center;
+  }
+
+  .hero-content-pro p {
+    width: 100%;
+    margin: 14px auto 0;
+    text-align: center;
+  }
+
+  .hero-actions-pro {
+    width: 100%;
+    margin-top: 24px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 14px;
+  }
+
+  .hero-actions-pro a {
+    width: min(88%, 360px);
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+}
