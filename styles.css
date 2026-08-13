@@ -3113,18 +3113,42 @@ body.event-page{
 }
 /* =========================================
    HERO — MOBILE
+   FOTO COMPLETA
    ========================================= */
 
 @media (max-width: 768px) {
 
   .hero-pro {
     position: relative;
-    min-height: 880px;
+    min-height: 0;
+    height: auto;
     overflow: hidden;
+  }
+
+  .hero-photo-pro {
+    position: relative;
+    inset: auto;
+
+    width: 100%;
+    height: auto;
+    min-height: 0;
+
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center top;
+
+    aspect-ratio: 9 / 16;
+  }
+
+  .hero-overlay-pro {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
   }
 
   .hero-content-pro {
     position: absolute;
+
     top: 50%;
     left: 50%;
 
@@ -3146,7 +3170,7 @@ body.event-page{
   .hero-kicker {
     width: 100%;
     text-align: center;
-    margin: 0 0 14px;
+    margin-bottom: 14px;
   }
 
   .hero-content-pro h1 {
@@ -3173,7 +3197,6 @@ body.event-page{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
 
     gap: 14px;
   }
