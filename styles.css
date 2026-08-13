@@ -3184,3 +3184,55 @@ body.event-page {
   }
 
 }
+/* =========================================================
+   FOTO #5 — MÁS ANCHA Y CENTRADA SOLO EN DESKTOP
+   ========================================================= */
+
+@media (min-width: 769px) {
+
+  /* Mantiene la galería organizada */
+  .shows-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    align-items: start;
+  }
+
+  /* La quinta foto ocupa 2 columnas y queda centrada */
+  .shows-gallery > :last-child {
+    grid-column: 2 / 4;
+    width: 100%;
+    justify-self: center;
+  }
+
+  /* Si la foto está dentro de un enlace o contenedor */
+  .shows-gallery > :last-child img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+}
+
+
+/* =========================================================
+   TELÉFONO — NO MODIFICAR EL DISEÑO ACTUAL
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+  .shows-gallery {
+    display: grid;
+  }
+
+  .shows-gallery > :last-child {
+    grid-column: auto;
+    width: auto;
+    justify-self: auto;
+  }
+
+  .shows-gallery > :last-child img {
+    width: 100%;
+    height: auto;
+  }
+}
