@@ -2311,3 +2311,20 @@ body.event-page {
     max-width: 350px;
   }
 }
+/* =========================================
+   AJUSTE FINAL — HERO EN TELÉFONO
+   Reduce el espacio negro antes de la foto
+========================================= */
+
+@media (max-width: 768px) {
+
+  .hero-pro {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    min-height: 0 !important;
+    height: auto !important;
+  }
+
+  .hero-photo-pro {
+    height: 72vh !important;
+    min-height:
