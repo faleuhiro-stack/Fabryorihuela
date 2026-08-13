@@ -2540,3 +2540,224 @@ body.event-page{
   }
 
 }
+   /* =====================================================
+   FABRY ORIHUELA — MOBILE FIX 2
+   CORRIGE ANCHO COMPLETO + GALERÍA MOBILE
+===================================================== */
+
+@media screen and (max-width: 600px) {
+
+  /* =========================================
+     ANCHO REAL DEL TELÉFONO
+  ========================================= */
+
+  html,
+  body,
+  body.fabry-home {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-x: hidden !important;
+  }
+
+  body.fabry-home > *,
+  body.fabry-home main,
+  body.fabry-home header,
+  body.fabry-home footer {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+
+  /* =========================================
+     TOP BAR
+  ========================================= */
+
+  .topbar-pro {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin: 0 !important;
+  }
+
+
+  /* =========================================
+     HERO
+  ========================================= */
+
+  .hero-pro {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-width: 0 !important;
+    height: 620px !important;
+    min-height: 620px !important;
+    margin: 0 !important;
+  }
+
+  .hero-photo-pro,
+  .hero-overlay-pro,
+  .hero-content-pro {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+
+  /* =========================================
+     MENU
+  ========================================= */
+
+  .home-menu-pro {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 18px 16px !important;
+
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .pro-tile {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+
+  /* =========================================
+     SOBRE FABRY
+  ========================================= */
+
+  .about-pro {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 35px 18px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .about-photo-pro,
+  .about-text-pro {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .about-photo-pro img {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    object-fit: cover !important;
+  }
+
+
+  /* =========================================
+     SHOWS
+  ========================================= */
+
+  .live-pro {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 35px 16px !important;
+    overflow: hidden !important;
+  }
+
+  .section-heading-pro {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .section-heading-pro h2 {
+    font-size: 34px !important;
+    line-height: 1.05 !important;
+  }
+
+
+  /* =========================================
+     GALERÍA MOBILE
+  ========================================= */
+
+  .gallery-pro {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin-top: 20px !important;
+
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-auto-rows: 180px !important;
+    gap: 10px !important;
+  }
+
+  .gallery-pro a {
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+    display: block !important;
+  }
+
+  .gallery-pro img {
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    object-fit: cover !important;
+  }
+
+
+  /* Primera foto grande */
+  .gallery-pro a:first-child {
+    grid-column: span 2 !important;
+    grid-row: span 2 !important;
+  }
+
+
+  /* =========================================
+     MÚSICA
+  ========================================= */
+
+  .music-pro {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 35px 16px !important;
+  }
+
+  .music-links-pro {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+
+  /* =========================================
+     BOOKING
+  ========================================= */
+
+  .booking-pro {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+  }
+
+
+  /* =========================================
+     FOOTER
+  ========================================= */
+
+  .footer-pro {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+  }
+
+}
