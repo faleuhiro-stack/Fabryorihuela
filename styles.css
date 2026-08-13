@@ -3924,3 +3924,134 @@ body.event-page{
   }
 
 }
+   /* =========================================================
+   FABRY — MOBILE ABOUT
+   FOTO ARRIBA + BIO ABAJO
+========================================================= */
+
+@media screen and (max-width: 600px) {
+
+  /* CONTENEDOR SOBRE FABRY */
+  .about-pro {
+    display: grid !important;
+
+    grid-template-columns: 1fr !important;
+    grid-template-rows: auto auto !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    margin: 0 !important;
+
+    padding: 45px 18px !important;
+
+    gap: 30px !important;
+
+    justify-items: center !important;
+    align-items: start !important;
+
+    text-align: center !important;
+
+    overflow: hidden !important;
+  }
+
+
+  /* FOTO — PRIMERA FILA */
+  .about-photo-pro {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+
+    width: 100% !important;
+    max-width: 360px !important;
+
+    margin: 0 auto !important;
+
+    justify-self: center !important;
+
+    overflow: hidden !important;
+
+    border-radius: 22px !important;
+  }
+
+
+  .about-photo-pro img {
+    display: block !important;
+
+    width: 100% !important;
+    height: auto !important;
+
+    margin: 0 auto !important;
+
+    object-fit: cover !important;
+    object-position: center center !important;
+  }
+
+
+  /* BIO — SEGUNDA FILA */
+  .about-text-pro {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+
+    width: 100% !important;
+    max-width: 600px !important;
+
+    margin: 0 auto !important;
+    padding: 0 !important;
+
+    justify-self: center !important;
+
+    text-align: center !important;
+  }
+
+
+  .about-text-pro .section-label-pro {
+    width: 100% !important;
+
+    margin: 0 0 12px !important;
+
+    text-align: center !important;
+  }
+
+
+  .about-text-pro h2 {
+    width: 100% !important;
+
+    margin: 0 0 14px !important;
+
+    text-align: center !important;
+
+    font-size: 32px !important;
+
+    line-height: 1.05 !important;
+  }
+
+
+  .about-text-pro .bio-role {
+    width: 100% !important;
+
+    margin: 0 0 20px !important;
+
+    text-align: center !important;
+
+    font-size: 11px !important;
+
+    line-height: 1.5 !important;
+
+    letter-spacing: 1.8px !important;
+  }
+
+
+  .about-text-pro p {
+    width: 100% !important;
+    max-width: 580px !important;
+
+    margin: 0 auto !important;
+
+    text-align: center !important;
+
+    font-size: 15px !important;
+
+    line-height: 1.7 !important;
+  }
+
+}
