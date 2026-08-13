@@ -3038,4 +3038,77 @@ body.event-page{
   }
 
 }
+/* =========================================
+   AJUSTES MOBILE — HERO
+   ========================================= */
+
+@media (max-width: 768px) {
+
+  .hero-pro {
+    min-height: 880px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-content-pro {
+    position: absolute;
+    left: 50%;
+    right: auto;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 92%;
+    max-width: 520px;
+
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 3;
+  }
+
+  .hero-kicker {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 14px;
+  }
+
+  .hero-content-pro h1 {
+    width: 100%;
+    text-align: center;
+    margin: 0;
+  }
+
+  .hero-content-pro h1 span {
+    display: block;
+    text-align: center;
+  }
+
+  .hero-content-pro p {
+    width: 100%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-actions-pro {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 24px;
+  }
+
+  .hero-actions-pro a {
+    width: min(88%, 360px);
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+}
 
