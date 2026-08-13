@@ -3293,19 +3293,43 @@ body.event-page{
 }
 
 
-/* =========================================
-   MOBILE
-   ========================================= */
+/* =========================
+   LOGO ENTRE HERO Y MENÚ
+========================= */
 
-@media (max-width: 768px) {
+.logo-between {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  .logo-between {
-    padding: 22px 16px 12px;
-  }
+  padding: 55px 20px;
 
-  .logo-between img {
-    width: 135px;
-    height: 135px;
-  }
+  background: #050505;
 
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.logo-between img {
+  display: block;
+
+  width: 220px;
+  max-width: 60%;
+  height: auto;
+
+  margin: 0 auto;
+}
+
+
+/* =========================
+   ELIMINAR LÍNEAS ALREDEDOR
+========================= */
+
+.hero-pro {
+  border-bottom: none !important;
+}
+
+.home-menu-pro {
+  border-top: none !important;
 }
