@@ -3236,3 +3236,17 @@ body.event-page {
     height: auto;
   }
 }
+/* FOTO 5 — show-05.jpg
+   Solo en versión PC */
+@media (min-width: 769px) {
+
+  img[src*="show-05.jpg"] {
+    width: 520px !important;
+    max-width: 100%;
+    height: auto !important;
+    display: block;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+}
