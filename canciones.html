@@ -2,22 +2,30 @@
 <html lang="es">
 
 <head>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
-
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Repertorio – Fabry Orihuela</title>
 
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&display=swap"
+    rel="stylesheet"
+  >
+
   <style>
+
     :root {
       --bg: #0b0b0f;
       --card: #12121a;
       --text: #f3f3f6;
       --muted: #b7b7c2;
-      --accent: #d8b44d;
       --border: rgba(255,255,255,.08);
     }
+
+
+    /* =========================
+       GENERAL
+    ========================= */
 
     body {
       margin: 0;
@@ -26,23 +34,36 @@
       color: var(--text);
     }
 
+
+    /* =========================
+       HEADER
+    ========================= */
+
     header {
       padding: 18px 16px 10px;
       position: sticky;
       top: 0;
+
       background: linear-gradient(
         180deg,
         var(--bg) 0%,
         rgba(11,11,15,.85) 70%,
         rgba(11,11,15,0) 100%
       );
+
       backdrop-filter: blur(6px);
     }
+
 
     h1 {
       margin: 0 0 10px;
       font-size: 20px;
     }
+
+
+    /* =========================
+       BOTONES SUPERIORES
+    ========================= */
 
     .row {
       display: flex;
@@ -50,82 +71,167 @@
       flex-wrap: wrap;
     }
 
+
     .btn {
       display: inline-block;
+
       text-decoration: none;
       color: var(--text);
+
       background: var(--card);
+
       border: 1px solid var(--border);
+
       padding: 10px 12px;
+
       border-radius: 12px;
+
       font-weight: 600;
     }
 
-    .btn.accent {
-      background: var(--accent);
-      border-color: rgba(0,0,0,.15);
+
+    /* =========================
+       PROPINA — DORADO
+    ========================= */
+
+    .btn-tip {
+
+      background: linear-gradient(
+        180deg,
+        #f1d276 0%,
+        #d8b44d 50%,
+        #bd922d 100%
+      ) !important;
+
+      color: #0a0a0a !important;
+
+      border:
+        1px solid #f3d982 !important;
+
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.35),
+        0 6px 16px rgba(190,145,35,.15);
     }
+
+
+    .btn-tip:active {
+      transform: scale(.97);
+    }
+
+
+    /* =========================
+       BUSCADOR
+    ========================= */
 
     .search {
       width: 100%;
+
       box-sizing: border-box;
+
       margin-top: 12px;
+
       padding: 12px;
+
       border-radius: 12px;
-      border: 1px solid var(--border);
+
+      border:
+        1px solid var(--border);
+
       background: var(--card);
+
       color: var(--text);
+
       font-size: 16px;
     }
+
+
+    /* =========================
+       CONTENIDO
+    ========================= */
 
     main {
       padding: 10px 16px 40px;
     }
 
+
     .meta {
       color: var(--muted);
+
       font-size: 13px;
+
       margin-top: 8px;
     }
 
+
+    /* =========================
+       ARTISTAS
+    ========================= */
+
     .artist {
       margin-top: 18px;
+
       padding: 12px;
+
       border-radius: 14px;
+
       background: var(--card);
-      border: 1px solid var(--border);
+
+      border:
+        1px solid var(--border);
     }
+
 
     .artist h2 {
       margin: 0 0 8px;
+
       font-size: 16px;
     }
 
+
+    /* =========================
+       CANCIONES
+    ========================= */
+
     .item {
       display: flex;
+
       align-items: center;
+
       justify-content: space-between;
+
       gap: 10px;
+
       padding: 8px 0;
-      border-top: 1px solid rgba(255,255,255,.06);
+
+      border-top:
+        1px solid rgba(255,255,255,.06);
     }
+
 
     .item:first-child {
       border-top: none;
     }
 
+
     .song {
       font-weight: 700;
     }
 
+
     .small {
       color: var(--muted);
+
       font-size: 12px;
     }
 
-    /* BOTÓN PEDIR — DORADO FABRY */
+
+    /* =========================
+       BOTÓN PEDIR — DORADO
+    ========================= */
+
     .pick {
       display: inline-block;
+
       text-decoration: none;
 
       background: linear-gradient(
@@ -136,12 +242,16 @@
       );
 
       color: #0a0a0a;
-      border: 1px solid #f3d982;
+
+      border:
+        1px solid #f3d982;
 
       padding: 10px 16px;
+
       border-radius: 18px;
 
       font-weight: 800;
+
       white-space: nowrap;
 
       box-shadow:
@@ -149,13 +259,18 @@
         0 6px 16px rgba(190,145,35,.15);
     }
 
+
     .pick:active {
       transform: scale(.97);
     }
+
   </style>
+
 </head>
 
+
 <body>
+
 
 <header class="header">
 
@@ -163,15 +278,26 @@
     Repertorio
   </h1>
 
+
   <div class="row">
-    <a class="btn" href="index.html">
+
+    <a
+      class="btn"
+      href="index.html"
+    >
       ⬅️ Home
     </a>
 
-    <a class="btn btn-tip" href="propina.html">
+
+    <a
+      class="btn btn-tip"
+      href="propina.html"
+    >
       💵 Propina
     </a>
+
   </div>
+
 
   <input
     id="q"
@@ -180,7 +306,11 @@
     autocomplete="off"
   >
 
-  <div id="count" class="meta">
+
+  <div
+    id="count"
+    class="meta"
+  >
     Cargando…
   </div>
 
@@ -196,36 +326,55 @@
 
     const res = await fetch(
       'canciones.json',
-      { cache: 'no-store' }
+      {
+        cache: 'no-store'
+      }
     );
 
+
     if (!res.ok) {
+
       throw new Error(
         'No pude cargar canciones.json'
       );
+
     }
 
+
     return await res.json();
+
   }
+
 
 
   function groupByArtist(items) {
 
     const map = new Map();
 
+
     for (const it of items) {
 
-      const a = (it.artist || '').trim();
-      const t = (it.title || '').trim();
+      const a =
+        (it.artist || '').trim();
+
+      const t =
+        (it.title || '').trim();
+
 
       if (!a || !t) continue;
 
+
       if (!map.has(a)) {
+
         map.set(a, []);
+
       }
 
+
       map.get(a).push(t);
+
     }
+
 
 
     for (const [a, arr] of map.entries()) {
@@ -235,10 +384,14 @@
           x.localeCompare(
             y,
             'es',
-            { sensitivity: 'base' }
+            {
+              sensitivity: 'base'
+            }
           )
       );
+
     }
+
 
 
     return Array
@@ -248,17 +401,23 @@
           x[0].localeCompare(
             y[0],
             'es',
-            { sensitivity: 'base' }
+            {
+              sensitivity: 'base'
+            }
           )
       );
+
   }
+
 
 
   function filter(items, q) {
 
-    q = (q || '')
-      .trim()
-      .toLowerCase();
+    q =
+      (q || '')
+        .trim()
+        .toLowerCase();
+
 
     if (!q) return items;
 
@@ -273,12 +432,16 @@
         (it.title || '')
           .toLowerCase();
 
+
       return (
         a.includes(q) ||
         t.includes(q)
       );
+
     });
+
   }
+
 
 
   function render(grouped) {
@@ -286,7 +449,9 @@
     const root =
       document.getElementById('list');
 
+
     root.innerHTML = '';
+
 
 
     for (const [artist, titles] of grouped) {
@@ -294,10 +459,13 @@
       const section =
         document.createElement('section');
 
+
       section.className = 'artist';
+
 
       section.innerHTML =
         `<h2>${artist}</h2>`;
+
 
 
       titles.forEach(title => {
@@ -305,11 +473,15 @@
         const row =
           document.createElement('div');
 
+
         row.className = 'item';
 
 
+
         row.innerHTML = `
+
           <div>
+
             <div class="song">
               ${title}
             </div>
@@ -317,7 +489,9 @@
             <div class="small">
               ${artist}
             </div>
+
           </div>
+
 
           <a
             class="pick"
@@ -325,16 +499,23 @@
           >
             Pedir
           </a>
+
         `;
 
 
+
         section.appendChild(row);
+
       });
 
 
+
       root.appendChild(section);
+
     }
+
   }
+
 
 
   (async () => {
@@ -342,11 +523,14 @@
     const all =
       await loadSongs();
 
+
     const input =
       document.getElementById('q');
 
+
     const count =
       document.getElementById('count');
+
 
 
     function update() {
@@ -357,19 +541,24 @@
           input.value
         );
 
+
       render(
         groupByArtist(f)
       );
 
+
       count.textContent =
         `Mostrando ${f.length} canciones (ordenado por artista).`;
+
     }
+
 
 
     input.addEventListener(
       'input',
       update
     );
+
 
     update();
 
@@ -384,5 +573,7 @@
 
 </script>
 
+
 </body>
+
 </html>
