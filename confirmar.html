@@ -1,42 +1,351 @@
 <!doctype html>
 <html lang="es">
+
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Confirmar pedido</title>
+  <meta charset="utf-8">
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  >
+
+  <title>Confirmar pedido | Fabry Orihuela</title>
+
   <style>
-    body{margin:0;font-family:system-ui;background:#0b0b0f;color:#fff;padding:18px}
-    .card{background:#12121a;border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px}
-    h1{margin:0 0 10px;font-size:20px}
-    p{color:#cfcfd6}
-    .btn{display:block;text-align:center;text-decoration:none;color:#fff;background:#e11d2e;
-      padding:14px;border-radius:12px;font-weight:700;margin-top:12px}
-    .btn.secondary{background:#12121a;border:1px solid rgba(255,255,255,.12)}
-    small{display:block;color:#aaa;margin-top:10px}
+
+    body {
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      background:#0b0b0f;
+      color:#fff;
+      padding:18px;
+    }
+
+    .card {
+      max-width:520px;
+      margin:30px auto;
+      background:#12121a;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:16px;
+      padding:20px;
+    }
+
+    h1 {
+      margin:0 0 10px;
+      font-size:22px;
+      text-align:center;
+    }
+
+    p {
+      color:#cfcfd6;
+      text-align:center;
+    }
+
+    #song {
+      color:#fff;
+      font-weight:700;
+      margin:20px 0;
+    }
+
+    .notice {
+      background:#191922;
+      border:1px solid rgba(216,180,77,.30);
+      border-radius:14px;
+      padding:15px;
+      margin:18px 0;
+      text-align:center;
+      line-height:1.5;
+    }
+
+    .btn {
+      display:block;
+
+      text-align:center;
+      text-decoration:none;
+
+      padding:14px 18px;
+
+      border-radius:24px;
+
+      font-weight:800;
+
+      margin-top:12px;
+
+      background:linear-gradient(
+        180deg,
+        #f1d276 0%,
+        #d8b44d 50%,
+        #bd922d 100%
+      );
+
+      color:#0a0a0a;
+
+      border:1px solid #f3d982;
+
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.35),
+        0 6px 16px rgba(190,145,35,.15);
+    }
+
+    .btn.secondary {
+      background:#12121a;
+      color:#fff;
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:none;
+    }
+
+    small {
+      display:block;
+      color:#aaa;
+      margin-top:14px;
+      text-align:center;
+    }
+
+    .hidden {
+      display:none;
+    }
+
   </style>
 </head>
+
+
 <body>
-  <div class="card">
-    <h1>Confirmar pedido</h1>
-    <p id="song"></p>
 
-    <a id="wa" class="btn" href="#">📲 Enviar por WhatsApp</a>
-    <a class="btn secondary" href="propina.html">💵 Continuar a Propina</a>
+<div class="card">
 
-    <small>Si WhatsApp no abre, toca otra vez el botón.</small>
+  <h1 id="title">
+    Confirmar pedido
+  </h1>
+
+  <p id="song"></p>
+
+
+  <!-- PRIMER PEDIDO / USUARIO DESBLOQUEADO -->
+
+  <div id="normalOrder">
+
+    <a
+      id="wa"
+      class="btn"
+      href="#"
+      target="_blank"
+      rel="noopener"
+    >
+      📲 Enviar por WhatsApp
+    </a>
+
+    <a
+      class="btn secondary"
+      href="canciones.html"
+    >
+      ⬅️ Volver al repertorio
+    </a>
+
+    <small>
+      Si WhatsApp no abre, toca otra vez el botón.
+    </small>
+
   </div>
 
+
+  <!-- SEGUNDA CANCIÓN: PROPINA -->
+
+  <div
+    id="tipRequired"
+    class="hidden"
+  >
+
+    <div class="notice">
+
+      🎵 Ya realizaste tu primer pedido.
+      <br><br>
+
+      Para continuar pidiendo canciones,
+      apoya la música en vivo con una propina.
+      💵
+
+      <br><br>
+
+      Después podrás seguir pidiendo canciones.
+
+    </div>
+
+
+    <a
+      id="tipButton"
+      class="btn"
+      href="propina.html?unlock=1"
+    >
+      💵 DEJAR PROPINA
+    </a>
+
+
+    <a
+      class="btn secondary"
+      href="canciones.html"
+    >
+      ⬅️ Volver al repertorio
+    </a>
+
+  </div>
+
+</div>
+
+
 <script>
-  const params = new URLSearchParams(location.search);
-  const cancion = params.get("cancion") || "";
-  const artista = params.get("artista") || "";
-  const texto = `Hola Fabry! Quiero pedir: ${cancion} — ${artista}`;
 
-  document.getElementById("song").textContent = `🎶 ${cancion} — ${artista}`;
+  const params =
+    new URLSearchParams(
+      location.search
+    );
 
-  const phone = "14845442917"; // tu WhatsApp
-  const waLink = `https://wa.me/${phone}?text=${encodeURIComponent(texto)}`;
-  document.getElementById("wa").href = waLink;
+
+  const cancion =
+    params.get("cancion") || "";
+
+
+  const artista =
+    params.get("artista") || "";
+
+
+  document
+    .getElementById("song")
+    .textContent =
+      `🎶 ${cancion} — ${artista}`;
+
+
+
+  /* =========================
+     CONTROL DIARIO
+  ========================= */
+
+  const today =
+    new Date()
+      .toLocaleDateString('en-CA');
+
+
+  const savedDay =
+    localStorage.getItem(
+      "fabryRequestDay"
+    );
+
+
+  if (savedDay !== today) {
+
+    localStorage.setItem(
+      "fabryRequestDay",
+      today
+    );
+
+    localStorage.setItem(
+      "fabryFirstRequest",
+      "0"
+    );
+
+    localStorage.setItem(
+      "fabryTipUnlocked",
+      "0"
+    );
+
+  }
+
+
+
+  const firstRequest =
+    localStorage.getItem(
+      "fabryFirstRequest"
+    ) === "1";
+
+
+  const tipUnlocked =
+    localStorage.getItem(
+      "fabryTipUnlocked"
+    ) === "1";
+
+
+
+  const normalOrder =
+    document.getElementById(
+      "normalOrder"
+    );
+
+
+  const tipRequired =
+    document.getElementById(
+      "tipRequired"
+    );
+
+
+
+  /*
+    Si ya pidió una canción
+    y todavía NO dejó propina,
+    bloqueamos el siguiente pedido.
+  */
+
+  if (
+    firstRequest &&
+    !tipUnlocked
+  ) {
+
+    normalOrder
+      .classList
+      .add("hidden");
+
+    tipRequired
+      .classList
+      .remove("hidden");
+
+  }
+
+
+
+  /* =========================
+     WHATSAPP
+  ========================= */
+
+  const phone =
+    "14845442917";
+
+
+  const texto =
+    `Hola Fabry! Quiero pedir: ${cancion} — ${artista}`;
+
+
+  const waLink =
+    `https://wa.me/${phone}?text=${encodeURIComponent(texto)}`;
+
+
+  const wa =
+    document.getElementById("wa");
+
+
+  wa.href = waLink;
+
+
+
+  /*
+    Cuando toca enviar por WhatsApp,
+    guardamos que ya realizó
+    su primera solicitud.
+  */
+
+  wa.addEventListener(
+    "click",
+    function(){
+
+      if (!firstRequest) {
+
+        localStorage.setItem(
+          "fabryFirstRequest",
+          "1"
+        );
+
+      }
+
+    }
+  );
+
 </script>
+
 </body>
 </html>
