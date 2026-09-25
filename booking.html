@@ -116,6 +116,82 @@
       cursor:pointer;
       border: 0; /* evita estilos raros por browser */
     }
+    /* =========================================
+   BOOKING — ESTILO DORADO FABRY
+   ========================================= */
+
+/* LOGO CENTRADO */
+.card .logo{
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  object-fit: contain;
+}
+
+/* CONTENEDOR DE LOS BOTONES */
+.booking-actions{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin-top: 22px;
+}
+
+/* BOTONES BOOKING DORADOS */
+.booking-actions .btn-red{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 84% !important;
+  max-width: 520px !important;
+  min-height: 58px;
+
+  margin: 0 auto !important;
+  padding: 14px 24px;
+
+  background: linear-gradient(
+    180deg,
+    #f1d276 0%,
+    #d8b44d 50%,
+    #bd922d 100%
+  ) !important;
+
+  color: #0a0a0a !important;
+  border: 1px solid #f3d982 !important;
+  border-radius: 28px !important;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.35),
+    0 8px 20px rgba(190,145,35,.15) !important;
+
+  font-weight: 700 !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  cursor: pointer;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+/* EFECTO AL TOCAR */
+.booking-actions .btn-red:active{
+  transform: scale(.98);
+}
+
+/* TELÉFONO */
+@media (max-width: 759px){
+
+  .booking-actions .btn-red{
+    width: 84% !important;
+    max-width: 520px !important;
+  }
+
+  .card .logo{
+    display: block !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
   </style>
 
   <script>
