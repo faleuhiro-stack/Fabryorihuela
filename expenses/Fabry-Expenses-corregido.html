@@ -2757,6 +2757,9 @@ function renderSelectedMonthHistory(){
           <div class="meta">${x.date||""} · ${esc(x.kind==="income"?(x.cat||"Ingreso"):(x.type+" · "+(x.cat||"Gasto")))}${x.kind==="income"&&x.status? " · "+esc(x.status):""}</div>
         </div>
         <div class="amount" style="color:${x.kind==="income"?"#38c172":"#ff8b8b"}">${x.kind==="income"?"+":"−"}${money(x.amount)}</div>
+       <button class="secondary" type="button" onclick="editMonthlyMovement('${x.kind}','${x.id}')">
+Editar
+</button>
       </div>
     `).join("") : '<div class="empty">No hay movimientos registrados en este mes.</div>'}
   `;
@@ -2777,7 +2780,42 @@ function renderSelectedMonthHistory(){
 $("historyMonthSelect").addEventListener("change",renderSelectedMonthHistory);
 
 
-/* ESCAPE */
+function editMonthlyMovement(kind,id){
+
+  const list = kind==="income" ? state.incomes : state.expenses;
+  const item = list.find(x=>String(x.id)===String(id));
+  if(!item) return;
+
+  const title = prompt("Descripción:",item.title||"");
+  if(title===null) return;
+
+  const amount = prompt("Monto:",item.amount);
+  if(amount===null) return;
+
+  const date = prompt("Fecha (AAAA-MM-DD):",item.date||"");
+  if(date===null) return;
+
+  if(!title.trim() || Number(amount)<=0 ||
+     !Number.isFinite(Number(amount)) ||
+     !/^\d{4}-\d{2}-\d{2}$/.test(date)){
+    alert("Revisá la descripción, el monto y la fecha.");
+    return;
+  }
+
+  item.title=title.trim();
+  item.amount=Number(amount);
+  item.date=date;
+
+  if(kind==="income"){
+    const status=prompt("Estado: Pagado o Pendiente",item.status||"Pagado");
+    if(status===null) return;
+    item.status=status==="Pendiente"?"Pendiente":"Pagado";
+  }
+
+  save();
+  renderAll();
+}
+  /* ESCAPE */
 
 function esc(s){
 
