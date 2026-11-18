@@ -2696,7 +2696,7 @@ function renderMonthlyHistory(){
     String(now.getMonth()+1).padStart(2,"0");
 
   const keys = all.map(x=>historyMonthKey(x.date));
-  const first = keys.length ? keys.sort()[0] : current;
+  const first = "2026-01";
   const last = keys.length ? keys.sort().slice(-1)[0] : current;
 
   const months = [];
