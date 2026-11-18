@@ -2673,6 +2673,200 @@ m=>(
 );
 
 }
+  /* HISTORIAL MENSUAL */
+
+let selectedHistoryMonth = "";
+
+function historyMonthKey(date){
+  return String(date || "").slice(0,7);
+}
+
+function renderMonthlyHistory(){
+
+  const all = [
+    ...state.incomes.map(x=>({...x,kind:"income"})),
+    ...state.expenses.map(x=>({...x,kind:"expense"}))
+  ].filter(x=>/^\d{4}-\d{2}/.test(x.date));
+
+  const now = new Date();
+  const current =
+    now.getFullYear()+"-"+
+    String(now.getMonth()+1).padStart(2,"0");
+
+  const keys = all.map(x=>historyMonthKey(x.date));
+  const first = keys.length ? keys.sort()[0] : current;
+  const last = keys.length ? keys.sort().slice(-1)[0] : current;
+
+  const months = [];
+  let d = new Date(first+"-01T12:00:00");
+  const end = new Date(last+"-01T12:00:00");
+  const today = new Date(current+"-01T12:00:00");
+  const limit = end > today ? end : today;
+
+  while(d <= limit){
+    months.push(
+      d.getFullYear()+"-"+
+      String(d.getMonth()+1).padStart(2,"0")
+    );
+    d.setMonth(d.getMonth()+1);
+  }
+
+  if(!selectedHistoryMonth || !months.includes(selectedHistoryMonth)){
+    selectedHistoryMonth = current;
+  }
+
+  const names = [
+    "Enero","Febrero","Marzo","Abril",
+    "Mayo","Junio","Julio","Agosto",
+    "Septiembre","Octubre","Noviembre","Diciembre"
+  ];
+
+  const monthName = key => {
+    const [y,m] = key.split("-").map(Number);
+    return names[m-1]+" "+y;
+  };
+
+  const list = all.filter(x=>
+    historyMonthKey(x.date)===selectedHistoryMonth
+  );
+
+  const income = list
+    .filter(x=>x.kind==="income" && x.status==="Pagado")
+    .reduce((a,x)=>a+Number(x.amount||0),0);
+
+  const pending = list
+    .filter(x=>x.kind==="income" && x.status==="Pendiente")
+    .reduce((a,x)=>a+Number(x.amount||0),0);
+
+  const business = list
+    .filter(x=>x.kind==="expense" && x.type==="Negocio")
+    .reduce((a,x)=>a+Number(x.amount||0),0);
+
+  const personal = list
+    .filter(x=>x.kind==="expense" && x.type==="Personal")
+    .reduce((a,x)=>a+Number(x.amount||0),0);
+
+  const monthButtons = months.slice().reverse().map(key=>`
+    <button class="secondary"
+      data-history-month="${key}"
+      style="margin:4px;border-color:${key===selectedHistoryMonth?"#d4af37":"#444"}">
+      ${monthName(key)}
+    </button>
+  `).join("");
+
+  const rows = list.slice().sort((a,b)=>
+    String(b.date).localeCompare(String(a.date))
+  ).map(x=>`
+    <div class="row">
+      <div class="info">
+        <b>${esc(x.title)}</b>
+        <div class="meta">
+          ${x.date} ·
+          ${x.kind==="income"?"Ingreso":"Gasto"} ·
+          ${esc(x.kind==="income"?(x.status||""):(x.type||""))}
+        </div>
+      </div>
+      <div class="amount">${money(x.amount)}</div>
+      <button class="secondary"
+        data-history-edit="${x.id}"
+        data-history-kind="${x.kind}">
+        Editar
+      </button>
+    </div>
+  `).join("") || '<div class="empty">No hay movimientos este mes.</div>';
+
+  $("monthlyHistory").innerHTML = `
+    <h3>📅 Historial mensual</h3>
+    <p>Seleccioná un mes para consultar sus movimientos.</p>
+    <div>${monthButtons}</div>
+
+    <h3>${monthName(selectedHistoryMonth)}</h3>
+
+    <div class="grid">
+      <div class="card">Ingresos pagados<br><b>${money(income)}</b></div>
+      <div class="card">Ingresos pendientes<br><b>${money(pending)}</b></div>
+      <div class="card">Gastos negocio<br><b>${money(business)}</b></div>
+      <div class="card">Gastos personales<br><b>${money(personal)}</b></div>
+      <div class="card">Ganancia negocio<br><b>${money(income-business)}</b></div>
+    </div>
+
+    <div class="actions">
+      <button class="primary" id="historyAddIncome">＋ Agregar ingreso</button>
+      <button class="secondary" id="historyAddExpense">＋ Agregar gasto</button>
+    </div>
+
+    <h3>Movimientos del mes</h3>
+    ${rows}
+  `;
+}
+
+document.addEventListener("click",e=>{
+
+  const month = e.target.closest("[data-history-month]");
+  if(month){
+    selectedHistoryMonth = month.dataset.historyMonth;
+    renderMonthlyHistory();
+    return;
+  }
+
+  const edit = e.target.closest("[data-history-edit]");
+  if(edit){
+    editHistoryMovement(edit.dataset.historyKind,edit.dataset.historyEdit);
+    return;
+  }
+
+  if(e.target.id==="historyAddIncome"){
+    $("incomeForm").reset();
+    $("inDate").value=selectedHistoryMonth+"-01";
+    $("incomeDlg").showModal();
+  }
+
+  if(e.target.id==="historyAddExpense"){
+    $("expenseForm").reset();
+    $("eDate").value=selectedHistoryMonth+"-01";
+    $("expenseDlg").showModal();
+  }
+
+});
+
+function editHistoryMovement(kind,id){
+
+  const collection = kind==="income" ? state.incomes : state.expenses;
+  const item = collection.find(x=>x.id===id);
+  if(!item)return;
+
+  const title = prompt("Descripción:",item.title);
+  if(title===null)return;
+
+  const amount = prompt("Monto:",item.amount);
+  if(amount===null)return;
+
+  const date = prompt("Fecha (AAAA-MM-DD):",item.date);
+  if(date===null)return;
+
+  if(!title.trim() || !Number.isFinite(Number(amount)) ||
+     Number(amount)<=0 || !/^\d{4}-\d{2}-\d{2}$/.test(date)){
+    alert("Revisá la descripción, el monto y la fecha.");
+    return;
+  }
+
+  item.title=title.trim();
+  item.amount=Number(amount);
+  item.date=date;
+
+  if(kind==="income"){
+    const status=prompt("Estado: Pagado o Pendiente",item.status||"Pagado");
+    if(status===null)return;
+    item.status=status==="Pendiente"?"Pendiente":"Pagado";
+  }else{
+    const type=prompt("Tipo: Negocio o Personal",item.type||"Negocio");
+    if(type===null)return;
+    item.type=type==="Personal"?"Personal":"Negocio";
+  }
+
+  save();
+  renderAll();
+}
 
 
 /* EVENTOS DINAMICOS */
