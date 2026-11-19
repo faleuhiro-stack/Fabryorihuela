@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fabry Expenses - Prueba de sincronización</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+body{font-family:Arial;background:#151515;color:white;padding:25px;max-width:600px;margin:auto}
+input,button{box-sizing:border-box;width:100%;padding:13px;margin:8px 0;border-radius:8px;border:0}
+button{background:#a52828;color:white;font-weight:bold;cursor:pointer}
+small{color:#aaa}
+#result{white-space:pre-wrap;background:#252525;padding:15px;border-radius:8px}
+</style>
+</head>
+<body>
+<h2>Fabry Expenses</h2>
+<h3>Prueba de conexión con Supabase</h3>
+<p>Esta página solamente inicia sesión y consulta tus datos. No modifica ni guarda registros.</p>
+
+<input id="email" type="email" placeholder="Tu correo de Supabase">
+<input id="password" type="password" placeholder="Tu contraseña de Supabase">
+<button id="login">Iniciar sesión y comprobar</button>
+
+<div id="result">Esperando conexión...</div>
+
+<script>
+const SUPABASE_URL = "https://iaaxbmhkpczublsopskr.supabase.co";
+const SUPABASE_KEY = "sb_publishable_j5lFAAO8QhY_S7UPBigGQg_KucoJ1Tb";
+
+const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const result = document.getElementById("result");
+
+document.getElementById("login").onclick = async () => {
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+
+  if (!email || !password) {
+    result.textContent = "Ingresá tu correo y contraseña.";
+    return;
+  }
+
+  result.textContent = "Conectando...";
+
+  const { data: auth, error: authError } =
+    await db.auth.signInWithPassword({ email, password });
+
+  if (authError) {
+    result.textContent = "Error de inicio de sesión: " + authError.message;
+    return;
+  }
+
+  result.textContent = "Sesión iniciada. Comprobando datos...";
+
+  const { data, error } = await db
+    .from("fabry_expenses_data")
+    .select("data, updated_at")
+    .eq("user_id", auth.user.id)
+    .maybeSingle();
+
+  if (error) {
+    result.textContent = "Sesión iniciada, pero hubo un error al consultar: " + error.message;
+    return;
+  }
+
+  if (!data) {
+    result.textContent = "Sesión iniciada, pero no encontramos un registro para esta cuenta.";
+    return;
+  }
+
+  result.textContent =
+    "¡CONEXIÓN EXITOSA!\n\n" +
+    "Usuario: " + auth.user.email + "\n" +
+    "Base de datos: conectada\n" +
+    "Registro encontrado: sí\n" +
+    "Última actualización: " + data.updated_at + "\n\n" +
+    "No se modificó ningún dato.";
+};
+</script>
+</body>
+</html>
