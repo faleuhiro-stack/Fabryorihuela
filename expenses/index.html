@@ -642,14 +642,31 @@ dialog::backdrop{
 
 }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+#fabryCloudGate{max-width:440px;margin:9vh auto;padding:26px;background:#151515;border:1px solid #333;border-radius:18px;color:#fff;font-family:Arial,sans-serif}
+#fabryCloudGate input{display:block;box-sizing:border-box;width:100%;padding:14px;margin:10px 0;background:#101010;color:white;border:1px solid #444;border-radius:9px}
+#fabryCloudGate button{width:100%;padding:14px;margin-top:8px;background:#a52828;color:white;border:0;border-radius:9px;font-weight:bold}
+#fabryCloudMessage{color:#d4af37;white-space:pre-wrap;font-size:13px}
+#fabryCloudExit{margin:8px 0;padding:8px 12px}
+</style>
 </head>
 
 <body>
-
-<div class="app">
+<section id="fabryCloudGate">
+<h2 style="color:#d4af37;margin-top:0">FABRY EXPENSES</h2>
+<p>Iniciá sesión para compartir tus movimientos entre el iPhone y la computadora.</p>
+<form id="fabryCloudLogin">
+<input id="fabryCloudEmail" type="email" autocomplete="username" placeholder="Correo electrónico" required>
+<input id="fabryCloudPassword" type="password" autocomplete="current-password" placeholder="Contraseña" required>
+<button type="submit">INICIAR SESIÓN</button>
+</form>
+<p id="fabryCloudMessage">Conectando con Supabase…</p>
+</section>
+<div class="app" id="fabryExpensesApp" hidden>
 
 <div class="notice">
-💾 Fabry Expenses · Tus datos se guardan localmente en este navegador.
+☁️ Fabry Expenses · Datos sincronizados entre tus dispositivos.
 </div>
 
 <header class="top">
@@ -663,7 +680,7 @@ dialog::backdrop{
 </div>
 </div>
 
-<button class="primary" id="quickAdd">＋ Agregar</button>
+<div><button class="secondary" id="fabryCloudExit" type="button">Cerrar sesión</button><button class="primary" id="quickAdd">＋ Agregar</button></div>
 
 </header>
 
@@ -1497,12 +1514,11 @@ return blank();
 
 
 function save(){
-
-localStorage.setItem(
-KEY,
-JSON.stringify(state)
-);
-
+  localStorage.setItem(KEY,JSON.stringify(state));
+  if(window.fabryCloudReady && window.fabryCloudUser && !window.fabryApplyingRemote){
+    clearTimeout(window.fabryCloudTimer);
+    window.fabryCloudTimer=setTimeout(window.fabryPushCloud,650);
+  }
 }
 
 
@@ -3212,6 +3228,50 @@ e.currentTarget.close();
 
 
 renderAll();
+
+/* FABRY_CLOUD_LOGIN: sincronización para la versión con historial mensual */
+window.fabryCloudReady=false; window.fabryCloudUser=null; window.fabryApplyingRemote=false; window.fabryCloudTimer=null;
+const fabrySupabase=window.supabase.createClient("https://iaaxbmhkpczublsopskr.supabase.co","sb_publishable_j5lFAAO8QhY_S7UPBigGQg_KucoJ1Tb");
+const fabryCloudMsg=m=>{document.getElementById("fabryCloudMessage").textContent=m;};
+window.fabryPushCloud=async()=>{
+ if(!window.fabryCloudReady || !window.fabryCloudUser || window.fabryApplyingRemote) return;
+ fabryCloudMsg("Guardando cambios en la nube…");
+ const {error}=await fabrySupabase.from("fabry_expenses_data").update({data:state,updated_at:new Date().toISOString()}).eq("user_id",window.fabryCloudUser.id);
+ if(error){fabryCloudMsg("Error al sincronizar: "+error.message);return;}
+ fabryCloudMsg("✓ Sincronizado con la nube.");
+};
+async function fabryLoadCloud(user){
+ fabryCloudMsg("Cargando tus movimientos…");
+ const {data:row,error}=await fabrySupabase.from("fabry_expenses_data").select("data").eq("user_id",user.id).maybeSingle();
+ if(error) throw error;
+ if(!row || !row.data) throw new Error("No encontramos el respaldo importado para esta cuenta. No se modificó ningún dato.");
+ const incoming=row.data;
+ for(const k of ["expenses","incomes","bookings","quotes","invoices"]) if(!Array.isArray(incoming[k])) throw new Error("El respaldo no tiene el formato esperado ("+k+").");
+ window.fabryApplyingRemote=true; state={...blank(),...incoming}; localStorage.setItem(KEY,JSON.stringify(state)); window.fabryApplyingRemote=false;
+ window.fabryCloudUser=user; window.fabryCloudReady=true;
+ document.getElementById("fabryCloudGate").hidden=true; document.getElementById("fabryExpensesApp").hidden=false; renderAll();
+ fabryCloudMsg("✓ Cuenta conectada. Cambios guardados en la nube.");
+}
+document.getElementById("fabryCloudLogin").addEventListener("submit",async e=>{
+ e.preventDefault(); const btn=e.currentTarget.querySelector("button"); btn.disabled=true; fabryCloudMsg("Verificando cuenta…");
+ try{
+  const {data,error}=await fabrySupabase.auth.signInWithPassword({email:document.getElementById("fabryCloudEmail").value.trim(),password:document.getElementById("fabryCloudPassword").value});
+  if(error) throw error; await fabryLoadCloud(data.user);
+ }catch(err){window.fabryCloudReady=false;window.fabryCloudUser=null;fabryCloudMsg("No se pudo iniciar sesión: "+err.message);await fabrySupabase.auth.signOut();}
+ finally{btn.disabled=false;}
+});
+document.getElementById("fabryCloudExit").addEventListener("click",async()=>{
+ window.fabryCloudReady=false;window.fabryCloudUser=null;await fabrySupabase.auth.signOut();
+ document.getElementById("fabryExpensesApp").hidden=true;document.getElementById("fabryCloudGate").hidden=false;fabryCloudMsg("Sesión cerrada.");
+});
+fabrySupabase.channel("fabry-monthly-expenses-live").on("postgres_changes",{event:"UPDATE",schema:"public",table:"fabry_expenses_data"},async payload=>{
+ if(!window.fabryCloudReady || !window.fabryCloudUser || payload.new.user_id!==window.fabryCloudUser.id) return;
+ try{
+  const {data:row,error}=await fabrySupabase.from("fabry_expenses_data").select("data").eq("user_id",window.fabryCloudUser.id).maybeSingle();
+  if(error || !row) return;
+  window.fabryApplyingRemote=true;state={...blank(),...row.data};localStorage.setItem(KEY,JSON.stringify(state));window.fabryApplyingRemote=false;renderAll();fabryCloudMsg("✓ Actualizado desde el otro dispositivo.");
+ }catch(err){window.fabryApplyingRemote=false;fabryCloudMsg("Error al recibir cambios: "+err.message);}
+}).subscribe();
 
 </script>
 
