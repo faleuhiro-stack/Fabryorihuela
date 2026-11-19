@@ -1,0 +1,203 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fabry Expenses - Migración segura</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+body{background:#111;color:white;font-family:Arial;max-width:650px;margin:35px auto;padding:20px}
+h2{color:#e3b83f}
+input,button{box-sizing:border-box;width:100%;padding:14px;margin:9px 0;border-radius:8px;border:0}
+input{background:#eee;color:#111}
+button{background:#a52828;color:white;font-weight:bold;cursor:pointer}
+button:disabled{opacity:.45;cursor:not-allowed}
+.card{background:#222;padding:18px;border-radius:10px;margin-top:15px}
+#result{white-space:pre-wrap;line-height:1.6}
+small{color:#bbb}
+</style>
+</head>
+<body>
+<h2>Fabry Expenses</h2>
+<h3>Migración segura del iPhone</h3>
+<p>Esta página importa tu respaldo a Supabase. No modifica la aplicación principal.</p>
+
+<div class="card">
+<label>Correo de Supabase</label>
+<input id="email" type="email" placeholder="Tu correo">
+<label>Contraseña de Supabase</label>
+<input id="password" type="password" placeholder="Tu contraseña">
+<label>Respaldo JSON del iPhone</label>
+<input id="backup" type="file" accept=".json,application/json">
+<button id="preview">Verificar respaldo</button>
+</div>
+
+<div class="card">
+<div id="result">Esperando el archivo de respaldo...</div>
+</div>
+
+<button id="migrate" disabled>CONFIRMAR E IMPORTAR LOS 67 MOVIMIENTOS</button>
+
+<script>
+const URL = "https://iaaxbmhkpczublsopskr.supabase.co";
+const KEY = "sb_publishable_j5lFAAO8QhY_S7UPBigGQg_KucoJ1Tb";
+const db = supabase.createClient(URL, KEY);
+
+const $ = id => document.getElementById(id);
+let backupData = null;
+let verified = false;
+
+function total(arr){
+  return arr.reduce((sum,x)=>sum + (Number(x.amount)||0),0);
+}
+
+$("preview").onclick = async () => {
+  $("migrate").disabled = true;
+  verified = false;
+  backupData = null;
+
+  try {
+    const file = $("backup").files[0];
+    if(!file) throw Error("Seleccioná el archivo JSON del iPhone.");
+
+    const x = JSON.parse(await file.text());
+
+    for(const k of ["expenses","incomes","bookings","quotes","invoices"]){
+      if(!Array.isArray(x[k])) throw Error("El respaldo no tiene una estructura válida: " + k);
+    }
+
+    if(x.expenses.length !== 40 || x.incomes.length !== 27){
+      throw Error("El archivo no coincide con el respaldo esperado de 40 gastos y 27 ingresos. No se importó nada.");
+    }
+
+    for(const k of ["expenses","incomes"]){
+      for(const item of x[k]){
+        if(!item.id || !item.date || !Number.isFinite(Number(item.amount))){
+          throw Error("Hay un movimiento incompleto. No se importó nada.");
+        }
+      }
+    }
+
+    const email = $("email").value.trim();
+    const password = $("password").value;
+    if(!email || !password) throw Error("Ingresá tu correo y contraseña.");
+
+    $("result").textContent = "Verificando cuenta y respaldo...";
+
+    const {data:auth,error:authError} =
+      await db.auth.signInWithPassword({email,password});
+
+    if(authError) throw authError;
+
+    if(auth.user.email.toLowerCase() !== email.toLowerCase()){
+      throw Error("La cuenta autenticada no coincide.");
+    }
+
+    const {data:rows,error:readError} = await db
+      .from("fabry_expenses_data")
+      .select("user_id,data")
+      .eq("user_id",auth.user.id);
+
+    if(readError) throw readError;
+    if(!rows || rows.length !== 1) throw Error("No encontramos exactamente un registro para esta cuenta.");
+
+    const current = rows[0].data || {};
+    const keys = ["expenses","incomes","bookings","quotes","invoices"];
+
+    for(const k of keys){
+      if(Array.isArray(current[k]) && current[k].length > 0){
+        throw Error("La lista " + k + " ya contiene datos. Se cancela para no sobrescribirlos.");
+      }
+    }
+
+    backupData = x;
+    verified = true;
+
+    $("result").textContent =
+      "RESPALDO VERIFICADO\n\n" +
+      "Cuenta: " + auth.user.email + "\n" +
+      "Gastos: " + x.expenses.length + " — $" + total(x.expenses).toFixed(2) + "\n" +
+      "Ingresos: " + x.incomes.length + " — $" + total(x.incomes).toFixed(2) + "\n" +
+      "Reservas: " + x.bookings.length + "\n" +
+      "Presupuestos: " + x.quotes.length + "\n" +
+      "Facturas: " + x.invoices.length + "\n\n" +
+      "El registro de Supabase está vacío.\n" +
+      "Todavía no se importó ningún movimiento.";
+
+    $("migrate").disabled = false;
+
+  } catch(e) {
+    $("result").textContent = "NO SE IMPORTÓ NADA:\n" + e.message;
+  }
+};
+
+$("migrate").onclick = async () => {
+  if(!verified || !backupData) return;
+
+  if(!confirm("¿Confirmás importar los 40 gastos y 27 ingresos del iPhone a Supabase?")){
+    return;
+  }
+
+  $("migrate").disabled = true;
+  $("result").textContent = "Importando... No cierres esta página.";
+
+  try {
+    const {data:sessionData,error:sessionError} =
+      await db.auth.getSession();
+
+    if(sessionError) throw sessionError;
+    if(!sessionData.session) throw Error("La sesión expiró. Volvé a verificar el respaldo.");
+
+    const uid = sessionData.session.user.id;
+
+    const {data:rows,error:readError} = await db
+      .from("fabry_expenses_data")
+      .select("data")
+      .eq("user_id",uid);
+
+    if(readError) throw readError;
+    if(!rows || rows.length !== 1) throw Error("No se encontró el registro original.");
+
+    const current = rows[0].data || {};
+
+    for(const k of ["expenses","incomes","bookings","quotes","invoices"]){
+      if(Array.isArray(current[k]) && current[k].length > 0){
+        throw Error("La lista " + k + " ya tiene datos. Importación cancelada.");
+      }
+    }
+
+    const finalData = {
+      ...current,
+      expenses:backupData.expenses,
+      incomes:backupData.incomes,
+      bookings:backupData.bookings,
+      quotes:backupData.quotes,
+      invoices:backupData.invoices
+    };
+
+    const {error:updateError} = await db
+      .from("fabry_expenses_data")
+      .update({data:finalData,updated_at:new Date().toISOString()})
+      .eq("user_id",uid);
+
+    if(updateError) throw updateError;
+
+    $("result").textContent =
+      "¡IMPORTACIÓN COMPLETADA!\n\n" +
+      "Gastos importados: " + finalData.expenses.length + "\n" +
+      "Ingresos importados: " + finalData.incomes.length + "\n" +
+      "Total de movimientos: " +
+      (finalData.expenses.length + finalData.incomes.length) + "\n\n" +
+      "No se modificó el archivo original del iPhone.\n" +
+      "Ahora verificaremos los datos en Supabase.";
+
+  } catch(e) {
+    $("result").textContent = "ERROR: " + e.message +
+      "\nNo vuelvas a importar hasta revisar el estado de la tabla.";
+    $("migrate").disabled = false;
+  }
+};
+</script>
+</body>
+</html>
