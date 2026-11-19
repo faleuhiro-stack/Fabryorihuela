@@ -3044,6 +3044,151 @@ e.currentTarget.close();
 
 renderAll();
 
+/* ===== FABRY EXPENSES: SINCRONIZACIÓN EN LA NUBE ===== */
+const FABRY_SUPABASE_URL = "https://iaaxbmhkpczublsopskr.supabase.co";
+const FABRY_SUPABASE_KEY = "sb_publishable_j5lFAAO8QhY_S7UPBigGQg_KucoJ1Tb";
+
+const fabryCloud = window.supabase.createClient(
+  FABRY_SUPABASE_URL,
+  FABRY_SUPABASE_KEY
+);
+
+const fabryApp = document.querySelector(".app");
+fabryApp.hidden = true;
+
+const fabryLogin = document.createElement("section");
+fabryLogin.style.cssText =
+  "max-width:440px;margin:9vh auto;padding:26px;background:#151515;color:white;border-radius:16px;font-family:Arial";
+fabryLogin.innerHTML = `
+  <h2 style="color:#d4af37">FABRY EXPENSES</h2>
+  <p>Ingresá para sincronizar tus movimientos.</p>
+  <form id="fabryCloudForm">
+    <input id="fabryCloudEmail" type="email" placeholder="Correo electrónico"
+      required style="box-sizing:border-box;width:100%;padding:14px;margin:8px 0">
+    <input id="fabryCloudPassword" type="password" placeholder="Contraseña"
+      required style="box-sizing:border-box;width:100%;padding:14px;margin:8px 0">
+    <button style="width:100%;padding:14px;background:#a52828;color:white;border:0;border-radius:8px">
+      INICIAR SESIÓN
+    </button>
+  </form>
+  <p id="fabryCloudStatus">Conexión preparada.</p>
+`;
+document.body.insertBefore(fabryLogin, fabryApp);
+
+let fabryCloudUser = null;
+let fabryApplyingCloud = false;
+let fabrySyncTimer = null;
+
+function fabryStatus(message) {
+  document.getElementById("fabryCloudStatus").textContent = message;
+}
+
+async function fabryReadCloud() {
+  const { data, error } = await fabryCloud
+    .from("fabry_expenses_data")
+    .select("data")
+    .eq("user_id", fabryCloudUser.id)
+    .maybeSingle();
+
+  if (error) throw error;
+  if (!data || !data.data) throw new Error("No encontramos tu respaldo en la nube.");
+
+  for (const key of ["expenses", "incomes", "bookings", "quotes", "invoices"]) {
+    if (!Array.isArray(data.data[key])) {
+      throw new Error("Los datos recibidos no tienen el formato esperado.");
+    }
+  }
+
+  fabryApplyingCloud = true;
+  state = { ...blank(), ...data.data };
+  localStorage.setItem(KEY, JSON.stringify(state));
+  fabryApplyingCloud = false;
+  renderAll();
+}
+
+async function fabrySaveCloud() {
+  if (!fabryCloudUser || fabryApplyingCloud) return;
+
+  fabryStatus("Guardando cambios en la nube...");
+
+  const { error } = await fabryCloud
+    .from("fabry_expenses_data")
+    .update({
+      data: state,
+      updated_at: new Date().toISOString()
+    })
+    .eq("user_id", fabryCloudUser.id);
+
+  if (error) {
+    fabryStatus("Error al sincronizar: " + error.message);
+    return;
+  }
+
+  fabryStatus("✓ Tus movimientos están sincronizados.");
+}
+
+const fabryOriginalSave = save;
+
+save = function () {
+  fabryOriginalSave();
+
+  if (!fabryCloudUser || fabryApplyingCloud) return;
+
+  clearTimeout(fabrySyncTimer);
+  fabrySyncTimer = setTimeout(fabrySaveCloud, 800);
+};
+
+document.getElementById("fabryCloudForm").addEventListener("submit", async event => {
+  event.preventDefault();
+
+  const button = event.currentTarget.querySelector("button");
+  button.disabled = true;
+  fabryStatus("Comprobando tu cuenta...");
+
+  try {
+    const { data, error } = await fabryCloud.auth.signInWithPassword({
+      email: document.getElementById("fabryCloudEmail").value.trim(),
+      password: document.getElementById("fabryCloudPassword").value
+    });
+
+    if (error) throw error;
+
+    fabryCloudUser = data.user;
+    await fabryReadCloud();
+
+    fabryLogin.hidden = true;
+    fabryApp.hidden = false;
+    fabryStatus("✓ Conectado.");
+    fabryApp.prepend(fabryLogin);
+    fabryLogin.hidden = true;
+
+  } catch (error) {
+    fabryCloudUser = null;
+    fabryStatus("No se pudo conectar: " + error.message);
+    await fabryCloud.auth.signOut();
+  } finally {
+    button.disabled = false;
+  }
+});
+
+/* Recibir cambios hechos desde otro dispositivo */
+fabryCloud.channel("fabry-expenses-sync")
+  .on("postgres_changes", {
+    event: "UPDATE",
+    schema: "public",
+    table: "fabry_expenses_data"
+  }, async payload => {
+    if (!fabryCloudUser || payload.new.user_id !== fabryCloudUser.id) return;
+
+    try {
+      await fabryReadCloud();
+      fabryStatus("✓ Actualizado desde el otro dispositivo.");
+    } catch (error) {
+      fabryStatus("No se pudo actualizar: " + error.message);
+    }
+  })
+  .subscribe();
+
 </script>
 
 </body>
